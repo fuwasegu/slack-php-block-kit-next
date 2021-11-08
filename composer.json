@@ -1,5 +1,5 @@
 {
-    "name": "lunain84/slack-block-kit",
+    "name": "lunain84/slack-php-block-kit",
     "description": "OOP interface for writing Slack Block Kit messages and modals",
     "type": "library",
     "license": "MIT",
