@@ -24,9 +24,8 @@ class Filter extends Element
 
     /**
      * @param string $conversationType
-     * @return static
      */
-    public function includeType(string $conversationType): self
+    public function includeType(string $conversationType): static
     {
         $this->include[] = $conversationType;
 
@@ -35,52 +34,38 @@ class Filter extends Element
 
     /**
      * @param string[] $conversationTypes
-     * @return static
      */
-    public function includeTypes(array $conversationTypes): self
+    public function includeTypes(array $conversationTypes): static
     {
         $this->include = $conversationTypes;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function includeIm(): self
+    public function includeIm(): static
     {
         return $this->includeType(self::CONVERSATION_TYPE_IM);
     }
 
-    /**
-     * @return static
-     */
-    public function includeMpim(): self
+    public function includeMpim(): static
     {
         return $this->includeType(self::CONVERSATION_TYPE_MPIM);
     }
 
-    /**
-     * @return static
-     */
-    public function includePrivate(): self
+    public function includePrivate(): static
     {
         return $this->includeType(self::CONVERSATION_TYPE_PRIVATE);
     }
 
-    /**
-     * @return static
-     */
-    public function includePublic(): self
+    public function includePublic(): static
     {
         return $this->includeType(self::CONVERSATION_TYPE_PUBLIC);
     }
 
     /**
      * @param bool $excludeBotUsers
-     * @return static
      */
-    public function excludeBotUsers(bool $excludeBotUsers): self
+    public function excludeBotUsers(bool $excludeBotUsers): static
     {
         $this->excludeBotUsers = $excludeBotUsers;
 
@@ -89,9 +74,8 @@ class Filter extends Element
 
     /**
      * @param bool $excludeExternalSharedChannels
-     * @return static
      */
-    public function excludeExternalSharedChannels(bool $excludeExternalSharedChannels): self
+    public function excludeExternalSharedChannels(bool $excludeExternalSharedChannels): static
     {
         $this->excludeExternalSharedChannels = $excludeExternalSharedChannels;
 

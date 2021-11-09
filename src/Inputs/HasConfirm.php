@@ -13,9 +13,8 @@ trait HasConfirm
 
     /**
      * @param Confirm $confirm
-     * @return static
      */
-    public function setConfirm(Confirm $confirm): self
+    public function setConfirm(Confirm $confirm): static
     {
         $this->confirm = $confirm->setParent($this);
 
@@ -27,9 +26,8 @@ trait HasConfirm
      * @param string $text
      * @param string $confirm
      * @param string $deny
-     * @return static
      */
-    public function confirm(string $title, string $text, string $confirm = 'OK', string $deny = 'Cancel'): self
+    public function confirm(string $title, string $text, string $confirm = 'OK', string $deny = 'Cancel'): static
     {
         return $this->setConfirm(new Confirm($title, $text, $confirm, $deny));
     }

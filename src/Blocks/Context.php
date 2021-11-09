@@ -30,7 +30,7 @@ class Context extends BlockElement
         }
     }
 
-    public function add(Element $element): self
+    public function add(Element $element): static
     {
         if (!in_array($element->getType(), Type::CONTEXT_ELEMENTS)) {
             throw new Exception('Invalid context element type: %s', [$element->getType()]);
@@ -45,17 +45,17 @@ class Context extends BlockElement
         return $this;
     }
 
-    public function plainText(string $text, ?bool $emoji = null): self
+    public function plainText(string $text, ?bool $emoji = null): static
     {
         return $this->add(new PlainText($text, $emoji));
     }
 
-    public function mrkdwnText(string $text, ?bool $verbatim = null): self
+    public function mrkdwnText(string $text, ?bool $verbatim = null): static
     {
         return $this->add(new MrkdwnText($text, $verbatim));
     }
 
-    public function image(string $url, string $altText): self
+    public function image(string $url, string $altText): static
     {
         return $this->add(new Image(null, $url, $altText));
     }

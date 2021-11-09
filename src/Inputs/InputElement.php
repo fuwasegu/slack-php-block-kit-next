@@ -24,9 +24,8 @@ abstract class InputElement extends Element
 
     /**
      * @param string $actionId
-     * @return static
      */
-    public function actionId(string $actionId): self
+    public function actionId(string $actionId): static
     {
         $this->actionId = $actionId;
 

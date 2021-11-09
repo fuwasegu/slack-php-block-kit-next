@@ -33,14 +33,14 @@ class File extends BlockElement
         }
     }
 
-    public function externalId(string $externalId): self
+    public function externalId(string $externalId): static
     {
         $this->externalId = $externalId;
 
         return $this;
     }
 
-    public function source(string $source): self
+    public function source(string $source): static
     {
         $this->source = $source;
 

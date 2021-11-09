@@ -27,9 +27,8 @@ abstract class View extends Surface
 
     /**
      * @param string $callbackId
-     * @return static
      */
-    public function callbackId(string $callbackId): self
+    public function callbackId(string $callbackId): static
     {
         $this->callbackId = $callbackId;
 
@@ -38,9 +37,8 @@ abstract class View extends Surface
 
     /**
      * @param string $externalId
-     * @return static
      */
-    public function externalId(string $externalId): self
+    public function externalId(string $externalId): static
     {
         $this->externalId = $externalId;
 
@@ -49,9 +47,8 @@ abstract class View extends Surface
 
     /**
      * @param string $privateMetadata
-     * @return static
      */
-    public function privateMetadata(string $privateMetadata): self
+    public function privateMetadata(string $privateMetadata): static
     {
         $this->privateMetadata = $privateMetadata;
 
@@ -64,9 +61,8 @@ abstract class View extends Surface
      * Note: Can be decoded using `base64_decode()` and `parse_str()`.
      *
      * @param array $data
-     * @return static
      */
-    public function encodePrivateMetadata(array $data): self
+    public function encodePrivateMetadata(array $data): static
     {
         return $this->privateMetadata(base64_encode(http_build_query($data)));
     }

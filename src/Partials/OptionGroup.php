@@ -16,11 +16,10 @@ class OptionGroup extends Element
     /**
      * @param string|null $label
      * @param array<string, string>|string[]|null $options
-     * @return self
      */
-    public static function new(?string $label = null, ?array $options = null): self
+    public static function new(?string $label = null, ?array $options = null): static
     {
-        $optionGroup = new self();
+        $optionGroup = new static();
 
         if ($label !== null) {
             $optionGroup->label($label);
@@ -40,9 +39,8 @@ class OptionGroup extends Element
 
     /**
      * @param PlainText $label
-     * @return static
      */
-    public function setLabel(PlainText $label): self
+    public function setLabel(PlainText $label): static
     {
         $this->label = $label->setParent($this);
 
@@ -51,9 +49,8 @@ class OptionGroup extends Element
 
     /**
      * @param string $label
-     * @return static
      */
-    public function label(string $label): self
+    public function label(string $label): static
     {
         return $this->setLabel(new PlainText($label, false));
     }

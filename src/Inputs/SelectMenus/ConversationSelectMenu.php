@@ -23,9 +23,8 @@ class ConversationSelectMenu extends SelectMenu
 
     /**
      * @param string $initialConversation
-     * @return static
      */
-    public function initialConversation(string $initialConversation): self
+    public function initialConversation(string $initialConversation): static
     {
         $this->initialConversation = $initialConversation;
 
@@ -34,9 +33,8 @@ class ConversationSelectMenu extends SelectMenu
 
     /**
      * @param bool $enabled
-     * @return static
      */
-    public function responseUrlEnabled(bool $enabled): self
+    public function responseUrlEnabled(bool $enabled): static
     {
         $this->responseUrlEnabled = $enabled;
 
@@ -45,9 +43,8 @@ class ConversationSelectMenu extends SelectMenu
 
     /**
      * @param bool $enabled
-     * @return static
      */
-    public function defaultToCurrentConversation(bool $enabled): self
+    public function defaultToCurrentConversation(bool $enabled): static
     {
         $this->defaultToCurrentConversation = $enabled;
 
@@ -56,9 +53,8 @@ class ConversationSelectMenu extends SelectMenu
 
     /**
      * @param Filter $filter
-     * @return static
      */
-    public function setFilter(Filter $filter): self
+    public function setFilter(Filter $filter): static
     {
         $this->filter = $filter->setParent($this);
 
