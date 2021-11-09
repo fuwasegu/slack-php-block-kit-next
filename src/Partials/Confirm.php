@@ -40,9 +40,8 @@ class Confirm extends Element
 
     /**
      * @param PlainText $title
-     * @return static
      */
-    public function setTitle(PlainText $title): self
+    public function setTitle(PlainText $title): static
     {
         $this->title = $title->setParent($this);
 
@@ -51,9 +50,8 @@ class Confirm extends Element
 
     /**
      * @param Text $text
-     * @return static
      */
-    public function setText(Text $text): self
+    public function setText(Text $text): static
     {
         $this->text = $text->setParent($this);
 
@@ -62,9 +60,8 @@ class Confirm extends Element
 
     /**
      * @param PlainText $confirm
-     * @return static
      */
-    public function setConfirm(PlainText $confirm): self
+    public function setConfirm(PlainText $confirm): static
     {
         $this->confirm = $confirm->setParent($this);
 
@@ -73,9 +70,8 @@ class Confirm extends Element
 
     /**
      * @param PlainText $deny
-     * @return static
      */
-    public function setDeny(PlainText $deny): self
+    public function setDeny(PlainText $deny): static
     {
         $this->deny = $deny->setParent($this);
 
@@ -84,36 +80,32 @@ class Confirm extends Element
 
     /**
      * @param string $title
-     * @return static
      */
-    public function title(string $title): self
+    public function title(string $title): static
     {
         return $this->setTitle(new PlainText($title));
     }
 
     /**
      * @param string $text
-     * @return static
      */
-    public function text(string $text): self
+    public function text(string $text): static
     {
         return $this->setText(new MrkdwnText($text));
     }
 
     /**
      * @param string $confirm
-     * @return static
      */
-    public function confirm(string $confirm): self
+    public function confirm(string $confirm): static
     {
         return $this->setConfirm(new PlainText($confirm));
     }
 
     /**
      * @param string $deny
-     * @return static
      */
-    public function deny(string $deny): self
+    public function deny(string $deny): static
     {
         return $this->setDeny(new PlainText($deny));
     }

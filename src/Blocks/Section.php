@@ -40,9 +40,8 @@ class Section extends BlockElement
 
     /**
      * @param Partials\Text $text
-     * @return self
      */
-    public function setText(Partials\Text $text): self
+    public function setText(Partials\Text $text): static
     {
         $this->text = $text->setParent($this);
 
@@ -51,9 +50,8 @@ class Section extends BlockElement
 
     /**
      * @param Partials\Fields $fields
-     * @return self
      */
-    public function setFields(Partials\Fields $fields): self
+    public function setFields(Partials\Fields $fields): static
     {
         $this->fields = $fields->setParent($this);
 
@@ -62,9 +60,8 @@ class Section extends BlockElement
 
     /**
      * @param Element $accessory
-     * @return self
      */
-    public function setAccessory(Element $accessory): self
+    public function setAccessory(Element $accessory): static
     {
         if (!empty($this->accessory)) {
             throw new Exception('Section accessory already set as type %s', [$this->accessory->getType()]);
@@ -82,9 +79,8 @@ class Section extends BlockElement
     /**
      * @param string $text
      * @param bool $emoji
-     * @return self
      */
-    public function plainText(string $text, ?bool $emoji = null): self
+    public function plainText(string $text, ?bool $emoji = null): static
     {
         return $this->setText(new Partials\PlainText($text, $emoji));
     }
@@ -92,36 +88,32 @@ class Section extends BlockElement
     /**
      * @param string $text
      * @param bool|null $verbatim
-     * @return self
      */
-    public function mrkdwnText(string $text, ?bool $verbatim = null): self
+    public function mrkdwnText(string $text, ?bool $verbatim = null): static
     {
         return $this->setText(new Partials\MrkdwnText($text, $verbatim));
     }
 
     /**
      * @param string $code
-     * @return self
      */
-    public function code(string $code): self
+    public function code(string $code): static
     {
         return $this->mrkdwnText(Kit::formatter()->codeBlock($code), true);
     }
 
     /**
      * @param string[] $values
-     * @return self
      */
-    public function fieldList(array $values): self
+    public function fieldList(array $values): static
     {
         return $this->setFields(new Partials\Fields($values));
     }
 
     /**
      * @param array $keyValuePairs
-     * @return self
      */
-    public function fieldMap(array $keyValuePairs): self
+    public function fieldMap(array $keyValuePairs): static
     {
         $fields = new Partials\Fields();
         foreach ($keyValuePairs as $key => $value) {

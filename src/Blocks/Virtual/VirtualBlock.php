@@ -25,9 +25,8 @@ abstract class VirtualBlock extends BlockElement implements IteratorAggregate
 
     /**
      * @param BlockElement $block
-     * @return static
      */
-    protected function appendBlock(BlockElement $block): self
+    protected function appendBlock(BlockElement $block): static
     {
         if ($this->getParent() !== null) {
             $block->setParent($this->getParent());
@@ -38,7 +37,7 @@ abstract class VirtualBlock extends BlockElement implements IteratorAggregate
         return $this;
     }
 
-    protected function prependBlock(BlockElement $block): self
+    protected function prependBlock(BlockElement $block): static
     {
         if ($this->getParent() !== null) {
             $block->setParent($this->getParent());

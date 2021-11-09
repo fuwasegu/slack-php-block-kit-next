@@ -28,9 +28,8 @@ class MrkdwnText extends Text
 
     /**
      * @param bool|null $verbatim
-     * @return static
      */
-    public function verbatim(?bool $verbatim): self
+    public function verbatim(?bool $verbatim): static
     {
         $this->verbatim = $verbatim;
 

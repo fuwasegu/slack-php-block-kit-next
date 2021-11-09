@@ -29,21 +29,21 @@ class TextInput extends InputElement
     /** @var DispatchActionConfig */
     private $dispatchActionConfig;
 
-    public function initialValue(string $text): self
+    public function initialValue(string $text): static
     {
         $this->initialValue = $text;
 
         return $this;
     }
 
-    public function multiline(bool $flag): self
+    public function multiline(bool $flag): static
     {
         $this->multiline = $flag;
 
         return $this;
     }
 
-    public function minLength(int $length): self
+    public function minLength(int $length): static
     {
         if ($length < 0) {
             throw new Exception('Min length must be >= 0');
@@ -54,7 +54,7 @@ class TextInput extends InputElement
         return $this;
     }
 
-    public function maxLength(int $length): self
+    public function maxLength(int $length): static
     {
         if ($length < 1) {
             throw new Exception('Max length must be >= 1');
@@ -65,14 +65,14 @@ class TextInput extends InputElement
         return $this;
     }
 
-    public function setDispatchActionConfig(DispatchActionConfig $config): self
+    public function setDispatchActionConfig(DispatchActionConfig $config): static
     {
         $this->dispatchActionConfig = $config;
 
         return $this;
     }
 
-    public function triggerActionOnEnterPressed(): self
+    public function triggerActionOnEnterPressed(): static
     {
         $config = $this->dispatchActionConfig ?? DispatchActionConfig::new();
         $config->triggerActionsOnEnterPressed();
@@ -80,7 +80,7 @@ class TextInput extends InputElement
         return $this->setDispatchActionConfig($config);
     }
 
-    public function triggerActionOnCharacterEntered(): self
+    public function triggerActionOnCharacterEntered(): static
     {
         $config = $this->dispatchActionConfig ?? DispatchActionConfig::new();
         $config->triggerActionsOnCharacterEntered();

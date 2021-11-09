@@ -28,40 +28,40 @@ class Button extends InputElement
     /** @var string|null */
     private $style;
 
-    public function setText(PlainText $text): self
+    public function setText(PlainText $text): static
     {
         $this->text = $text->setParent($this);
 
         return $this;
     }
 
-    public function text(string $text): self
+    public function text(string $text): static
     {
         return $this->setText(new PlainText($text));
     }
 
-    public function value(string $value): self
+    public function value(string $value): static
     {
         $this->value = $value;
 
         return $this;
     }
 
-    public function url(string $url): self
+    public function url(string $url): static
     {
         $this->url = $url;
 
         return $this;
     }
 
-    public function asPrimary(): self
+    public function asPrimary(): static
     {
         $this->style = self::STYLE_PRIMARY;
 
         return $this;
     }
 
-    public function asDangerous(): self
+    public function asDangerous(): static
     {
         $this->style = self::STYLE_DANGER;
 
