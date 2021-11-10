@@ -17,9 +17,9 @@ class MultiExternalSelectMenu extends MultiSelectMenu
 
     /**
      * @param array $options
-     * @return self
+     * @return static
      */
-    public function initialOptions(array $options): self
+    public function initialOptions(array $options)
     {
         foreach ($options as $name => $value) {
             $option = Option::new((string) $name, (string) $value);
@@ -30,7 +30,10 @@ class MultiExternalSelectMenu extends MultiSelectMenu
         return $this;
     }
 
-    public function minQueryLength(int $minQueryLength): self
+    /**
+    * @return static
+    */
+    public function minQueryLength(int $minQueryLength)
     {
         $this->minQueryLength = $minQueryLength;
 

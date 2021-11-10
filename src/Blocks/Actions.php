@@ -25,7 +25,10 @@ class Actions extends BlockElement
         }
     }
 
-    public function add(Element $element): self
+    /**
+    * @return static
+    */
+    public function add(Element $element)
     {
         if (!in_array($element->getType(), Type::ACTION_ELEMENTS)) {
             throw new Exception('Invalid actions element type: %s', [$element->getType()]);

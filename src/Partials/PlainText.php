@@ -30,7 +30,7 @@ class PlainText extends Text
      * @param bool|null $emoji
      * @return static
      */
-    public function emoji(?bool $emoji): self
+    public function emoji(?bool $emoji)
     {
         $this->emoji = $emoji;
 

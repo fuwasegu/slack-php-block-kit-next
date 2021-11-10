@@ -26,7 +26,7 @@ class OverflowMenu extends InputElement
      * @param string $url
      * @return static
      */
-    public function urlOption(string $text, string $value, string $url): self
+    public function urlOption(string $text, string $value, string $url)
     {
         return $this->addOption(Option::new($text, $value)->url($url));
     }

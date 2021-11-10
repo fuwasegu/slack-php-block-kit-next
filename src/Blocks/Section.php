@@ -40,9 +40,9 @@ class Section extends BlockElement
 
     /**
      * @param Partials\Text $text
-     * @return self
+     * @return static
      */
-    public function setText(Partials\Text $text): self
+    public function setText(Partials\Text $text)
     {
         $this->text = $text->setParent($this);
 
@@ -51,9 +51,9 @@ class Section extends BlockElement
 
     /**
      * @param Partials\Fields $fields
-     * @return self
+     * @return static
      */
-    public function setFields(Partials\Fields $fields): self
+    public function setFields(Partials\Fields $fields)
     {
         $this->fields = $fields->setParent($this);
 
@@ -62,9 +62,9 @@ class Section extends BlockElement
 
     /**
      * @param Element $accessory
-     * @return self
+     * @return static
      */
-    public function setAccessory(Element $accessory): self
+    public function setAccessory(Element $accessory)
     {
         if (!empty($this->accessory)) {
             throw new Exception('Section accessory already set as type %s', [$this->accessory->getType()]);
@@ -82,9 +82,9 @@ class Section extends BlockElement
     /**
      * @param string $text
      * @param bool $emoji
-     * @return self
+     * @return static
      */
-    public function plainText(string $text, ?bool $emoji = null): self
+    public function plainText(string $text, ?bool $emoji = null)
     {
         return $this->setText(new Partials\PlainText($text, $emoji));
     }
@@ -92,36 +92,36 @@ class Section extends BlockElement
     /**
      * @param string $text
      * @param bool|null $verbatim
-     * @return self
+     * @return static
      */
-    public function mrkdwnText(string $text, ?bool $verbatim = null): self
+    public function mrkdwnText(string $text, ?bool $verbatim = null)
     {
         return $this->setText(new Partials\MrkdwnText($text, $verbatim));
     }
 
     /**
      * @param string $code
-     * @return self
+     * @return static
      */
-    public function code(string $code): self
+    public function code(string $code)
     {
         return $this->mrkdwnText(Kit::formatter()->codeBlock($code), true);
     }
 
     /**
      * @param string[] $values
-     * @return self
+     * @return static
      */
-    public function fieldList(array $values): self
+    public function fieldList(array $values)
     {
         return $this->setFields(new Partials\Fields($values));
     }
 
     /**
      * @param array $keyValuePairs
-     * @return self
+     * @return static
      */
-    public function fieldMap(array $keyValuePairs): self
+    public function fieldMap(array $keyValuePairs)
     {
         $fields = new Partials\Fields();
         foreach ($keyValuePairs as $key => $value) {

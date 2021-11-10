@@ -35,7 +35,7 @@ abstract class Element implements JsonSerializable
      * @param Element $parent
      * @return static
      */
-    final public function setParent(Element $parent): self
+    final public function setParent(Element $parent)
     {
         $this->parent = $parent;
 
@@ -57,7 +57,7 @@ abstract class Element implements JsonSerializable
      * @param mixed $value
      * @return static
      */
-    final public function setExtra(string $key, $value): self
+    final public function setExtra(string $key, $value)
     {
         $this->extra[$key] = $value;
 
@@ -76,7 +76,7 @@ abstract class Element implements JsonSerializable
      * @param callable $tap
      * @return static
      */
-    final public function tap(callable $tap): self
+    final public function tap(callable $tap)
     {
         $tap($this);
 
@@ -96,7 +96,7 @@ abstract class Element implements JsonSerializable
      * @param callable $tap
      * @return static
      */
-    final public function tapIf(bool $condition, callable $tap): self
+    final public function tapIf(bool $condition, callable $tap)
     {
         if ($condition) {
             $tap($this);

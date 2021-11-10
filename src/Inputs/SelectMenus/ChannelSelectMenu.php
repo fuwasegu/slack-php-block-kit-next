@@ -18,7 +18,7 @@ class ChannelSelectMenu extends SelectMenu
      * @param string $initialChannel
      * @return static
      */
-    public function initialChannel(string $initialChannel): self
+    public function initialChannel(string $initialChannel)
     {
         $this->initialChannel = $initialChannel;
 
@@ -29,7 +29,7 @@ class ChannelSelectMenu extends SelectMenu
      * @param bool $enabled
      * @return static
      */
-    public function responseUrlEnabled(bool $enabled): self
+    public function responseUrlEnabled(bool $enabled)
     {
         $this->responseUrlEnabled = $enabled;
 

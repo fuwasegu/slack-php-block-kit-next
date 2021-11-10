@@ -56,14 +56,20 @@ class Input extends BlockElement
         $this->dispatchAction = false;
     }
 
-    public function setLabel(Partials\PlainText $label): self
+    /**
+    * @return static
+    */
+    public function setLabel(Partials\PlainText $label)
     {
         $this->label = $label->setParent($this);
 
         return $this;
     }
 
-    public function setElement(Element $element): self
+    /**
+    * @return static
+    */
+    public function setElement(Element $element)
     {
         if (!empty($this->element)) {
             throw new Exception('Input element already set as type %s', [$this->element->getType()]);
@@ -78,31 +84,46 @@ class Input extends BlockElement
         return $this;
     }
 
-    public function setHint(Partials\PlainText $hint): self
+    /**
+    * @return static
+    */
+    public function setHint(Partials\PlainText $hint)
     {
         $this->hint = $hint->setParent($this);
 
         return $this;
     }
 
-    public function label(string $text, ?bool $emoji = null): self
+    /**
+    * @return static
+    */
+    public function label(string $text, ?bool $emoji = null)
     {
         return $this->setLabel(new Partials\PlainText($text, $emoji));
     }
 
-    public function hint(string $text, ?bool $emoji = null): self
+    /**
+    * @return static
+    */
+    public function hint(string $text, ?bool $emoji = null)
     {
         return $this->setHint(new Partials\PlainText($text, $emoji));
     }
 
-    public function optional(bool $optional = true): self
+    /**
+    * @return static
+    */
+    public function optional(bool $optional = true)
     {
         $this->optional = $optional;
 
         return $this;
     }
 
-    public function dispatchAction(bool $dispatchAction = true): self
+    /**
+    * @return static
+    */
+    public function dispatchAction(bool $dispatchAction = true)
     {
         $this->dispatchAction = $dispatchAction;
 

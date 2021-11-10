@@ -26,11 +26,11 @@ class Option extends Element
     /**
      * @param string|null $text
      * @param string|null $value
-     * @return self
+     * @return static
      */
-    public static function new(?string $text = null, ?string $value = null): self
+    public static function new(?string $text = null, ?string $value = null)
     {
-        $option = new self();
+        $option = new static();
 
         if ($text !== null) {
             $option->text($text);
@@ -47,7 +47,7 @@ class Option extends Element
      * @param PlainText $text
      * @return static
      */
-    public function setText(PlainText $text): self
+    public function setText(PlainText $text)
     {
         $this->text = $text->setParent($this);
 
@@ -58,7 +58,7 @@ class Option extends Element
      * @param string $text
      * @return static
      */
-    public function text(string $text): self
+    public function text(string $text)
     {
         return $this->setText(new PlainText($text));
     }
@@ -67,7 +67,7 @@ class Option extends Element
      * @param string $value
      * @return static
      */
-    public function value(string $value): self
+    public function value(string $value)
     {
         $this->value = $value;
 
@@ -78,7 +78,7 @@ class Option extends Element
      * @param PlainText $description
      * @return static
      */
-    public function setDescription(PlainText $description): self
+    public function setDescription(PlainText $description)
     {
         $this->description = $description->setParent($this);
 
@@ -89,7 +89,7 @@ class Option extends Element
      * @param string $description
      * @return static
      */
-    public function description(string $description): self
+    public function description(string $description)
     {
         return $this->setDescription(new PlainText($description));
     }
@@ -98,7 +98,7 @@ class Option extends Element
      * @param string $url
      * @return static
      */
-    public function url(string $url): self
+    public function url(string $url)
     {
         $this->url = $url;
 

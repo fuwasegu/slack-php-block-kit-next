@@ -15,7 +15,7 @@ class UserSelectMenu extends SelectMenu
      * @param string $initialUser
      * @return static
      */
-    public function initialUser(string $initialUser): self
+    public function initialUser(string $initialUser)
     {
         $this->initialUser = $initialUser;
 

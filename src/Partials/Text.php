@@ -15,7 +15,7 @@ abstract class Text extends Element
      * @param string $text
      * @return static
      */
-    public function text(string $text): self
+    public function text(string $text)
     {
         $this->text = $text;
 

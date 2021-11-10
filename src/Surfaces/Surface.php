@@ -27,7 +27,7 @@ abstract class Surface extends Element
      * @param BlockElement $block
      * @return static
      */
-    public function add(BlockElement $block): self
+    public function add(BlockElement $block)
     {
         if (!in_array($block->getType(), Type::SURFACE_BLOCKS[$this->getType()], true)) {
             throw new Exception(
@@ -45,7 +45,7 @@ abstract class Surface extends Element
      * @param iterable|BlockElement[] $blocks
      * @return static
      */
-    public function blocks(iterable $blocks): self
+    public function blocks(iterable $blocks)
     {
         foreach ($blocks as $block) {
             $this->add($block);
@@ -157,7 +157,7 @@ abstract class Surface extends Element
      * @param string|null $blockId
      * @return static
      */
-    public function divider(?string $blockId = null): self
+    public function divider(?string $blockId = null)
     {
         return $this->add(new Divider($blockId));
     }
@@ -167,7 +167,7 @@ abstract class Surface extends Element
      * @param string|null $blockId
      * @return static
      */
-    public function text(string $text, ?string $blockId = null): self
+    public function text(string $text, ?string $blockId = null)
     {
         $block = new Section($blockId, $text);
 
@@ -179,7 +179,7 @@ abstract class Surface extends Element
      * @param string|null $blockId
      * @return static
      */
-    public function header(string $text, ?string $blockId = null): self
+    public function header(string $text, ?string $blockId = null)
     {
         $block = new Header($blockId, $text);
 

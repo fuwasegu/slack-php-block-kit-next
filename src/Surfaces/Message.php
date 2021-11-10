@@ -42,7 +42,7 @@ class Message extends Surface
      *
      * @return static
      */
-    public function ephemeral(): self
+    public function ephemeral()
     {
         return $this->directives(self::EPHEMERAL);
     }
@@ -52,7 +52,7 @@ class Message extends Surface
      *
      * @return static
      */
-    public function inChannel(): self
+    public function inChannel()
     {
         return $this->directives(self::IN_CHANNEL);
     }
@@ -62,7 +62,7 @@ class Message extends Surface
      *
      * @return static
      */
-    public function replaceOriginal(): self
+    public function replaceOriginal()
     {
         return $this->directives(self::REPLACE_ORIGINAL);
     }
@@ -72,7 +72,7 @@ class Message extends Surface
      *
      * @return static
      */
-    public function deleteOriginal(): self
+    public function deleteOriginal()
     {
         return $this->directives(self::DELETE_ORIGINAL);
     }
@@ -81,7 +81,7 @@ class Message extends Surface
      * @param array $directives
      * @return static
      */
-    private function directives(array $directives): self
+    private function directives(array $directives)
     {
         $this->directives = $directives;
 
@@ -93,9 +93,9 @@ class Message extends Surface
      *
      * @param string $message
      * @param bool|null $mrkdwn
-     * @return Message
+     * @return static
      */
-    public function fallbackText(string $message, ?bool $mrkdwn = null): self
+    public function fallbackText(string $message, ?bool $mrkdwn = null)
     {
         $this->fallbackText = ['text' => $message];
         if ($mrkdwn !== null) {
@@ -109,7 +109,7 @@ class Message extends Surface
      * @param Attachment $attachment
      * @return static
      */
-    public function addAttachment(Attachment $attachment): self
+    public function addAttachment(Attachment $attachment)
     {
         $this->attachments[] = $attachment->setParent($this);
 
@@ -130,10 +130,10 @@ class Message extends Surface
     /**
      * Clones a message for the purpose of generating a Block Kit Builder preview URL.
      *
-     * @return Message
      * @internal Used by Previewer only.
+     * @return static
      */
-    public function asPreviewableMessage(): self
+    public function asPreviewableMessage()
     {
         $message = clone $this;
         $message->directives = [];

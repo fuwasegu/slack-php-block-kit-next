@@ -36,50 +36,74 @@ class Modal extends View
     /** @var bool */
     private $notifyOnClose;
 
-    public function setTitle(PlainText $title): self
+    /**
+    * @return static
+    */
+    public function setTitle(PlainText $title)
     {
         $this->title = $title->setParent($this);
 
         return $this;
     }
 
-    public function setSubmit(PlainText $title): self
+    /**
+    * @return static
+    */
+    public function setSubmit(PlainText $title)
     {
         $this->submit = $title->setParent($this);
 
         return $this;
     }
 
-    public function setClose(PlainText $title): self
+    /**
+    * @return static
+    */
+    public function setClose(PlainText $title)
     {
         $this->close = $title->setParent($this);
 
         return $this;
     }
 
-    public function title(string $title): self
+    /**
+    * @return static
+    */
+    public function title(string $title)
     {
         return $this->setTitle(new PlainText($title));
     }
 
-    public function submit(string $submit): self
+    /**
+    * @return static
+    */
+    public function submit(string $submit)
     {
         return $this->setSubmit(new PlainText($submit));
     }
 
-    public function close(string $close): self
+    /**
+    * @return static
+    */
+    public function close(string $close)
     {
         return $this->setClose(new PlainText($close));
     }
 
-    public function clearOnClose(bool $clearOnClose): self
+    /**
+    * @return static
+    */
+    public function clearOnClose(bool $clearOnClose)
     {
         $this->clearOnClose = $clearOnClose;
 
         return $this;
     }
 
-    public function notifyOnClose(bool $notifyOnClose): self
+    /**
+    * @return static
+    */
+    public function notifyOnClose(bool $notifyOnClose)
     {
         $this->notifyOnClose = $notifyOnClose;
 

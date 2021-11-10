@@ -16,7 +16,7 @@ trait HasPlaceholder
      * @param PlainText $placeholder
      * @return static
      */
-    public function setPlaceholder(PlainText $placeholder): self
+    public function setPlaceholder(PlainText $placeholder)
     {
         $this->placeholder = $placeholder->setParent($this);
 
@@ -27,7 +27,7 @@ trait HasPlaceholder
      * @param string $placeholder
      * @return static
      */
-    public function placeholder(string $placeholder): self
+    public function placeholder(string $placeholder)
     {
         if (mb_strlen($placeholder, 'UTF-8') > 150) {
             throw new Exception('Placeholder cannot exceed 150 characters');

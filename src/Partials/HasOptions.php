@@ -43,7 +43,7 @@ trait HasOptions
      * @param bool $isInitial
      * @return static
      */
-    public function addOption(Option $option, bool $isInitial = false): self
+    public function addOption(Option $option, bool $isInitial = false)
     {
         $option->setParent($this);
         $this->options[] = $option;
@@ -59,7 +59,7 @@ trait HasOptions
      * @param Option[] $options
      * @return static
      */
-    public function addOptions(array $options): self
+    public function addOptions(array $options)
     {
         foreach ($options as $option) {
             $this->addOption($option);
@@ -74,7 +74,7 @@ trait HasOptions
      * @param bool $isInitial
      * @return static
      */
-    public function option(string $text, string $value, bool $isInitial = false): self
+    public function option(string $text, string $value, bool $isInitial = false)
     {
         return $this->addOption(Option::new($text, $value), $isInitial);
     }
@@ -83,7 +83,7 @@ trait HasOptions
      * @param array<string, string>|string[] $options
      * @return static
      */
-    public function options(array $options): self
+    public function options(array $options)
     {
         foreach ($options as $text => $value) {
             $value = (string) $value;
@@ -97,9 +97,9 @@ trait HasOptions
     /**
      * @param string $text
      * @param string $value
-     * @return self
+     * @return static
      */
-    public function initialOption(string $text, string $value): self
+    public function initialOption(string $text, string $value)
     {
         $initialOption = Option::new($text, $value);
         $initialOption->setParent($this);
@@ -110,9 +110,9 @@ trait HasOptions
 
     /**
      * @param array<string, string>|string[] $options
-     * @return self
+     * @return static
      */
-    public function initialOptions(array $options): self
+    public function initialOptions(array $options)
     {
         foreach ($options as $text => $value) {
             $value = (string) $value;

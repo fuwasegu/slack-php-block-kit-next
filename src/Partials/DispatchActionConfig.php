@@ -18,7 +18,7 @@ class DispatchActionConfig extends Element
      * @param string $eventType
      * @return static
      */
-    public function triggerActionsOn(string $eventType): self
+    public function triggerActionsOn(string $eventType)
     {
         $this->triggerActionsOn[] = $eventType;
 
@@ -26,17 +26,17 @@ class DispatchActionConfig extends Element
     }
 
     /**
-     * @return static
-     */
-    public function triggerActionsOnEnterPressed(): self
+    * @return static
+    */
+    public function triggerActionsOnEnterPressed()
     {
         return $this->triggerActionsOn(self::ON_ENTER_PRESSED);
     }
 
     /**
-     * @return static
-     */
-    public function triggerActionsOnCharacterEntered(): self
+    * @return static
+    */
+    public function triggerActionsOnCharacterEntered()
     {
         return $this->triggerActionsOn(self::ON_CHARACTER_ENTERED);
     }
