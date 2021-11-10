@@ -36,26 +36,26 @@ class Image extends BlockElement
         }
     }
 
-    public function setTitle(PlainText $title): static
+    public function setTitle(PlainText $title): self
     {
         $this->title = $title->setParent($this);
 
         return $this;
     }
 
-    public function title(string $text): static
+    public function title(string $text): self
     {
         return $this->setTitle(new PlainText($text));
     }
 
-    public function url(string $url): static
+    public function url(string $url): self
     {
         $this->url = $url;
 
         return $this;
     }
 
-    public function altText(string $alt): static
+    public function altText(string $alt): self
     {
         $this->altText = $alt;
 

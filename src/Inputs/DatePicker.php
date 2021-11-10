@@ -20,7 +20,7 @@ class DatePicker extends InputElement
     /** @var string */
     private $initialDate;
 
-    public function initialDate(string $date): static
+    public function initialDate(string $date): self
     {
         $dateTime = DateTime::createFromFormat(self::DATE_FORMAT, $date);
         if (!$dateTime) {

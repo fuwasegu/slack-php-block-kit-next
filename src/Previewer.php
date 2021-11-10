@@ -15,9 +15,9 @@ final class Previewer
 {
     private const BUILDER_URL = 'https://app.slack.com/block-kit-builder';
 
-    public static function new(): static
+    public static function new(): self
     {
-        return new static();
+        return new self();
     }
 
     public function preview(Surfaces\Surface $surface): string

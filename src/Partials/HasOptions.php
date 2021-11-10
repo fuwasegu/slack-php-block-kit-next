@@ -41,8 +41,9 @@ trait HasOptions
     /**
      * @param Option $option
      * @param bool $isInitial
+     * @return static
      */
-    public function addOption(Option $option, bool $isInitial = false): static
+    public function addOption(Option $option, bool $isInitial = false): self
     {
         $option->setParent($this);
         $this->options[] = $option;
@@ -56,8 +57,9 @@ trait HasOptions
 
     /**
      * @param Option[] $options
+     * @return static
      */
-    public function addOptions(array $options): static
+    public function addOptions(array $options): self
     {
         foreach ($options as $option) {
             $this->addOption($option);
@@ -70,16 +72,18 @@ trait HasOptions
      * @param string $text
      * @param string $value
      * @param bool $isInitial
+     * @return static
      */
-    public function option(string $text, string $value, bool $isInitial = false): static
+    public function option(string $text, string $value, bool $isInitial = false): self
     {
         return $this->addOption(Option::new($text, $value), $isInitial);
     }
 
     /**
      * @param array<string, string>|string[] $options
+     * @return static
      */
-    public function options(array $options): static
+    public function options(array $options): self
     {
         foreach ($options as $text => $value) {
             $value = (string) $value;
@@ -93,8 +97,9 @@ trait HasOptions
     /**
      * @param string $text
      * @param string $value
+     * @return self
      */
-    public function initialOption(string $text, string $value): static
+    public function initialOption(string $text, string $value): self
     {
         $initialOption = Option::new($text, $value);
         $initialOption->setParent($this);
@@ -105,8 +110,9 @@ trait HasOptions
 
     /**
      * @param array<string, string>|string[] $options
+     * @return self
      */
-    public function initialOptions(array $options): static
+    public function initialOptions(array $options): self
     {
         foreach ($options as $text => $value) {
             $value = (string) $value;

@@ -26,10 +26,11 @@ class Option extends Element
     /**
      * @param string|null $text
      * @param string|null $value
+     * @return self
      */
-    public static function new(?string $text = null, ?string $value = null): static
+    public static function new(?string $text = null, ?string $value = null): self
     {
-        $option = new static();
+        $option = new self();
 
         if ($text !== null) {
             $option->text($text);
@@ -44,8 +45,9 @@ class Option extends Element
 
     /**
      * @param PlainText $text
+     * @return static
      */
-    public function setText(PlainText $text): static
+    public function setText(PlainText $text): self
     {
         $this->text = $text->setParent($this);
 
@@ -54,16 +56,18 @@ class Option extends Element
 
     /**
      * @param string $text
+     * @return static
      */
-    public function text(string $text): static
+    public function text(string $text): self
     {
         return $this->setText(new PlainText($text));
     }
 
     /**
      * @param string $value
+     * @return static
      */
-    public function value(string $value): static
+    public function value(string $value): self
     {
         $this->value = $value;
 
@@ -72,8 +76,9 @@ class Option extends Element
 
     /**
      * @param PlainText $description
+     * @return static
      */
-    public function setDescription(PlainText $description): static
+    public function setDescription(PlainText $description): self
     {
         $this->description = $description->setParent($this);
 
@@ -82,16 +87,18 @@ class Option extends Element
 
     /**
      * @param string $description
+     * @return static
      */
-    public function description(string $description): static
+    public function description(string $description): self
     {
         return $this->setDescription(new PlainText($description));
     }
 
     /**
      * @param string $url
+     * @return static
      */
-    public function url(string $url): static
+    public function url(string $url): self
     {
         $this->url = $url;
 

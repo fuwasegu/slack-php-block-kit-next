@@ -18,8 +18,9 @@ class ExternalSelectMenu extends SelectMenu
     /**
      * @param string $name
      * @param string $value
+     * @return self
      */
-    public function initialOption(string $name, string $value): static
+    public function initialOption(string $name, string $value): self
     {
         $this->initialOption = Option::new($name, $value);
         $this->initialOption->setParent($this);
@@ -27,7 +28,7 @@ class ExternalSelectMenu extends SelectMenu
         return $this;
     }
 
-    public function minQueryLength(int $minQueryLength): static
+    public function minQueryLength(int $minQueryLength): self
     {
         $this->minQueryLength = $minQueryLength;
 

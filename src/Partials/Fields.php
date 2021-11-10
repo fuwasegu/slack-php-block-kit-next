@@ -23,8 +23,9 @@ class Fields extends Element
 
     /**
      * @param Text $field
+     * @return self
      */
-    public function add(Text $field): static
+    public function add(Text $field): self
     {
         if (count($this->fields) >= 10) {
             throw new Exception('Cannot have more than 10 fields');
@@ -37,8 +38,9 @@ class Fields extends Element
 
     /**
      * @param Text[]|string[] $fields
+     * @return self
      */
-    public function populate(array $fields = []): static
+    public function populate(array $fields = []): self
     {
         foreach ($fields as $field) {
             if (!$field instanceof Text) {

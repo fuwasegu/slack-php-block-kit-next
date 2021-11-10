@@ -21,14 +21,14 @@ class WorkflowStep extends Surface
     /** @var string */
     private $callbackId;
 
-    public function callbackId(string $callbackId): static
+    public function callbackId(string $callbackId): self
     {
         $this->callbackId = $callbackId;
 
         return $this;
     }
 
-    public function privateMetadata(string $privateMetadata): static
+    public function privateMetadata(string $privateMetadata): self
     {
         $this->privateMetadata = $privateMetadata;
 

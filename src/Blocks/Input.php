@@ -56,14 +56,14 @@ class Input extends BlockElement
         $this->dispatchAction = false;
     }
 
-    public function setLabel(Partials\PlainText $label): static
+    public function setLabel(Partials\PlainText $label): self
     {
         $this->label = $label->setParent($this);
 
         return $this;
     }
 
-    public function setElement(Element $element): static
+    public function setElement(Element $element): self
     {
         if (!empty($this->element)) {
             throw new Exception('Input element already set as type %s', [$this->element->getType()]);
@@ -78,31 +78,31 @@ class Input extends BlockElement
         return $this;
     }
 
-    public function setHint(Partials\PlainText $hint): static
+    public function setHint(Partials\PlainText $hint): self
     {
         $this->hint = $hint->setParent($this);
 
         return $this;
     }
 
-    public function label(string $text, ?bool $emoji = null): static
+    public function label(string $text, ?bool $emoji = null): self
     {
         return $this->setLabel(new Partials\PlainText($text, $emoji));
     }
 
-    public function hint(string $text, ?bool $emoji = null): static
+    public function hint(string $text, ?bool $emoji = null): self
     {
         return $this->setHint(new Partials\PlainText($text, $emoji));
     }
 
-    public function optional(bool $optional = true): static
+    public function optional(bool $optional = true): self
     {
         $this->optional = $optional;
 
         return $this;
     }
 
-    public function dispatchAction(bool $dispatchAction = true): static
+    public function dispatchAction(bool $dispatchAction = true): self
     {
         $this->dispatchAction = $dispatchAction;
 

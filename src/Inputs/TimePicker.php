@@ -20,7 +20,7 @@ class TimePicker extends InputElement
     /** @var string */
     private $initialTime;
 
-    public function initialTime(string $time): static
+    public function initialTime(string $time): self
     {
         $dateTime = DateTime::createFromFormat(self::TIME_FORMAT, $time);
         if (!$dateTime) {
