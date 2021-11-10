@@ -53,8 +53,9 @@ class TwoColumnTable extends VirtualBlock
      * Sets a caption (text element) at the top of the table.
      *
      * @param string $caption
+     * @return static
      */
-    public function caption(string $caption): static
+    public function caption(string $caption)
     {
         if (!$this->header) {
             $this->header = new Section();
@@ -73,8 +74,9 @@ class TwoColumnTable extends VirtualBlock
      *
      * @param string $left
      * @param string $right
+     * @return static
      */
-    public function cols(string $left, string $right): static
+    public function cols(string $left, string $right)
     {
         if (!$this->header) {
             $this->header = new Section();
@@ -91,8 +93,9 @@ class TwoColumnTable extends VirtualBlock
      *
      * @param string $left
      * @param string $right
+     * @return static
      */
-    public function row(string $left, string $right): static
+    public function row(string $left, string $right)
     {
         $row = new Section();
         $row->fieldList([$left, $right]);
@@ -107,8 +110,9 @@ class TwoColumnTable extends VirtualBlock
      * Supports list-format (e.g., [[$left, $right], ...]) or map-format (e.g., [$left => $right, ...]) as input.
      *
      * @param array $rows
+     * @return static
      */
-    public function rows(array $rows): static
+    public function rows(array $rows)
     {
         if (isset($rows[0])) {
             foreach ($rows as [$left, $right]) {

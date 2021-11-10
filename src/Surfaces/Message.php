@@ -40,8 +40,9 @@ class Message extends Surface
      *
      * This is default behavior for most interactions, and doesn't necessarily need to be explicitly configured.
      *
+     * @return static
      */
-    public function ephemeral(): static
+    public function ephemeral()
     {
         return $this->directives(self::EPHEMERAL);
     }
@@ -49,8 +50,9 @@ class Message extends Surface
     /**
      * Configures message to send to the entire channel.
      *
+     * @return static
      */
-    public function inChannel(): static
+    public function inChannel()
     {
         return $this->directives(self::IN_CHANNEL);
     }
@@ -58,8 +60,9 @@ class Message extends Surface
     /**
      * Configures message to "replace_original" mode.
      *
+     * @return static
      */
-    public function replaceOriginal(): static
+    public function replaceOriginal()
     {
         return $this->directives(self::REPLACE_ORIGINAL);
     }
@@ -67,16 +70,18 @@ class Message extends Surface
     /**
      * Configures message to "delete_original" mode.
      *
+     * @return static
      */
-    public function deleteOriginal(): static
+    public function deleteOriginal()
     {
         return $this->directives(self::DELETE_ORIGINAL);
     }
 
     /**
      * @param array $directives
+     * @return static
      */
-    private function directives(array $directives): static
+    private function directives(array $directives)
     {
         $this->directives = $directives;
 
@@ -88,8 +93,9 @@ class Message extends Surface
      *
      * @param string $message
      * @param bool|null $mrkdwn
+     * @return static
      */
-    public function fallbackText(string $message, ?bool $mrkdwn = null): static
+    public function fallbackText(string $message, ?bool $mrkdwn = null)
     {
         $this->fallbackText = ['text' => $message];
         if ($mrkdwn !== null) {
@@ -101,8 +107,9 @@ class Message extends Surface
 
     /**
      * @param Attachment $attachment
+     * @return static
      */
-    public function addAttachment(Attachment $attachment): static
+    public function addAttachment(Attachment $attachment)
     {
         $this->attachments[] = $attachment->setParent($this);
 
@@ -124,8 +131,9 @@ class Message extends Surface
      * Clones a message for the purpose of generating a Block Kit Builder preview URL.
      *
      * @internal Used by Previewer only.
+     * @return static
      */
-    public function asPreviewableMessage(): static
+    public function asPreviewableMessage()
     {
         $message = clone $this;
         $message->directives = [];

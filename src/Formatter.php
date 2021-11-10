@@ -39,7 +39,10 @@ final class Formatter
     public const TIME = '{time}';
     public const TIME_SECS = '{time_secs}';
 
-    public static function new(): static
+    /**
+    * @return static
+    */
+    public static function new()
     {
         return new static();
     }

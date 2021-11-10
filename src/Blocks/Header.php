@@ -26,7 +26,10 @@ class Header extends BlockElement
         }
     }
 
-    public function setText(PlainText $text): static
+    /**
+    * @return static
+    */
+    public function setText(PlainText $text)
     {
         $this->text = $text->setParent($this);
 
@@ -36,8 +39,9 @@ class Header extends BlockElement
     /**
      * @param string $text
      * @param bool|null $emoji
+     * @return static
      */
-    public function text(string $text, ?bool $emoji = null): static
+    public function text(string $text, ?bool $emoji = null)
     {
         return $this->setText(new PlainText($text, $emoji));
     }

@@ -15,7 +15,10 @@ final class Config
     /** @var bool|null */
     private $defaultEmojiSetting = null;
 
-    public static function new(): static
+    /**
+     * @return static
+     */
+    public static function new()
     {
         return new static();
     }
@@ -25,7 +28,10 @@ final class Config
         return $this->defaultVerbatimSetting;
     }
 
-    public function setDefaultVerbatimSetting(?bool $verbatim): static
+    /**
+     * @return static
+     */
+    public function setDefaultVerbatimSetting(?bool $verbatim)
     {
         $this->defaultVerbatimSetting = $verbatim;
 
@@ -37,7 +43,10 @@ final class Config
         return $this->defaultEmojiSetting;
     }
 
-    public function setDefaultEmojiSetting(?bool $emoji): static
+    /**
+     * @return static
+     */
+    public function setDefaultEmojiSetting(?bool $emoji)
     {
         $this->defaultEmojiSetting = $emoji;
 

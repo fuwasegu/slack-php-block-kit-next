@@ -13,8 +13,9 @@ class MultiChannelSelectMenu extends MultiSelectMenu
 
     /**
      * @param string[] $initialChannels
+     * @return static
      */
-    public function initialChannels(array $initialChannels): static
+    public function initialChannels(array $initialChannels)
     {
         $this->initialChannels = $initialChannels;
 

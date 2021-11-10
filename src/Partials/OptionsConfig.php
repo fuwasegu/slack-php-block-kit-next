@@ -15,7 +15,10 @@ class OptionsConfig
     /** @var int|null Maximum number of initial options supported. */
     private $maxInitialOptions;
 
-    public static function new(): static
+    /**
+    * @return static
+    */
+    public static function new()
     {
         return new static();
     }
@@ -35,8 +38,9 @@ class OptionsConfig
 
     /**
      * @param int|null $minOptions
+     * @return static
      */
-    public function setMinOptions(?int $minOptions): static
+    public function setMinOptions(?int $minOptions)
     {
         $this->minOptions = $minOptions;
 
@@ -53,8 +57,9 @@ class OptionsConfig
 
     /**
      * @param int|null $maxOptions
+     * @return static
      */
-    public function setMaxOptions(?int $maxOptions): static
+    public function setMaxOptions(?int $maxOptions)
     {
         $this->maxOptions = $maxOptions;
 
@@ -71,8 +76,9 @@ class OptionsConfig
 
     /**
      * @param int|null $maxInitialOptions
+     * @return static
      */
-    public function setMaxInitialOptions(?int $maxInitialOptions): static
+    public function setMaxInitialOptions(?int $maxInitialOptions)
     {
         $this->maxInitialOptions = $maxInitialOptions;
 

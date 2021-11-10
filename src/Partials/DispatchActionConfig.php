@@ -16,20 +16,27 @@ class DispatchActionConfig extends Element
 
     /**
      * @param string $eventType
+     * @return static
      */
-    public function triggerActionsOn(string $eventType): static
+    public function triggerActionsOn(string $eventType)
     {
         $this->triggerActionsOn[] = $eventType;
 
         return $this;
     }
 
-    public function triggerActionsOnEnterPressed(): static
+    /**
+    * @return static
+    */
+    public function triggerActionsOnEnterPressed()
     {
         return $this->triggerActionsOn(self::ON_ENTER_PRESSED);
     }
 
-    public function triggerActionsOnCharacterEntered(): static
+    /**
+    * @return static
+    */
+    public function triggerActionsOnCharacterEntered()
     {
         return $this->triggerActionsOn(self::ON_CHARACTER_ENTERED);
     }

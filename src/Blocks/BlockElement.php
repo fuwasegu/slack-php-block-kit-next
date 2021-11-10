@@ -24,8 +24,9 @@ abstract class BlockElement extends Element
 
     /**
      * @param string $blockId
+     * @return static
      */
-    public function blockId(string $blockId): static
+    public function blockId(string $blockId)
     {
         $this->blockId = $blockId;
 

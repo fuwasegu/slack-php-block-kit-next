@@ -29,21 +29,30 @@ class TextInput extends InputElement
     /** @var DispatchActionConfig */
     private $dispatchActionConfig;
 
-    public function initialValue(string $text): static
+    /**
+    * @return static
+    */
+    public function initialValue(string $text)
     {
         $this->initialValue = $text;
 
         return $this;
     }
 
-    public function multiline(bool $flag): static
+    /**
+    * @return static
+    */
+    public function multiline(bool $flag)
     {
         $this->multiline = $flag;
 
         return $this;
     }
 
-    public function minLength(int $length): static
+    /**
+    * @return static
+    */
+    public function minLength(int $length)
     {
         if ($length < 0) {
             throw new Exception('Min length must be >= 0');
@@ -54,7 +63,10 @@ class TextInput extends InputElement
         return $this;
     }
 
-    public function maxLength(int $length): static
+    /**
+    * @return static
+    */
+    public function maxLength(int $length)
     {
         if ($length < 1) {
             throw new Exception('Max length must be >= 1');
@@ -65,14 +77,20 @@ class TextInput extends InputElement
         return $this;
     }
 
-    public function setDispatchActionConfig(DispatchActionConfig $config): static
+    /**
+    * @return static
+    */
+    public function setDispatchActionConfig(DispatchActionConfig $config)
     {
         $this->dispatchActionConfig = $config;
 
         return $this;
     }
 
-    public function triggerActionOnEnterPressed(): static
+    /**
+    * @return static
+    */
+    public function triggerActionOnEnterPressed()
     {
         $config = $this->dispatchActionConfig ?? DispatchActionConfig::new();
         $config->triggerActionsOnEnterPressed();
@@ -80,7 +98,10 @@ class TextInput extends InputElement
         return $this->setDispatchActionConfig($config);
     }
 
-    public function triggerActionOnCharacterEntered(): static
+    /**
+    * @return static
+    */
+    public function triggerActionOnCharacterEntered()
     {
         $config = $this->dispatchActionConfig ?? DispatchActionConfig::new();
         $config->triggerActionsOnCharacterEntered();

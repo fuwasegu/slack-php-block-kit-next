@@ -13,8 +13,9 @@ abstract class MultiSelectMenu extends SelectMenu
 
     /**
      * @param int $maxSelectedItems
+     * @return static
      */
-    public function maxSelectedItems(int $maxSelectedItems): static
+    public function maxSelectedItems(int $maxSelectedItems)
     {
         $this->maxSelectedItems = $maxSelectedItems;
 
@@ -24,8 +25,9 @@ abstract class MultiSelectMenu extends SelectMenu
     /**
      * @param int $maxSelectedItems
      * @deprecated Inconsistent method name. Use MultiSelectMenu::maxSelectedItems() instead.
+     * @return static
      */
-    public function setMaxSelectedItems(int $maxSelectedItems): static
+    public function setMaxSelectedItems(int $maxSelectedItems)
     {
         $this->maxSelectedItems = $maxSelectedItems;
 

@@ -38,8 +38,9 @@ class Attachment extends Surface
      * This makes sure the `#` is included in the color, in case you forget it.
      *
      * @param string $color
+     * @return static
      */
-    public function color(string $color): static
+    public function color(string $color)
     {
         $this->color = '#' . ltrim($color, '#');
 

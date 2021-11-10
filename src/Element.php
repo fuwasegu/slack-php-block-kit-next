@@ -15,7 +15,10 @@ abstract class Element implements JsonSerializable
     /** @var array */
     protected $extra;
 
-    public static function new(): static
+    /**
+     * @return static
+     */
+    public static function new()
     {
         return new static();
     }
@@ -30,8 +33,9 @@ abstract class Element implements JsonSerializable
 
     /**
      * @param Element $parent
+     * @return static
      */
-    final public function setParent(Element $parent): static
+    final public function setParent(Element $parent)
     {
         $this->parent = $parent;
 
@@ -51,8 +55,9 @@ abstract class Element implements JsonSerializable
      *
      * @param string $key
      * @param mixed $value
+     * @return static
      */
-    final public function setExtra(string $key, $value): static
+    final public function setExtra(string $key, $value)
     {
         $this->extra[$key] = $value;
 
@@ -69,8 +74,9 @@ abstract class Element implements JsonSerializable
      *         });
      *
      * @param callable $tap
+     * @return static
      */
-    final public function tap(callable $tap): static
+    final public function tap(callable $tap)
     {
         $tap($this);
 
@@ -88,8 +94,9 @@ abstract class Element implements JsonSerializable
      *
      * @param bool $condition
      * @param callable $tap
+     * @return static
      */
-    final public function tapIf(bool $condition, callable $tap): static
+    final public function tapIf(bool $condition, callable $tap)
     {
         if ($condition) {
             $tap($this);
@@ -140,8 +147,9 @@ abstract class Element implements JsonSerializable
 
     /**
      * @param string $json
+     * @return static
      */
-    final public static function fromJson(string $json): static
+    final public static function fromJson(string $json)
     {
         try {
             $data = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
@@ -154,8 +162,9 @@ abstract class Element implements JsonSerializable
 
     /**
      * @param array $data
+     * @return static
      */
-    final public static function fromArray(array $data): static
+    final public static function fromArray(array $data)
     {
         $data = new HydrationData($data);
 

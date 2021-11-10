@@ -13,8 +13,9 @@ class MultiUserSelectMenu extends MultiSelectMenu
 
     /**
      * @param string[] $initialUsers
+     * @return static
      */
-    public function initialUsers(array $initialUsers): static
+    public function initialUsers(array $initialUsers)
     {
         $this->initialUsers = $initialUsers;
 
