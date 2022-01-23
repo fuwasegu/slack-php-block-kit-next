@@ -137,10 +137,7 @@ abstract class Element implements JsonSerializable
         return (string) json_encode($this, $opts);
     }
 
-    /**
-     * @return array
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->toArray();
     }
