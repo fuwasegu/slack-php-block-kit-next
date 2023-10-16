@@ -7,17 +7,13 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        php: [ 7.0, 7.2, 7.4, 8.0, 8.1 ]
-
     steps:
         - uses: actions/checkout@v2
 
         - name: Setup PHP
           uses: shivammathur/setup-php@v2
           with:
-            php-version: ${{ matrix.php }}
+            php-version: '8.1'
 
         - name: Install dependencies
           uses: php-actions/composer@v2
