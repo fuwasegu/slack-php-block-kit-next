@@ -7,20 +7,26 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        php: [ 7.0, 7.2, 7.4, 8.0, 8.1 ]
+
     steps:
-    - uses: actions/checkout@v2
+        - uses: actions/checkout@v2
 
-    - name: Display PHP version
-      run: php -v
+        - name: Setup PHP
+          uses: shivammathur/setup-php@v2
+          with:
+            php-version: ${{ matrix.php }}
 
-    - name: Install dependencies
-      uses: php-actions/composer@v2
+        - name: Install dependencies
+          uses: php-actions/composer@v2
 
-    - name: Run style linter
-      run: composer run-script style-lint
+        - name: Run style linter
+          run: composer run-script style-lint
 
-    - name: Run static analyzer
-      run: composer run-script stan
+        - name: Run static analyzer
+          run: composer run-script stan
 
-    - name: Run test suite
-      run: composer run-script test-ci
+        - name: Run test suite
+          run: composer run-script test-ci
