@@ -113,6 +113,7 @@ class NumberInput extends InputElement
 
         if (
             isset($this->maxValue)
+            && isset($this->initialValue)
             && $this->maxValue <= $this->initialValue
         ) {
             throw new Exception('The initial value must be less than or equal to max_value');
@@ -120,6 +121,7 @@ class NumberInput extends InputElement
 
         if (
             isset($this->minValue)
+            && isset($this->initialValue)
             && $this->initialValue <= $this->minValue
         ) {
             throw new Exception('The initial value must be greater than or equal to min_value');
