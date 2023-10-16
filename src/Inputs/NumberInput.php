@@ -107,6 +107,24 @@ class NumberInput extends InputElement
             throw new Exception('Number input max value must be greater than min value');
         }
 
+        if ($this->isDecimalAllowed && !is_int($this->initialValue)) {
+            throw new Exception('The initial value must be only decimal number when is_decimal_allowed is true');
+        }
+
+        if (
+            isset($this->maxValue)
+            && $this->maxValue <= $this->initialValue
+        ) {
+            throw new Exception('The initial value must be less than or equal to max_value');
+        }
+
+        if (
+            isset($this->minValue)
+            && $this->initialValue <= $this->minValue
+        ) {
+            throw new Exception('The initial value must be greater than or equal to min_value');
+        }
+
         if (isset($this->dispatchActionConfig)) {
             $this->dispatchActionConfig->validate();
         }
