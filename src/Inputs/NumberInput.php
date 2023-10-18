@@ -141,15 +141,18 @@ class NumberInput extends InputElement
         }
 
         if (!empty($this->initialValue)) {
-            $data['initial_value'] = $this->initialValue;
+            // Must be a String in SlackAPI documentation
+            $data['initial_value'] = (string)$this->initialValue;
         }
 
         if (isset($this->minValue)) {
-            $data['min_value'] = $this->minValue;
+            // Must be a String in SlackAPI documentation
+            $data['min_value'] = (string)$this->minValue;
         }
 
         if (isset($this->maxValue)) {
-            $data['max_value'] = $this->maxValue;
+            // Must be a String in SlackAPI documentation
+            $data['max_value'] = (string)$this->maxValue;
         }
 
         if (isset($this->dispatchActionConfig)) {

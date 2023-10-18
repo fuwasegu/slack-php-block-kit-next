@@ -31,9 +31,9 @@ class NumberInputTest extends TestCase
                 'text' => 'foo',
             ],
             'is_decimal_allowed' => true,
-            'initial_value' => 10,
-            'min_value' => 1,
-            'max_value' => 20,
+            'initial_value' => "10",
+            'min_value' => "1",
+            'max_value' => "20",
             'focus_on_load' => true,
         ], $input);
     }
