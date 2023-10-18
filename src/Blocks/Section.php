@@ -16,19 +16,21 @@ use SlackPhp\BlockKit\{
 
 class Section extends BlockElement
 {
-    /** @var Partials\Text */
+    /**
+     * @var Partials\Text
+     */
     private $text;
 
-    /** @var Partials\Fields */
+    /**
+     * @var Partials\Fields
+     */
     private $fields;
 
-    /** @var Element */
+    /**
+     * @var Element
+     */
     private $accessory;
 
-    /**
-     * @param string|null $blockId
-     * @param string|null $text
-     */
     public function __construct(?string $blockId = null, ?string $text = null)
     {
         parent::__construct($blockId);
@@ -39,7 +41,6 @@ class Section extends BlockElement
     }
 
     /**
-     * @param Partials\Text $text
      * @return static
      */
     public function setText(Partials\Text $text)
@@ -50,7 +51,6 @@ class Section extends BlockElement
     }
 
     /**
-     * @param Partials\Fields $fields
      * @return static
      */
     public function setFields(Partials\Fields $fields)
@@ -61,7 +61,6 @@ class Section extends BlockElement
     }
 
     /**
-     * @param Element $accessory
      * @return static
      */
     public function setAccessory(Element $accessory)
@@ -80,8 +79,6 @@ class Section extends BlockElement
     }
 
     /**
-     * @param string $text
-     * @param bool $emoji
      * @return static
      */
     public function plainText(string $text, ?bool $emoji = null)
@@ -90,8 +87,6 @@ class Section extends BlockElement
     }
 
     /**
-     * @param string $text
-     * @param bool|null $verbatim
      * @return static
      */
     public function mrkdwnText(string $text, ?bool $verbatim = null)
@@ -100,7 +95,6 @@ class Section extends BlockElement
     }
 
     /**
-     * @param string $code
      * @return static
      */
     public function code(string $code)
@@ -109,7 +103,7 @@ class Section extends BlockElement
     }
 
     /**
-     * @param string[] $values
+     * @param  string[] $values
      * @return static
      */
     public function fieldList(array $values)
@@ -118,7 +112,6 @@ class Section extends BlockElement
     }
 
     /**
-     * @param array $keyValuePairs
      * @return static
      */
     public function fieldMap(array $keyValuePairs)
@@ -221,9 +214,6 @@ class Section extends BlockElement
         }
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();

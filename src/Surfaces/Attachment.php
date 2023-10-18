@@ -19,13 +19,13 @@ use SlackPhp\BlockKit\{Element, HydrationData};
  */
 class Attachment extends Surface
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     private $color;
 
     /**
      * Returns the attachment as a new Message with the attachment attached.
-     *
-     * @return Message
      */
     public function asMessage(): Message
     {
@@ -37,7 +37,6 @@ class Attachment extends Surface
      *
      * This makes sure the `#` is included in the color, in case you forget it.
      *
-     * @param string $color
      * @return static
      */
     public function color(string $color)

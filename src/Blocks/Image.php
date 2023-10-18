@@ -9,20 +9,21 @@ use SlackPhp\BlockKit\Partials\PlainText;
 
 class Image extends BlockElement
 {
-    /** @var PlainText */
+    /**
+     * @var PlainText
+     */
     private $title;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $url;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $altText;
 
-    /**
-     * @param string|null $blockId
-     * @param string|null $url
-     * @param string|null $altText
-     */
     public function __construct(?string $blockId = null, ?string $url = null, ?string $altText = null)
     {
         parent::__construct($blockId);
@@ -37,8 +38,8 @@ class Image extends BlockElement
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function setTitle(PlainText $title)
     {
         $this->title = $title->setParent($this);
@@ -47,16 +48,16 @@ class Image extends BlockElement
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function title(string $text)
     {
         return $this->setTitle(new PlainText($text));
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function url(string $url)
     {
         $this->url = $url;
@@ -65,8 +66,8 @@ class Image extends BlockElement
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function altText(string $alt)
     {
         $this->altText = $alt;
@@ -89,9 +90,6 @@ class Image extends BlockElement
         }
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();

@@ -16,21 +16,29 @@ class Button extends InputElement
     private const STYLE_PRIMARY = 'primary';
     private const STYLE_DANGER = 'danger';
 
-    /** @var PlainText */
+    /**
+     * @var PlainText
+     */
     private $text;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $value;
 
-    /** @var string|null */
+    /**
+     * @var string|null
+     */
     private $url;
 
-    /** @var string|null */
+    /**
+     * @var string|null
+     */
     private $style;
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function setText(PlainText $text)
     {
         $this->text = $text->setParent($this);
@@ -39,16 +47,16 @@ class Button extends InputElement
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function text(string $text)
     {
         return $this->setText(new PlainText($text));
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function value(string $value)
     {
         $this->value = $value;
@@ -57,8 +65,8 @@ class Button extends InputElement
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function url(string $url)
     {
         $this->url = $url;
@@ -67,8 +75,8 @@ class Button extends InputElement
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function asPrimary()
     {
         $this->style = self::STYLE_PRIMARY;
@@ -77,8 +85,8 @@ class Button extends InputElement
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function asDangerous()
     {
         $this->style = self::STYLE_DANGER;
@@ -99,9 +107,6 @@ class Button extends InputElement
         }
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();
@@ -144,9 +149,12 @@ class Button extends InputElement
             switch ($data->useValue('style')) {
                 case self::STYLE_PRIMARY:
                     $this->asPrimary();
+
                     break;
+
                 case self::STYLE_DANGER:
                     $this->asDangerous();
+
                     break;
             }
         }

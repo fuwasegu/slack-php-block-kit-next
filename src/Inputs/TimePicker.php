@@ -17,12 +17,14 @@ class TimePicker extends InputElement
 
     private const TIME_FORMAT = 'H:i';
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $initialTime;
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function initialTime(string $time)
     {
         $dateTime = DateTime::createFromFormat(self::TIME_FORMAT, $time);
@@ -46,9 +48,6 @@ class TimePicker extends InputElement
         }
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();

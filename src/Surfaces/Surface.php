@@ -20,11 +20,12 @@ abstract class Surface extends Element
 {
     private const MAX_BLOCKS = 50;
 
-    /** @var BlockElement[] */
+    /**
+     * @var BlockElement[]
+     */
     private $blocks = [];
 
     /**
-     * @param BlockElement $block
      * @return static
      */
     public function add(BlockElement $block)
@@ -32,7 +33,7 @@ abstract class Surface extends Element
         if (!in_array($block->getType(), Type::SURFACE_BLOCKS[$this->getType()], true)) {
             throw new Exception(
                 'Block type %s is not supported for surface type %s',
-                [$block->getType(), $this->getType()]
+                [$block->getType(), $this->getType()],
             );
         }
 
@@ -42,7 +43,7 @@ abstract class Surface extends Element
     }
 
     /**
-     * @param iterable|BlockElement[] $blocks
+     * @param  iterable|BlockElement[] $blocks
      * @return static
      */
     public function blocks(iterable $blocks)
@@ -73,10 +74,6 @@ abstract class Surface extends Element
         return $blocks;
     }
 
-    /**
-     * @param string|null $blockId
-     * @return Actions
-     */
     public function newActions(?string $blockId = null): Actions
     {
         $block = new Actions($blockId);
@@ -85,10 +82,6 @@ abstract class Surface extends Element
         return $block;
     }
 
-    /**
-     * @param string|null $blockId
-     * @return Context
-     */
     public function newContext(?string $blockId = null): Context
     {
         $block = new Context($blockId);
@@ -97,10 +90,6 @@ abstract class Surface extends Element
         return $block;
     }
 
-    /**
-     * @param string|null $blockId
-     * @return Header
-     */
     public function newHeader(?string $blockId = null): Header
     {
         $block = new Header($blockId);
@@ -109,10 +98,6 @@ abstract class Surface extends Element
         return $block;
     }
 
-    /**
-     * @param string|null $blockId
-     * @return Image
-     */
     public function newImage(?string $blockId = null): Image
     {
         $block = new Image($blockId);
@@ -129,10 +114,6 @@ abstract class Surface extends Element
         return $block;
     }
 
-    /**
-     * @param string|null $blockId
-     * @return Section
-     */
     public function newSection(?string $blockId = null): Section
     {
         $block = new Section($blockId);
@@ -141,10 +122,6 @@ abstract class Surface extends Element
         return $block;
     }
 
-    /**
-     * @param string|null $blockId
-     * @return TwoColumnTable
-     */
     public function newTwoColumnTable(?string $blockId = null): TwoColumnTable
     {
         $block = new TwoColumnTable($blockId);
@@ -154,7 +131,6 @@ abstract class Surface extends Element
     }
 
     /**
-     * @param string|null $blockId
      * @return static
      */
     public function divider(?string $blockId = null)
@@ -163,8 +139,6 @@ abstract class Surface extends Element
     }
 
     /**
-     * @param string $text
-     * @param string|null $blockId
      * @return static
      */
     public function text(string $text, ?string $blockId = null)
@@ -175,8 +149,6 @@ abstract class Surface extends Element
     }
 
     /**
-     * @param string $text
-     * @param string|null $blockId
      * @return static
      */
     public function header(string $text, ?string $blockId = null)
@@ -201,7 +173,7 @@ abstract class Surface extends Element
         $blolckIds = [];
         foreach ($blocks as $block) {
             $block->validate();
-            if (! is_null($block->getBlockId())) {
+            if (!is_null($block->getBlockId())) {
                 $blolckIds[] = $block->getBlockId();
             }
         }
@@ -210,14 +182,14 @@ abstract class Surface extends Element
         if (count($blockIdArrayCount) > 0) {
             $duplicateBlockIds = [];
             foreach ($blockIdArrayCount as $key => $value) {
-                if ((int)$value > 1) {
+                if ((int) $value > 1) {
                     $duplicateBlockIds[] = $key;
                 }
             }
 
             if (count($duplicateBlockIds) > 0) {
                 throw new Exception(
-                    'The following block_ids are duplicated : ' . implode(', ', $duplicateBlockIds) . ' ]'
+                    'The following block_ids are duplicated : ' . implode(', ', $duplicateBlockIds) . ' ]',
                 );
             }
         }

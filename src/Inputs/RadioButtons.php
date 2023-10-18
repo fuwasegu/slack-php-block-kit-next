@@ -30,9 +30,6 @@ class RadioButtons extends InputElement
         }
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray() + $this->getOptionsAsArray() + $this->getInitialOptionsAsArray();

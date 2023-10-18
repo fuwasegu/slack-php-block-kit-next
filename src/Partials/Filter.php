@@ -13,17 +13,22 @@ class Filter extends Element
     private const CONVERSATION_TYPE_PRIVATE = 'private';
     private const CONVERSATION_TYPE_PUBLIC = 'public';
 
-    /** @var string[]|array */
+    /**
+     * @var string[]|array
+     */
     private $include = [];
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $excludeExternalSharedChannels;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $excludeBotUsers;
 
     /**
-     * @param string $conversationType
      * @return static
      */
     public function includeType(string $conversationType)
@@ -34,7 +39,7 @@ class Filter extends Element
     }
 
     /**
-     * @param string[] $conversationTypes
+     * @param  string[] $conversationTypes
      * @return static
      */
     public function includeTypes(array $conversationTypes)
@@ -45,39 +50,38 @@ class Filter extends Element
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function includeIm()
     {
         return $this->includeType(self::CONVERSATION_TYPE_IM);
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function includeMpim()
     {
         return $this->includeType(self::CONVERSATION_TYPE_MPIM);
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function includePrivate()
     {
         return $this->includeType(self::CONVERSATION_TYPE_PRIVATE);
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function includePublic()
     {
         return $this->includeType(self::CONVERSATION_TYPE_PUBLIC);
     }
 
     /**
-     * @param bool $excludeBotUsers
      * @return static
      */
     public function excludeBotUsers(bool $excludeBotUsers)
@@ -88,7 +92,6 @@ class Filter extends Element
     }
 
     /**
-     * @param bool $excludeExternalSharedChannels
      * @return static
      */
     public function excludeExternalSharedChannels(bool $excludeExternalSharedChannels)
@@ -105,9 +108,6 @@ class Filter extends Element
         }
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();

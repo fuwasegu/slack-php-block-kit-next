@@ -8,7 +8,9 @@ use SlackPhp\BlockKit\{Element, Exception, HydrationData};
 
 class Fields extends Element
 {
-    /** @var Text[] */
+    /**
+     * @var Text[]
+     */
     private $fields = [];
 
     /**
@@ -22,7 +24,6 @@ class Fields extends Element
     }
 
     /**
-     * @param Text $field
      * @return static
      */
     public function add(Text $field)
@@ -37,7 +38,7 @@ class Fields extends Element
     }
 
     /**
-     * @param Text[]|string[] $fields
+     * @param  Text[]|string[] $fields
      * @return static
      */
     public function populate(array $fields = [])
@@ -64,9 +65,6 @@ class Fields extends Element
         }
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $fields = [];

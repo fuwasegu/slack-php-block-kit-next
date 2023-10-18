@@ -174,7 +174,9 @@ abstract class Type
         self::OPTION_GROUP,
     ];
 
-    /** @var array<string, string> */
+    /**
+     * @var array<string, string>
+     */
     private static $typeMap = [
         // Surfaces
         Surfaces\AppHome::class      => self::APP_HOME,

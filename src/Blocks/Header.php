@@ -10,13 +10,11 @@ use SlackPhp\BlockKit\Partials\PlainText;
 
 class Header extends BlockElement
 {
-    /** @var PlainText */
+    /**
+     * @var PlainText
+     */
     private $text;
 
-    /**
-     * @param string|null $blockId
-     * @param string|null $text
-     */
     public function __construct(?string $blockId = null, ?string $text = null)
     {
         parent::__construct($blockId);
@@ -27,8 +25,8 @@ class Header extends BlockElement
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function setText(PlainText $text)
     {
         $this->text = $text->setParent($this);
@@ -37,8 +35,6 @@ class Header extends BlockElement
     }
 
     /**
-     * @param string $text
-     * @param bool|null $emoji
      * @return static
      */
     public function text(string $text, ?bool $emoji = null)

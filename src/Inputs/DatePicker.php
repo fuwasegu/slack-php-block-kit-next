@@ -17,12 +17,14 @@ class DatePicker extends InputElement
 
     private const DATE_FORMAT = 'Y-m-d';
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $initialDate;
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function initialDate(string $date)
     {
         $dateTime = DateTime::createFromFormat(self::DATE_FORMAT, $date);
@@ -46,9 +48,6 @@ class DatePicker extends InputElement
         }
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();

@@ -27,9 +27,6 @@ abstract class SelectMenu extends InputElement
         }
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();

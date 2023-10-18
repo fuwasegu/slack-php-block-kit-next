@@ -9,18 +9,21 @@ use SlackPhp\BlockKit\HydrationData;
 
 trait HasOptions
 {
-    /** @var Option[]|array */
+    /**
+     * @var Option[]|array
+     */
     private $options = [];
 
-    /** @var Option[]|array */
+    /**
+     * @var Option[]|array
+     */
     private $initialOptions = [];
 
-    /** @var OptionsConfig|null */
+    /**
+     * @var OptionsConfig|null
+     */
     private $config;
 
-    /**
-     * @return OptionsConfig
-     */
     private function config(): OptionsConfig
     {
         if (!$this->config) {
@@ -30,17 +33,12 @@ trait HasOptions
         return $this->config;
     }
 
-    /**
-     * @return OptionsConfig
-     */
     protected function getOptionsConfig(): OptionsConfig
     {
         return new OptionsConfig();
     }
 
     /**
-     * @param Option $option
-     * @param bool $isInitial
      * @return static
      */
     public function addOption(Option $option, bool $isInitial = false)
@@ -56,7 +54,7 @@ trait HasOptions
     }
 
     /**
-     * @param Option[] $options
+     * @param  Option[] $options
      * @return static
      */
     public function addOptions(array $options)
@@ -69,9 +67,6 @@ trait HasOptions
     }
 
     /**
-     * @param string $text
-     * @param string $value
-     * @param bool $isInitial
      * @return static
      */
     public function option(string $text, string $value, bool $isInitial = false)
@@ -80,7 +75,7 @@ trait HasOptions
     }
 
     /**
-     * @param array<string, string>|string[] $options
+     * @param  array<string, string>|string[] $options
      * @return static
      */
     public function options(array $options)
@@ -95,8 +90,6 @@ trait HasOptions
     }
 
     /**
-     * @param string $text
-     * @param string $value
      * @return static
      */
     public function initialOption(string $text, string $value)
@@ -109,7 +102,7 @@ trait HasOptions
     }
 
     /**
-     * @param array<string, string>|string[] $options
+     * @param  array<string, string>|string[] $options
      * @return static
      */
     public function initialOptions(array $options)
@@ -143,7 +136,7 @@ trait HasOptions
         if ($maxInitialOptions !== null && count($this->initialOptions) > $maxInitialOptions) {
             throw new Exception(
                 'You must not provide more than %d "initial_options" for %s.',
-                [$maxInitialOptions, static::class]
+                [$maxInitialOptions, static::class],
             );
         }
 
@@ -159,7 +152,7 @@ trait HasOptions
         if ($maxInitialOptions !== null && count($this->initialOptions) > $maxInitialOptions) {
             throw new Exception(
                 'You must not provide more than %d "initial_options" for %s.',
-                [$maxInitialOptions, static::class]
+                [$maxInitialOptions, static::class],
             );
         }
 

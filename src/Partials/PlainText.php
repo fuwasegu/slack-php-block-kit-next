@@ -9,25 +9,22 @@ use SlackPhp\BlockKit\Kit;
 
 class PlainText extends Text
 {
-    /** @var bool|null */
+    /**
+     * @var bool|null
+     */
     private $emoji;
 
-    /**
-     * @param string|null $text
-     * @param bool|null $emoji
-     */
     public function __construct(?string $text = null, ?bool $emoji = null)
     {
         if ($text !== null) {
             $this->text($text);
         }
 
-        $emoji = $emoji ?? Kit::config()->getDefaultEmojiSetting();
+        $emoji ??= Kit::config()->getDefaultEmojiSetting();
         $this->emoji($emoji);
     }
 
     /**
-     * @param bool|null $emoji
      * @return static
      */
     public function emoji(?bool $emoji)
@@ -37,9 +34,6 @@ class PlainText extends Text
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();

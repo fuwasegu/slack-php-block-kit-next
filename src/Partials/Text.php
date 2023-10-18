@@ -8,11 +8,12 @@ use SlackPhp\BlockKit\{Element, Exception, HydrationData};
 
 abstract class Text extends Element
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     private $text;
 
     /**
-     * @param string $text
      * @return static
      */
     public function text(string $text)
@@ -30,8 +31,8 @@ abstract class Text extends Element
     /**
      * Validate the length of the text element.
      *
-     * @param int|null $max Max length, or null if it doesn't have a max.
-     * @param int $min Min length, defaults to 0.
+     * @param int|null $max max length, or null if it doesn't have a max
+     * @param int      $min min length, defaults to 0
      */
     public function validateWithLength(?int $max = null, int $min = 1): void
     {
@@ -41,9 +42,9 @@ abstract class Text extends Element
     /**
      * Validate string length for textual element properties.
      *
-     * @param string $text String to validate.
-     * @param int|null $max Max length, or null if it doesn't have a max.
-     * @param int $min Min length, defaults to 0.
+     * @param string   $text string to validate
+     * @param int|null $max  max length, or null if it doesn't have a max
+     * @param int      $min  min length, defaults to 0
      */
     public static function validateString(?string $text, ?int $max = null, int $min = 1): void
     {
@@ -60,9 +61,6 @@ abstract class Text extends Element
         }
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return parent::toArray() + ['text' => $this->text];

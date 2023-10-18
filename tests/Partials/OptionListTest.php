@@ -8,8 +8,8 @@ use SlackPhp\BlockKit\Partials\OptionList;
 use SlackPhp\BlockKit\Tests\TestCase;
 
 /**
- * @covers \SlackPhp\BlockKit\Partials\OptionList
  * @covers \SlackPhp\BlockKit\Partials\HasOptions
+ * @covers \SlackPhp\BlockKit\Partials\OptionList
  */
 class OptionListTest extends TestCase
 {
@@ -43,7 +43,7 @@ class OptionListTest extends TestCase
                     ],
                     'value' => '789',
                 ],
-            ]
+            ],
         ], $optionsList);
     }
 
@@ -74,7 +74,7 @@ class OptionListTest extends TestCase
                     ],
                     'value' => 'baz',
                 ],
-            ]
+            ],
         ], $optionsList);
     }
 }

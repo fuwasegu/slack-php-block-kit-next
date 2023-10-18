@@ -9,17 +9,16 @@ use SlackPhp\BlockKit\HydrationData;
 
 class File extends BlockElement
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     private $externalId;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $source;
 
-    /**
-     * @param string|null $blockId
-     * @param string|null $externalId
-     * @param string $source
-     */
     public function __construct(?string $blockId = null, ?string $externalId = null, string $source = 'remote')
     {
         parent::__construct($blockId);
@@ -34,8 +33,8 @@ class File extends BlockElement
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function externalId(string $externalId)
     {
         $this->externalId = $externalId;
@@ -44,8 +43,8 @@ class File extends BlockElement
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function source(string $source)
     {
         $this->source = $source;

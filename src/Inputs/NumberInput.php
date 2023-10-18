@@ -12,22 +12,34 @@ class NumberInput extends InputElement
 {
     use HasPlaceholder;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $isDecimalAllowed = false;
 
-    /** @var int|float */
+    /**
+     * @var int|float
+     */
     private $initialValue;
 
-    /** @var int|float */
+    /**
+     * @var int|float
+     */
     private $minValue;
 
-    /** @var int|float */
+    /**
+     * @var int|float
+     */
     private $maxValue;
 
-    /** @var DispatchActionConfig */
+    /**
+     * @var DispatchActionConfig
+     */
     private $dispatchActionConfig;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $focusOnLoad;
 
     /**
@@ -41,7 +53,7 @@ class NumberInput extends InputElement
     }
 
     /**
-     * @param int|float $value
+     * @param  int|float $value
      * @return static
      */
     public function setInitialValue($value)
@@ -52,7 +64,7 @@ class NumberInput extends InputElement
     }
 
     /**
-     * @param int|float $value
+     * @param  int|float $value
      * @return static
      */
     public function setMinValue($value)
@@ -63,7 +75,7 @@ class NumberInput extends InputElement
     }
 
     /**
-     * @param int|float $value
+     * @param  int|float $value
      * @return static
      */
     public function setMaxValue($value)
@@ -100,8 +112,8 @@ class NumberInput extends InputElement
         }
 
         if (
-            isset($this->minValue)
-            && isset($this->maxValue)
+            isset($this->minValue, $this->maxValue)
+
             && $this->minValue > $this->maxValue
         ) {
             throw new Exception('Number input max value must be greater than min value');
@@ -112,16 +124,16 @@ class NumberInput extends InputElement
         }
 
         if (
-            isset($this->maxValue)
-            && isset($this->initialValue)
+            isset($this->maxValue, $this->initialValue)
+
             && $this->maxValue <= $this->initialValue
         ) {
             throw new Exception('The initial value must be less than or equal to max_value');
         }
 
         if (
-            isset($this->minValue)
-            && isset($this->initialValue)
+            isset($this->minValue, $this->initialValue)
+
             && $this->initialValue <= $this->minValue
         ) {
             throw new Exception('The initial value must be greater than or equal to min_value');
@@ -142,17 +154,17 @@ class NumberInput extends InputElement
 
         if (!empty($this->initialValue)) {
             // Must be a String in SlackAPI documentation
-            $data['initial_value'] = (string)$this->initialValue;
+            $data['initial_value'] = (string) $this->initialValue;
         }
 
         if (isset($this->minValue)) {
             // Must be a String in SlackAPI documentation
-            $data['min_value'] = (string)$this->minValue;
+            $data['min_value'] = (string) $this->minValue;
         }
 
         if (isset($this->maxValue)) {
             // Must be a String in SlackAPI documentation
-            $data['max_value'] = (string)$this->maxValue;
+            $data['max_value'] = (string) $this->maxValue;
         }
 
         if (isset($this->dispatchActionConfig)) {
@@ -190,7 +202,7 @@ class NumberInput extends InputElement
 
         if ($data->has('dispatch_action_config')) {
             $this->setDispatchActionConfig(
-                DispatchActionConfig::fromArray($data->useElement('dispatch_action_config'))
+                DispatchActionConfig::fromArray($data->useElement('dispatch_action_config')),
             );
         }
 

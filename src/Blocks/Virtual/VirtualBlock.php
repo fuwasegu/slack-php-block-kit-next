@@ -17,14 +17,17 @@ use SlackPhp\BlockKit\HydrationException;
  */
 abstract class VirtualBlock extends BlockElement implements IteratorAggregate
 {
-    /** @var int */
+    /**
+     * @var int
+     */
     private $index = 1;
 
-    /** @var BlockElement[]\array */
+    /**
+     * @var BlockElement[]\array
+     */
     private $blocks = [];
 
     /**
-     * @param BlockElement $block
      * @return static
      */
     protected function appendBlock(BlockElement $block)
@@ -39,8 +42,8 @@ abstract class VirtualBlock extends BlockElement implements IteratorAggregate
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     protected function prependBlock(BlockElement $block)
     {
         if ($this->getParent() !== null) {
@@ -51,7 +54,7 @@ abstract class VirtualBlock extends BlockElement implements IteratorAggregate
             [$this->assignBlockId($block, 1)],
             array_map(function (BlockElement $block) {
                 return $this->assignBlockId($block);
-            }, $this->blocks)
+            }, $this->blocks),
         );
 
         return $this;
@@ -63,7 +66,7 @@ abstract class VirtualBlock extends BlockElement implements IteratorAggregate
         if ($multiBlockId !== null) {
             $this->index = $index ?? $this->index;
             $block->blockId("{$this->getBlockId()}.{$this->index}");
-            $this->index++;
+            ++$this->index;
         }
 
         return $block;
@@ -91,9 +94,6 @@ abstract class VirtualBlock extends BlockElement implements IteratorAggregate
         }
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = [];
@@ -109,8 +109,6 @@ abstract class VirtualBlock extends BlockElement implements IteratorAggregate
      *
      * Virtual Blocks are a write-only construct. They won't come up during a regular surface hydration. This exception
      * will only occur if someone calls `fromArray` manually on a virtual block class.
-     *
-     * @param HydrationData $data
      */
     protected function hydrate(HydrationData $data): void
     {

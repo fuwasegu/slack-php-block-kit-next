@@ -9,11 +9,12 @@ use SlackPhp\BlockKit\Partials\PlainText;
 
 trait HasPlaceholder
 {
-    /** @var PlainText */
+    /**
+     * @var PlainText
+     */
     private $placeholder;
 
     /**
-     * @param PlainText $placeholder
      * @return static
      */
     public function setPlaceholder(PlainText $placeholder)
@@ -24,7 +25,6 @@ trait HasPlaceholder
     }
 
     /**
-     * @param string $placeholder
      * @return static
      */
     public function placeholder(string $placeholder)

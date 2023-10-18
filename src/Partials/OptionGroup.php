@@ -10,12 +10,13 @@ class OptionGroup extends Element
 {
     use HasOptions;
 
-    /** @var PlainText */
+    /**
+     * @var PlainText
+     */
     private $label;
 
     /**
-     * @param string|null $label
-     * @param array<string, string>|string[]|null $options
+     * @param  array<string, string>|string[]|null $options
      * @return static
      */
     public static function new(?string $label = null, ?array $options = null)
@@ -39,7 +40,6 @@ class OptionGroup extends Element
     }
 
     /**
-     * @param PlainText $label
      * @return static
      */
     public function setLabel(PlainText $label)
@@ -50,7 +50,6 @@ class OptionGroup extends Element
     }
 
     /**
-     * @param string $label
      * @return static
      */
     public function label(string $label)
@@ -68,9 +67,6 @@ class OptionGroup extends Element
         $this->validateOptions();
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return parent::toArray()

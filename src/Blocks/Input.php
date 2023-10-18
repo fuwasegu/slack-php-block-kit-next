@@ -20,26 +20,31 @@ use SlackPhp\BlockKit\{
  */
 class Input extends BlockElement
 {
-    /** @var Partials\PlainText */
+    /**
+     * @var Partials\PlainText
+     */
     private $label;
 
-    /** @var Element */
+    /**
+     * @var Element
+     */
     private $element;
 
-    /** @var Partials\PlainText */
+    /**
+     * @var Partials\PlainText
+     */
     private $hint;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $optional;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $dispatchAction;
 
-    /**
-     * @param string|null $blockId
-     * @param string|null $label
-     * @param Element|null $element
-     */
     public function __construct(?string $blockId = null, ?string $label = null, ?Element $element = null)
     {
         parent::__construct($blockId);
@@ -57,8 +62,8 @@ class Input extends BlockElement
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function setLabel(Partials\PlainText $label)
     {
         $this->label = $label->setParent($this);
@@ -67,8 +72,8 @@ class Input extends BlockElement
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function setElement(Element $element)
     {
         if (!empty($this->element)) {
@@ -85,8 +90,8 @@ class Input extends BlockElement
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function setHint(Partials\PlainText $hint)
     {
         $this->hint = $hint->setParent($this);
@@ -95,24 +100,24 @@ class Input extends BlockElement
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function label(string $text, ?bool $emoji = null)
     {
         return $this->setLabel(new Partials\PlainText($text, $emoji));
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function hint(string $text, ?bool $emoji = null)
     {
         return $this->setHint(new Partials\PlainText($text, $emoji));
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function optional(bool $optional = true)
     {
         $this->optional = $optional;
@@ -121,8 +126,8 @@ class Input extends BlockElement
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function dispatchAction(bool $dispatchAction = true)
     {
         $this->dispatchAction = $dispatchAction;
@@ -202,9 +207,6 @@ class Input extends BlockElement
         }
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();

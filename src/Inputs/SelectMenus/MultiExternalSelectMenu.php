@@ -9,14 +9,17 @@ use SlackPhp\BlockKit\Partials\Option;
 
 class MultiExternalSelectMenu extends MultiSelectMenu
 {
-    /** @var Option[] */
+    /**
+     * @var Option[]
+     */
     private $initialOptions;
 
-    /** @var int */
+    /**
+     * @var int
+     */
     private $minQueryLength;
 
     /**
-     * @param array $options
      * @return static
      */
     public function initialOptions(array $options)
@@ -31,8 +34,8 @@ class MultiExternalSelectMenu extends MultiSelectMenu
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function minQueryLength(int $minQueryLength)
     {
         $this->minQueryLength = $minQueryLength;

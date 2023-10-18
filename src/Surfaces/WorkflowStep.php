@@ -15,15 +15,19 @@ use SlackPhp\BlockKit\HydrationData;
  */
 class WorkflowStep extends Surface
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     private $privateMetadata;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $callbackId;
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function callbackId(string $callbackId)
     {
         $this->callbackId = $callbackId;
@@ -32,8 +36,8 @@ class WorkflowStep extends Surface
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function privateMetadata(string $privateMetadata)
     {
         $this->privateMetadata = $privateMetadata;

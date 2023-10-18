@@ -22,47 +22,47 @@ $actions->newSelectMenu('m2')
     ->placeholder('Choose a user...');
 $msg->newActions('b2')
     ->newSelectMenu('m3')
-        ->forStaticOptions()
-        ->placeholder('Choose a letter?')
-        ->option('a', 'x')
-        ->option('b', 'y', true)
-        ->option('c', 'z');
+    ->forStaticOptions()
+    ->placeholder('Choose a letter?')
+    ->option('a', 'x')
+    ->option('b', 'y', true)
+    ->option('c', 'z');
 $msg->newActions('b3')
     ->newSelectMenu('m4')
-        ->forStaticOptions()
-        ->placeholder('Choose a letter?')
-        ->optionGroups([
-            'Letters' => [
-                'a' => 'l1',
-                'b' => 'l2',
-                'c' => 'l3',
-            ],
-            'Numbers' => [
-                '1' => 'n1',
-                '2' => 'n2',
-                '3' => 'n3',
-            ]
-        ])
-        ->initialOption('b', 'l2');
+    ->forStaticOptions()
+    ->placeholder('Choose a letter?')
+    ->optionGroups([
+        'Letters' => [
+            'a' => 'l1',
+            'b' => 'l2',
+            'c' => 'l3',
+        ],
+        'Numbers' => [
+            '1' => 'n1',
+            '2' => 'n2',
+            '3' => 'n3',
+        ],
+    ])
+    ->initialOption('b', 'l2');
 $msg->newSection('b4')
     ->mrkdwnText('Select some letters and numbers')
     ->newMultiSelectMenuAccessory('m5')
-        ->forStaticOptions()
-        ->placeholder('Choose a letter?')
-        ->maxSelectedItems(2)
-        ->optionGroups([
-            'Letters' => [
-                'a' => 'l1',
-                'b' => 'l2',
-                'c' => 'l3',
-            ],
-            'Numbers' => [
-                '1' => 'n1',
-                '2' => 'n2',
-                '3' => 'n3',
-            ]
-        ])
-        ->initialOptions(['b' => 'l2', 'c' => 'l3']);
+    ->forStaticOptions()
+    ->placeholder('Choose a letter?')
+    ->maxSelectedItems(2)
+    ->optionGroups([
+        'Letters' => [
+            'a' => 'l1',
+            'b' => 'l2',
+            'c' => 'l3',
+        ],
+        'Numbers' => [
+            '1' => 'n1',
+            '2' => 'n2',
+            '3' => 'n3',
+        ],
+    ])
+    ->initialOptions(['b' => 'l2', 'c' => 'l3']);
 $msg->newSection('b5')
     ->mrkdwnText('Choose from Overflow Menu')
     ->newOverflowMenuAccessory('m6')

@@ -11,8 +11,8 @@ $msg->newSection('b1')
     ->mrkdwnText('*foo* _bar_')
     ->fieldMap(['foo' => 'bar', 'fizz' => 'buzz'])
     ->newButtonAccessory('a1')
-        ->text('Click me!')
-        ->value('two');
+    ->text('Click me!')
+    ->value('two');
 $msg->divider('b2');
 $msg->newImage('b3')
     ->title('This meeting has gone off the rails!')
@@ -37,8 +37,8 @@ $actions->newButton('a4')
     ->asDangerous();
 $msg->newActions('b7')
     ->newDatePicker('a5')
-        ->placeholder('Choose a date')
-        ->initialDate('2020-01-01')
-        ->confirm('Proceed?', 'If this is correct, click "OK".');
+    ->placeholder('Choose a date')
+    ->initialDate('2020-01-01')
+    ->confirm('Proceed?', 'If this is correct, click "OK".');
 
 view($msg);

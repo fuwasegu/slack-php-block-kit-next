@@ -11,11 +11,12 @@ trait HasOptionGroups
 {
     use HasOptions;
 
-    /** @var OptionGroup[] */
+    /**
+     * @var OptionGroup[]
+     */
     private $optionGroups;
 
     /**
-     * @param OptionGroup $group
      * @return static
      */
     public function addOptionGroup(OptionGroup $group)
@@ -27,7 +28,7 @@ trait HasOptionGroups
     }
 
     /**
-     * @param array<string, array<string, string>|string[]> $optionGroups
+     * @param  array<string, array<string, string>|string[]> $optionGroups
      * @return static
      */
     public function optionGroups(array $optionGroups)
@@ -40,8 +41,7 @@ trait HasOptionGroups
     }
 
     /**
-     * @param string $label
-     * @param array<string, string>|string[] $options
+     * @param  array<string, string>|string[] $options
      * @return static
      */
     public function optionGroup(string $label, array $options)

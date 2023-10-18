@@ -21,24 +21,34 @@ class Modal extends View
 {
     private const MAX_LENGTH_TITLE = 24;
 
-    /** @var PlainText */
+    /**
+     * @var PlainText
+     */
     private $title;
 
-    /** @var PlainText */
+    /**
+     * @var PlainText
+     */
     private $submit;
 
-    /** @var PlainText */
+    /**
+     * @var PlainText
+     */
     private $close;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $clearOnClose;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $notifyOnClose;
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function setTitle(PlainText $title)
     {
         $this->title = $title->setParent($this);
@@ -47,8 +57,8 @@ class Modal extends View
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function setSubmit(PlainText $title)
     {
         $this->submit = $title->setParent($this);
@@ -57,8 +67,8 @@ class Modal extends View
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function setClose(PlainText $title)
     {
         $this->close = $title->setParent($this);
@@ -67,32 +77,32 @@ class Modal extends View
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function title(string $title)
     {
         return $this->setTitle(new PlainText($title));
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function submit(string $submit)
     {
         return $this->setSubmit(new PlainText($submit));
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function close(string $close)
     {
         return $this->setClose(new PlainText($close));
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function clearOnClose(bool $clearOnClose)
     {
         $this->clearOnClose = $clearOnClose;
@@ -101,8 +111,8 @@ class Modal extends View
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function notifyOnClose(bool $notifyOnClose)
     {
         $this->notifyOnClose = $notifyOnClose;
@@ -123,6 +133,7 @@ class Modal extends View
         foreach ($this->getBlocks() as $block) {
             if ($block->getType() === Type::INPUT) {
                 $hasInputs = true;
+
                 break;
             }
         }

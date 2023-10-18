@@ -11,21 +11,27 @@ use SlackPhp\BlockKit\{Element, Exception, HydrationData, Type};
  */
 class Option extends Element
 {
-    /** @var PlainText */
+    /**
+     * @var PlainText
+     */
     private $text;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $value;
 
-    /** @var PlainText Description text for option. NOTE: Radio Button and Checkbox groups only. */
+    /**
+     * @var PlainText Description text for option. NOTE: Radio Button and Checkbox groups only.
+     */
     private $description;
 
-    /** @var string URL to load in browser when option is clicked. NOTE: Overflow Menu only. */
+    /**
+     * @var string URL to load in browser when option is clicked. NOTE: Overflow Menu only.
+     */
     private $url;
 
     /**
-     * @param string|null $text
-     * @param string|null $value
      * @return static
      */
     public static function new(?string $text = null, ?string $value = null)
@@ -44,7 +50,6 @@ class Option extends Element
     }
 
     /**
-     * @param PlainText $text
      * @return static
      */
     public function setText(PlainText $text)
@@ -55,7 +60,6 @@ class Option extends Element
     }
 
     /**
-     * @param string $text
      * @return static
      */
     public function text(string $text)
@@ -64,7 +68,6 @@ class Option extends Element
     }
 
     /**
-     * @param string $value
      * @return static
      */
     public function value(string $value)
@@ -75,7 +78,6 @@ class Option extends Element
     }
 
     /**
-     * @param PlainText $description
      * @return static
      */
     public function setDescription(PlainText $description)
@@ -86,7 +88,6 @@ class Option extends Element
     }
 
     /**
-     * @param string $description
      * @return static
      */
     public function description(string $description)
@@ -95,7 +96,6 @@ class Option extends Element
     }
 
     /**
-     * @param string $url
      * @return static
      */
     public function url(string $url)
@@ -136,9 +136,6 @@ class Option extends Element
         }
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = [

@@ -9,15 +9,17 @@ use SlackPhp\BlockKit\Partials\Option;
 
 class ExternalSelectMenu extends SelectMenu
 {
-    /** @var Option */
+    /**
+     * @var Option
+     */
     private $initialOption;
 
-    /** @var int */
+    /**
+     * @var int
+     */
     private $minQueryLength;
 
     /**
-     * @param string $name
-     * @param string $value
      * @return static
      */
     public function initialOption(string $name, string $value)
@@ -29,8 +31,8 @@ class ExternalSelectMenu extends SelectMenu
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function minQueryLength(int $minQueryLength)
     {
         $this->minQueryLength = $minQueryLength;

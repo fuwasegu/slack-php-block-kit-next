@@ -15,11 +15,12 @@ class Context extends BlockElement
 {
     private const MAX_ELEMENTS = 10;
 
-    /** @var Element[] */
+    /**
+     * @var Element[]
+     */
     private $elements = [];
 
     /**
-     * @param string|null $blockId
      * @param Element[] $elements
      */
     public function __construct(?string $blockId = null, array $elements = [])
@@ -31,8 +32,8 @@ class Context extends BlockElement
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function add(Element $element)
     {
         if (!in_array($element->getType(), Type::CONTEXT_ELEMENTS)) {
@@ -49,24 +50,24 @@ class Context extends BlockElement
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function plainText(string $text, ?bool $emoji = null)
     {
         return $this->add(new PlainText($text, $emoji));
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function mrkdwnText(string $text, ?bool $verbatim = null)
     {
         return $this->add(new MrkdwnText($text, $verbatim));
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function image(string $url, string $altText)
     {
         return $this->add(new Image(null, $url, $altText));
@@ -83,9 +84,6 @@ class Context extends BlockElement
         }
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();

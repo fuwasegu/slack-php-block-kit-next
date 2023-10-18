@@ -15,23 +15,21 @@ use SlackPhp\BlockKit\Exception;
  */
 class TwoColumnTable extends VirtualBlock
 {
-    /** @var Section|null */
+    /**
+     * @var Section|null
+     */
     private $header;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $hasRows = false;
 
-    /**
-     * @param string|null $blockId
-     * @param array|null $rows
-     * @param array|null $cols
-     * @param string|null $caption
-     */
     public function __construct(
         ?string $blockId = null,
         ?array $rows = null,
         ?array $cols = null,
-        ?string $caption = null
+        ?string $caption = null,
     ) {
         parent::__construct($blockId);
 
@@ -52,7 +50,6 @@ class TwoColumnTable extends VirtualBlock
     /**
      * Sets a caption (text element) at the top of the table.
      *
-     * @param string $caption
      * @return static
      */
     public function caption(string $caption)
@@ -72,8 +69,6 @@ class TwoColumnTable extends VirtualBlock
      *
      * Automatically applies a bold to the header text elements.
      *
-     * @param string $left
-     * @param string $right
      * @return static
      */
     public function cols(string $left, string $right)
@@ -91,8 +86,6 @@ class TwoColumnTable extends VirtualBlock
     /**
      * Adds a row (with a left and right value) to the table.
      *
-     * @param string $left
-     * @param string $right
      * @return static
      */
     public function row(string $left, string $right)
@@ -109,7 +102,6 @@ class TwoColumnTable extends VirtualBlock
      *
      * Supports list-format (e.g., [[$left, $right], ...]) or map-format (e.g., [$left => $right, ...]) as input.
      *
-     * @param array $rows
      * @return static
      */
     public function rows(array $rows)

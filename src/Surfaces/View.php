@@ -6,9 +6,6 @@ namespace SlackPhp\BlockKit\Surfaces;
 
 use SlackPhp\BlockKit\HydrationData;
 
-use function base64_encode;
-use function http_build_query;
-
 /**
  * View represents the commonalities between the Modal and App Home surfaces.
  *
@@ -16,17 +13,22 @@ use function http_build_query;
  */
 abstract class View extends Surface
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     private $callbackId;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $externalId;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $privateMetadata;
 
     /**
-     * @param string $callbackId
      * @return static
      */
     public function callbackId(string $callbackId)
@@ -37,7 +39,6 @@ abstract class View extends Surface
     }
 
     /**
-     * @param string $externalId
      * @return static
      */
     public function externalId(string $externalId)
@@ -48,7 +49,6 @@ abstract class View extends Surface
     }
 
     /**
-     * @param string $privateMetadata
      * @return static
      */
     public function privateMetadata(string $privateMetadata)
@@ -63,12 +63,11 @@ abstract class View extends Surface
      *
      * Note: Can be decoded using `base64_decode()` and `parse_str()`.
      *
-     * @param array $data
      * @return static
      */
     public function encodePrivateMetadata(array $data)
     {
-        return $this->privateMetadata(base64_encode(http_build_query($data)));
+        return $this->privateMetadata(\base64_encode(\http_build_query($data)));
     }
 
     public function toArray(): array

@@ -9,12 +9,11 @@ use SlackPhp\BlockKit\HydrationData;
 
 abstract class InputElement extends Element
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     private $actionId;
 
-    /**
-     * @param string|null $actionId
-     */
     public function __construct(?string $actionId = null)
     {
         if (!empty($actionId)) {
@@ -23,7 +22,6 @@ abstract class InputElement extends Element
     }
 
     /**
-     * @param string $actionId
      * @return static
      */
     public function actionId(string $actionId)
@@ -33,17 +31,11 @@ abstract class InputElement extends Element
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getActionId(): ?string
     {
         return $this->actionId;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();

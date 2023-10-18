@@ -27,7 +27,6 @@ class TestCase extends PhpUnitTestCase
 
     /**
      * @param object|array $data
-     * @return string
      */
     protected function jsonEncode($data): string
     {
@@ -39,9 +38,6 @@ class TestCase extends PhpUnitTestCase
         return (string) $json;
     }
 
-    /**
-     * @return Surface
-     */
     protected function getMockSurface(): Surface
     {
         return new class () extends Surface {
@@ -54,7 +50,6 @@ class TestCase extends PhpUnitTestCase
 
     /**
      * @param BlockElement[] $subBlocks
-     * @return VirtualBlock
      */
     protected function getMockVirtualBlock(array $subBlocks = []): VirtualBlock
     {
@@ -78,8 +73,6 @@ class TestCase extends PhpUnitTestCase
     }
 
     /**
-     * @param string $class
-     * @param array $properties
      * @throws ReflectionException
      */
     protected function setStaticProperties(string $class, array $properties): void

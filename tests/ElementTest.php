@@ -130,7 +130,7 @@ class ElementTest extends TestCase
 
     public function testHydration(): void
     {
-        $beforeJson = <<<JSON
+        $beforeJson = <<<'JSON'
         {
             "type": "modal",
             "title": {

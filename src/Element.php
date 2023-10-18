@@ -9,10 +9,14 @@ use Throwable;
 
 abstract class Element implements JsonSerializable
 {
-    /** @var Element|null */
+    /**
+     * @var Element|null
+     */
     protected $parent;
 
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $extra;
 
     /**
@@ -23,16 +27,12 @@ abstract class Element implements JsonSerializable
         return new static();
     }
 
-    /**
-     * @return Element|null
-     */
     final public function getParent(): ?Element
     {
         return $this->parent;
     }
 
     /**
-     * @param Element $parent
      * @return static
      */
     final public function setParent(Element $parent)
@@ -42,9 +42,6 @@ abstract class Element implements JsonSerializable
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return Type::mapClass(static::class);
@@ -53,8 +50,7 @@ abstract class Element implements JsonSerializable
     /**
      * Allows setting arbitrary extra fields on an element.
      *
-     * @param string $key
-     * @param mixed $value
+     * @param  mixed  $value
      * @return static
      */
     final public function setExtra(string $key, $value)
@@ -73,7 +69,6 @@ abstract class Element implements JsonSerializable
      *             $elem->newSubElem()->fizz('buzz');
      *         });
      *
-     * @param callable $tap
      * @return static
      */
     final public function tap(callable $tap)
@@ -92,8 +87,6 @@ abstract class Element implements JsonSerializable
      *             $elem->newSubElem()->fizz('buzz');
      *         });
      *
-     * @param bool $condition
-     * @param callable $tap
      * @return static
      */
     final public function tapIf(bool $condition, callable $tap)
@@ -110,9 +103,6 @@ abstract class Element implements JsonSerializable
      */
     abstract public function validate(): void;
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $this->validate();
@@ -143,7 +133,6 @@ abstract class Element implements JsonSerializable
     }
 
     /**
-     * @param string $json
      * @return static
      */
     final public static function fromJson(string $json)
@@ -158,7 +147,6 @@ abstract class Element implements JsonSerializable
     }
 
     /**
-     * @param array $data
      * @return static
      */
     final public static function fromArray(array $data)
@@ -187,8 +175,7 @@ abstract class Element implements JsonSerializable
     }
 
     /**
-     * @param HydrationData $data
-     * @internal Used by fromArray implementations.
+     * @internal used by fromArray implementations
      */
     protected function hydrate(HydrationData $data): void
     {

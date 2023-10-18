@@ -11,11 +11,12 @@ class Actions extends BlockElement
 {
     private const MAX_ACTIONS = 5;
 
-    /** @var Element[] */
+    /**
+     * @var Element[]
+     */
     private $elements = [];
 
     /**
-     * @param string|null $blockId
      * @param Element[] $elements
      */
     public function __construct(?string $blockId = null, array $elements = [])
@@ -27,8 +28,8 @@ class Actions extends BlockElement
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function add(Element $element)
     {
         if (!in_array($element->getType(), Type::ACTION_ELEMENTS)) {
@@ -115,7 +116,7 @@ class Actions extends BlockElement
         $actionIds = [];
         foreach ($this->elements as $element) {
             $element->validate();
-            if ($element instanceof InputElement && ! is_null($element->getActionId())) {
+            if ($element instanceof InputElement && !is_null($element->getActionId())) {
                 $actionIds[] = $element->getActionId();
             }
         }
@@ -124,14 +125,14 @@ class Actions extends BlockElement
         if (count($actionIdArrayCount) > 0) {
             $duplicateActionIds = [];
             foreach ($actionIdArrayCount as $key => $value) {
-                if ((int)$value > 1) {
+                if ((int) $value > 1) {
                     $duplicateActionIds[] = $key;
                 }
             }
 
             if (count($duplicateActionIds) > 0) {
                 throw new Exception(
-                    'The following action_ids are duplicated : ' . implode(', ', $duplicateActionIds) . ' ]'
+                    'The following action_ids are duplicated : ' . implode(', ', $duplicateActionIds) . ' ]',
                 );
             }
         }

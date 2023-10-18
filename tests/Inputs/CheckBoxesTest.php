@@ -40,7 +40,7 @@ class CheckBoxesTest extends TestCase
                         'text' => 'foobar',
                     ],
                     'value' => 'foobar',
-                ]
+                ],
             ],
             'options' => [
                 [
@@ -82,13 +82,12 @@ class CheckBoxesTest extends TestCase
                     'type' => 'plain_text',
                     'text' => 'Cancel',
                 ],
-            ]
+            ],
         ], $input);
     }
 
     public function testTooManyOptions(): void
     {
-
         $this->expectException(Exception::class);
         $input = (new Checkboxes())
             ->option('foo', 'foo')

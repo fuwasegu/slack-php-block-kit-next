@@ -8,14 +8,17 @@ use SlackPhp\BlockKit\HydrationData;
 
 class ChannelSelectMenu extends SelectMenu
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     private $initialChannel;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $responseUrlEnabled;
 
     /**
-     * @param string $initialChannel
      * @return static
      */
     public function initialChannel(string $initialChannel)
@@ -26,7 +29,6 @@ class ChannelSelectMenu extends SelectMenu
     }
 
     /**
-     * @param bool $enabled
      * @return static
      */
     public function responseUrlEnabled(bool $enabled)
@@ -36,9 +38,6 @@ class ChannelSelectMenu extends SelectMenu
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();

@@ -21,9 +21,6 @@ class OverflowMenu extends InputElement
     }
 
     /**
-     * @param string $text
-     * @param string $value
-     * @param string $url
      * @return static
      */
     public function urlOption(string $text, string $value, string $url)
@@ -40,9 +37,6 @@ class OverflowMenu extends InputElement
         }
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();

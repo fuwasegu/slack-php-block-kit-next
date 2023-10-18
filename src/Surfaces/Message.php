@@ -26,13 +26,19 @@ class Message extends Surface
         self::DELETE_ORIGINAL,
     ];
 
-    /** @var array|Attachment[] Attachments containing secondary content. */
+    /**
+     * @var array|Attachment[] Attachments containing secondary content.
+     */
     private $attachments = [];
 
-    /** @var array|string[] A message can have a directive (e.g., response_type) included along with its blocks. */
+    /**
+     * @var array|string[] A message can have a directive (e.g., response_type) included along with its blocks.
+     */
     private $directives = [];
 
-    /** @var array */
+    /**
+     * @var array
+     */
     private $fallbackText = [];
 
     /**
@@ -78,7 +84,6 @@ class Message extends Surface
     }
 
     /**
-     * @param array $directives
      * @return static
      */
     private function directives(array $directives)
@@ -91,8 +96,6 @@ class Message extends Surface
     /**
      * Sets the legacy "text" property, that acts as a fallback in situations where blocks cannot be rendered.
      *
-     * @param string $message
-     * @param bool|null $mrkdwn
      * @return static
      */
     public function fallbackText(string $message, ?bool $mrkdwn = null)
@@ -106,7 +109,6 @@ class Message extends Surface
     }
 
     /**
-     * @param Attachment $attachment
      * @return static
      */
     public function addAttachment(Attachment $attachment)
@@ -116,9 +118,6 @@ class Message extends Surface
         return $this;
     }
 
-    /**
-     * @return Attachment
-     */
     public function newAttachment(): Attachment
     {
         $attachment = new Attachment();
@@ -130,7 +129,7 @@ class Message extends Surface
     /**
      * Clones a message for the purpose of generating a Block Kit Builder preview URL.
      *
-     * @internal Used by Previewer only.
+     * @internal used by Previewer only
      * @return static
      */
     public function asPreviewableMessage()

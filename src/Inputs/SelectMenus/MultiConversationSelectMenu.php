@@ -9,17 +9,23 @@ use SlackPhp\BlockKit\Partials\Filter;
 
 class MultiConversationSelectMenu extends MultiSelectMenu
 {
-    /** @var string[] */
+    /**
+     * @var string[]
+     */
     private $initialConversations;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $defaultToCurrentConversation;
 
-    /** @var Filter */
+    /**
+     * @var Filter
+     */
     private $filter;
 
     /**
-     * @param string[] $initialConversations
+     * @param  string[] $initialConversations
      * @return static
      */
     public function initialConversations(array $initialConversations)
@@ -30,7 +36,6 @@ class MultiConversationSelectMenu extends MultiSelectMenu
     }
 
     /**
-     * @param bool $enabled
      * @return static
      */
     public function defaultToCurrentConversation(bool $enabled)
@@ -41,7 +46,6 @@ class MultiConversationSelectMenu extends MultiSelectMenu
     }
 
     /**
-     * @param Filter $filter
      * @return static
      */
     public function setFilter(Filter $filter)
@@ -51,9 +55,6 @@ class MultiConversationSelectMenu extends MultiSelectMenu
         return $this;
     }
 
-    /**
-     * @return Filter
-     */
     public function newFilter(): Filter
     {
         $filter = Filter::new();
@@ -71,9 +72,6 @@ class MultiConversationSelectMenu extends MultiSelectMenu
         }
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();

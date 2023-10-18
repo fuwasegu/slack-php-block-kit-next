@@ -73,7 +73,7 @@ class RadioButtonsTest extends TestCase
                     'type' => 'plain_text',
                     'text' => 'Cancel',
                 ],
-            ]
+            ],
         ], $input);
     }
 

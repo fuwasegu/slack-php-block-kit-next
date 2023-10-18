@@ -6,7 +6,7 @@ use SlackPhp\BlockKit\Surfaces\Message;
 
 require __DIR__ . '/bootstrap.php';
 
-$json = <<<JSON
+$json = <<<'JSON'
 {
     "response_type": "in_channel",
     "blocks": [

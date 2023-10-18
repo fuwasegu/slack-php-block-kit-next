@@ -14,24 +14,34 @@ class TextInput extends InputElement
 
     private const MAX_MIN_LENGTH = 3000;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $initialValue;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $multiline;
 
-    /** @var int */
+    /**
+     * @var int
+     */
     private $minLength;
 
-    /** @var int */
+    /**
+     * @var int
+     */
     private $maxLength;
 
-    /** @var DispatchActionConfig */
+    /**
+     * @var DispatchActionConfig
+     */
     private $dispatchActionConfig;
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function initialValue(string $text)
     {
         $this->initialValue = $text;
@@ -40,8 +50,8 @@ class TextInput extends InputElement
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function multiline(bool $flag)
     {
         $this->multiline = $flag;
@@ -50,8 +60,8 @@ class TextInput extends InputElement
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function minLength(int $length)
     {
         if ($length < 0) {
@@ -64,8 +74,8 @@ class TextInput extends InputElement
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function maxLength(int $length)
     {
         if ($length < 1) {
@@ -78,8 +88,8 @@ class TextInput extends InputElement
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function setDispatchActionConfig(DispatchActionConfig $config)
     {
         $this->dispatchActionConfig = $config;
@@ -88,8 +98,8 @@ class TextInput extends InputElement
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function triggerActionOnEnterPressed()
     {
         $config = $this->dispatchActionConfig ?? DispatchActionConfig::new();
@@ -99,8 +109,8 @@ class TextInput extends InputElement
     }
 
     /**
-    * @return static
-    */
+     * @return static
+     */
     public function triggerActionOnCharacterEntered()
     {
         $config = $this->dispatchActionConfig ?? DispatchActionConfig::new();
@@ -130,9 +140,6 @@ class TextInput extends InputElement
         }
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();
@@ -188,7 +195,7 @@ class TextInput extends InputElement
 
         if ($data->has('dispatch_action_config')) {
             $this->setDispatchActionConfig(
-                DispatchActionConfig::fromArray($data->useElement('dispatch_action_config'))
+                DispatchActionConfig::fromArray($data->useElement('dispatch_action_config')),
             );
         }
 

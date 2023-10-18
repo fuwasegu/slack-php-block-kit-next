@@ -9,18 +9,22 @@ namespace SlackPhp\BlockKit;
  */
 final class Config
 {
-    /** @var bool|null */
-    private $defaultVerbatimSetting = null;
+    /**
+     * @var bool|null
+     */
+    private $defaultVerbatimSetting;
 
-    /** @var bool|null */
-    private $defaultEmojiSetting = null;
+    /**
+     * @var bool|null
+     */
+    private $defaultEmojiSetting;
 
     /**
      * @return static
      */
     public static function new()
     {
-        return new static();
+        return new self();
     }
 
     public function getDefaultVerbatimSetting(): ?bool

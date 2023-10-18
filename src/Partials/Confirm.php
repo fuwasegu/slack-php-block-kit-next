@@ -8,23 +8,31 @@ use SlackPhp\BlockKit\{Element, Exception, HydrationData};
 
 class Confirm extends Element
 {
-    /** @var PlainText */
+    /**
+     * @var PlainText
+     */
     private $title;
 
-    /** @var Text */
+    /**
+     * @var Text
+     */
     private $text;
 
-    /** @var PlainText */
+    /**
+     * @var PlainText
+     */
     private $confirm;
 
-    /** @var PlainText */
+    /**
+     * @var PlainText
+     */
     private $deny;
 
     public function __construct(
         ?string $title = null,
         ?string $text = null,
         ?string $confirm = null,
-        ?string $deny = null
+        ?string $deny = null,
     ) {
         if (!empty($title)) {
             $this->title($title);
@@ -39,7 +47,6 @@ class Confirm extends Element
     }
 
     /**
-     * @param PlainText $title
      * @return static
      */
     public function setTitle(PlainText $title)
@@ -50,7 +57,6 @@ class Confirm extends Element
     }
 
     /**
-     * @param Text $text
      * @return static
      */
     public function setText(Text $text)
@@ -61,7 +67,6 @@ class Confirm extends Element
     }
 
     /**
-     * @param PlainText $confirm
      * @return static
      */
     public function setConfirm(PlainText $confirm)
@@ -72,7 +77,6 @@ class Confirm extends Element
     }
 
     /**
-     * @param PlainText $deny
      * @return static
      */
     public function setDeny(PlainText $deny)
@@ -83,7 +87,6 @@ class Confirm extends Element
     }
 
     /**
-     * @param string $title
      * @return static
      */
     public function title(string $title)
@@ -92,7 +95,6 @@ class Confirm extends Element
     }
 
     /**
-     * @param string $text
      * @return static
      */
     public function text(string $text)
@@ -101,7 +103,6 @@ class Confirm extends Element
     }
 
     /**
-     * @param string $confirm
      * @return static
      */
     public function confirm(string $confirm)
@@ -110,7 +111,6 @@ class Confirm extends Element
     }
 
     /**
-     * @param string $deny
      * @return static
      */
     public function deny(string $deny)
@@ -142,9 +142,6 @@ class Confirm extends Element
         $this->deny->validate();
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return parent::toArray() + [

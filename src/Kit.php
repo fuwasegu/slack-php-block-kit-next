@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace SlackPhp\BlockKit;
 
-use SlackPhp\BlockKit\Surfaces;
-
 /**
  * Kit act as a static façade to the whole block kit library.
  *
@@ -15,13 +13,19 @@ use SlackPhp\BlockKit\Surfaces;
  */
 abstract class Kit
 {
-    /** @var Config */
+    /**
+     * @var Config
+     */
     private static $config;
 
-    /** @var Formatter */
+    /**
+     * @var Formatter
+     */
     private static $formatter;
 
-    /** @var Previewer */
+    /**
+     * @var Previewer
+     */
     private static $previewer;
 
     public static function newAppHome(): Surfaces\AppHome

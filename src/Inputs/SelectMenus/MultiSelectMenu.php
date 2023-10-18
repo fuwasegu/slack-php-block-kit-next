@@ -8,11 +8,12 @@ use SlackPhp\BlockKit\HydrationData;
 
 abstract class MultiSelectMenu extends SelectMenu
 {
-    /** @var int|null */
+    /**
+     * @var int|null
+     */
     protected $maxSelectedItems;
 
     /**
-     * @param int $maxSelectedItems
      * @return static
      */
     public function maxSelectedItems(int $maxSelectedItems)
@@ -23,7 +24,6 @@ abstract class MultiSelectMenu extends SelectMenu
     }
 
     /**
-     * @param int $maxSelectedItems
      * @deprecated Inconsistent method name. Use MultiSelectMenu::maxSelectedItems() instead.
      * @return static
      */
@@ -34,9 +34,6 @@ abstract class MultiSelectMenu extends SelectMenu
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();

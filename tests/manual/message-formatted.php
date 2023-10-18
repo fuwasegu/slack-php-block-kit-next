@@ -43,7 +43,7 @@ $msg = Kit::newMessage()->tap(function (Message $msg) {
             'host'     => $f->user($event->hostId),
             'channel'  => $f->channel($event->channelId),
             'time'     => $f->time($event->timestamp),
-        ]
+        ],
     ));
 });
 

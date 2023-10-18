@@ -9,12 +9,11 @@ use SlackPhp\BlockKit\HydrationData;
 
 abstract class BlockElement extends Element
 {
-    /** @var string|null */
+    /**
+     * @var string|null
+     */
     private $blockId;
 
-    /**
-     * @param string|null $blockId
-     */
     public function __construct(?string $blockId = null)
     {
         if (!empty($blockId)) {
@@ -23,7 +22,6 @@ abstract class BlockElement extends Element
     }
 
     /**
-     * @param string $blockId
      * @return static
      */
     public function blockId(string $blockId)
@@ -33,17 +31,11 @@ abstract class BlockElement extends Element
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getBlockId(): ?string
     {
         return $this->blockId;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();
