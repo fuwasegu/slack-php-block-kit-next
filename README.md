@@ -4,23 +4,10 @@
   <p align="center">By Jeremy Lindblom (<a href="https://twitter.com/jeremeamia">@jeremeamia</a>)</p>
 </header>
 
-<p align="center">
-  <img src="https://repository-images.githubusercontent.com/358292134/398fbb00-9dbe-11eb-9167-fd67cf034596" alt="Slack logo placed on top of blocks" width="50%">
-</p>
-
-<p align="center">
-  <a href="http://php.net/">
-    <img src="https://img.shields.io/badge/code-php7-8892bf.svg" alt="Coded in PHP 7">
-  </a>
-  <a href="https://packagist.org/packages/slack-php/slack-block-kit">
-    <img src="https://img.shields.io/packagist/v/slack-php/slack-block-kit.svg" alt="Packagist Version">
-  </a>
-  <a href="https://github.com/slack-php/slack-php-block-kit/actions">
-    <img src="https://img.shields.io/github/workflow/status/slack-php/slack-php-block-kit/PHP%20Composer.svg" alt="Build Status">
-  </a>
-</p>
 
 ---
+## Warning!
+This project is a fork of [this](https://github.com/slack-php/slack-php-block-kit), but deviates from the original project.
 
 ## Introduction
 
