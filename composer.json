@@ -31,8 +31,8 @@
     },
     "scripts": {
         "stan": "phpstan analyse -c phpstan.neon",
-        "style-fix": "phpcbf --standard=PSR12 src tests",
-        "style-lint": "phpcs --standard=PSR12 src tests",
+        "style-fix": "./vendor/bin/php-cs-fixer fix",
+        "style-lint": "./vendor/bin/php-cs-fixer fix --dry-run",
         "test": "phpunit --bootstrap=vendor/autoload.php --no-coverage tests",
         "test-all":  [
             "@style-lint",
