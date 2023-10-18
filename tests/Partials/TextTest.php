@@ -16,7 +16,7 @@ class TextTest extends TestCase
     private const MAX_LENGTH = 5;
     private const MIN_LENGTH = 2;
 
-    public function testCanValidateEnglishText()
+    public function testCanValidateEnglishText(): void
     {
         $text = new class () extends Text {
         };
@@ -32,7 +32,7 @@ class TextTest extends TestCase
         $text->validateString('a', self::MAX_LENGTH, self::MIN_LENGTH);
     }
 
-    public function testCanValidateJapaneseText()
+    public function testCanValidateJapaneseText(): void
     {
         $text = new class () extends Text {
         };

@@ -15,7 +15,7 @@ class IntegrationTest extends TestCase
             ->submit('xxx_submit')
             ->close('xxx_close')
             ->callbackId('xxx_callback_id')
-            ->tap(function (Modal $modal) {
+            ->tap(static function (Modal $modal): void {
                 $modal
                     ->newInput('xxx_text_input_block')
                     ->label('TextInput')
@@ -23,7 +23,7 @@ class IntegrationTest extends TestCase
                     ->maxLength(100)
                     ->minLength(10);
             })
-            ->tap(function (Modal $modal) {
+            ->tap(static function (Modal $modal): void {
                 $modal
                     ->newInput('xxx_number_input_block')
                     ->label('NumberInput')

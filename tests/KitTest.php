@@ -14,7 +14,7 @@ use SlackPhp\BlockKit\Surfaces\{AppHome, Message, Modal};
  */
 class KitTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setStaticProperties(Kit::class, [

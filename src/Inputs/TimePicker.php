@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace SlackPhp\BlockKit\Inputs;
 
-use DateTime;
 use SlackPhp\BlockKit\Exception;
 use SlackPhp\BlockKit\HydrationData;
 use SlackPhp\BlockKit\Partials\Confirm;
@@ -27,7 +26,7 @@ class TimePicker extends InputElement
      */
     public function initialTime(string $time)
     {
-        $dateTime = DateTime::createFromFormat(self::TIME_FORMAT, $time);
+        $dateTime = \DateTimeImmutable::createFromFormat(self::TIME_FORMAT, $time);
         if (!$dateTime) {
             throw new Exception('Time was formatted incorrectly (must be H:i)');
         }

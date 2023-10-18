@@ -32,7 +32,7 @@ class Actions extends BlockElement
      */
     public function add(Element $element)
     {
-        if (!in_array($element->getType(), Type::ACTION_ELEMENTS)) {
+        if (!in_array($element->getType(), Type::ACTION_ELEMENTS, true)) {
             throw new Exception('Invalid actions element type: %s', [$element->getType()]);
         }
 
@@ -63,14 +63,14 @@ class Actions extends BlockElement
 
     public function newSelectMenu(?string $actionId = null): Inputs\SelectMenus\SelectMenuFactory
     {
-        return new Inputs\SelectMenus\SelectMenuFactory($actionId, function (Inputs\SelectMenus\SelectMenu $menu) {
+        return new Inputs\SelectMenus\SelectMenuFactory($actionId, function (Inputs\SelectMenus\SelectMenu $menu): void {
             $this->add($menu);
         });
     }
 
     public function newMultiSelectMenu(?string $actionId = null): Inputs\SelectMenus\MultiSelectMenuFactory
     {
-        return new Inputs\SelectMenus\MultiSelectMenuFactory($actionId, function (Inputs\SelectMenus\SelectMenu $menu) {
+        return new Inputs\SelectMenus\MultiSelectMenuFactory($actionId, function (Inputs\SelectMenus\SelectMenu $menu): void {
             $this->add($menu);
         });
     }
@@ -116,7 +116,7 @@ class Actions extends BlockElement
         $actionIds = [];
         foreach ($this->elements as $element) {
             $element->validate();
-            if ($element instanceof InputElement && !is_null($element->getActionId())) {
+            if ($element instanceof InputElement && $element->getActionId() !== null) {
                 $actionIds[] = $element->getActionId();
             }
         }
@@ -125,7 +125,7 @@ class Actions extends BlockElement
         if (count($actionIdArrayCount) > 0) {
             $duplicateActionIds = [];
             foreach ($actionIdArrayCount as $key => $value) {
-                if ((int) $value > 1) {
+                if ((int)$value > 1) {
                     $duplicateActionIds[] = $key;
                 }
             }

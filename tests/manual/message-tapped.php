@@ -9,11 +9,11 @@ use SlackPhp\BlockKit\Surfaces\Message;
 
 require __DIR__ . '/bootstrap.php';
 
-$msg = Kit::newMessage()->tap(function (Message $msg) {
+$msg = Kit::newMessage()->tap(static function (Message $msg): void {
     $msg->newSection('b1')
         ->mrkdwnText('*foo* _bar_')
         ->fieldMap(['foo' => 'bar', 'fizz' => 'buzz'])
-        ->tap(function (Section $sec) {
+        ->tap(static function (Section $sec): void {
             $sec->newButtonAccessory('a1')
                 ->text('Click me!')
                 ->value('two');
@@ -27,7 +27,7 @@ $msg = Kit::newMessage()->tap(function (Message $msg) {
         ->image('https://i.imgflip.com/3dezi8.jpg', 'off the friggin rails again')
         ->mrkdwnText('*foo* _bar_');
     $msg->text('Hello!', 'b5');
-    $msg->newActions('b6')->tap(function (Actions $actions) {
+    $msg->newActions('b6')->tap(static function (Actions $actions): void {
         $actions->newButton('a2')
             ->text('Complete')
             ->value('completed')
@@ -41,7 +41,7 @@ $msg = Kit::newMessage()->tap(function (Message $msg) {
             ->confirm('Are you sure?', 'If you want to remove it, click "OK".')
             ->asDangerous();
     });
-    $msg->newActions('b7')->tap(function (Actions $actions) {
+    $msg->newActions('b7')->tap(static function (Actions $actions): void {
         $actions->newDatePicker('a5')
             ->placeholder('Choose a date')
             ->initialDate('2020-01-01')

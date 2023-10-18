@@ -81,8 +81,8 @@ trait HasOptions
     public function options(array $options)
     {
         foreach ($options as $text => $value) {
-            $value = (string) $value;
-            $text = is_int($text) ? $value : (string) $text;
+            $value = (string)$value;
+            $text = is_int($text) ? $value : (string)$text;
             $this->addOption(Option::new($text, $value));
         }
 
@@ -108,8 +108,8 @@ trait HasOptions
     public function initialOptions(array $options)
     {
         foreach ($options as $text => $value) {
-            $value = (string) $value;
-            $text = is_int($text) ? $value : (string) $text;
+            $value = (string)$value;
+            $text = is_int($text) ? $value : (string)$text;
             $this->initialOption($text, $value);
         }
 
@@ -118,7 +118,7 @@ trait HasOptions
 
     protected function validateOptions(): void
     {
-        $minOptions = (int) $this->config()->getMinOptions();
+        $minOptions = (int)$this->config()->getMinOptions();
         if (empty($this->options) || count($this->options) < $minOptions) {
             throw new Exception('You must provide at least %d "options" for %s.', [$minOptions, static::class]);
         }
@@ -163,7 +163,7 @@ trait HasOptions
 
     protected function getOptionsAsArray(): array
     {
-        return ['options' => array_map(function (Option $option) {
+        return ['options' => array_map(static function (Option $option) {
             return $option->toArray();
         }, $this->options)];
     }
@@ -174,13 +174,13 @@ trait HasOptions
             return [];
         }
 
-        $maxInitialOptions = (int) $this->config()->getMaxInitialOptions();
+        $maxInitialOptions = (int)$this->config()->getMaxInitialOptions();
 
         if ($maxInitialOptions === 1) {
             return ['initial_option' => $this->initialOptions[0]->toArray()];
         }
 
-        return ['initial_options' => array_map(function (Option $initialOption) {
+        return ['initial_options' => array_map(static function (Option $initialOption) {
             return $initialOption->toArray();
         }, $this->initialOptions)];
     }

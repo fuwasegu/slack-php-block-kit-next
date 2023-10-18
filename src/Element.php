@@ -27,7 +27,7 @@ abstract class Element implements JsonSerializable
         return new static();
     }
 
-    final public function getParent(): ?Element
+    final public function getParent(): ?self
     {
         return $this->parent;
     }
@@ -35,7 +35,7 @@ abstract class Element implements JsonSerializable
     /**
      * @return static
      */
-    final public function setParent(Element $parent)
+    final public function setParent(self $parent)
     {
         $this->parent = $parent;
 
@@ -111,7 +111,7 @@ abstract class Element implements JsonSerializable
         $data = !in_array($type, Type::HIDDEN_TYPES, true) ? compact('type') : [];
 
         foreach ($this->extra ?? [] as $key => $value) {
-            $data[$key] = $value instanceof Element ? $value->toArray() : $value;
+            $data[$key] = $value instanceof self ? $value->toArray() : $value;
         }
 
         return $data;
@@ -124,7 +124,7 @@ abstract class Element implements JsonSerializable
             $opts |= JSON_PRETTY_PRINT;
         }
 
-        return (string) json_encode($this, $opts);
+        return (string)json_encode($this, $opts);
     }
 
     public function jsonSerialize(): array
@@ -159,7 +159,7 @@ abstract class Element implements JsonSerializable
         // - If no type present, use the late-static-bound class.
         $class = static::class;
         if ($data->has('type')) {
-            $typeClass = Type::mapType((string) $data->get('type'));
+            $typeClass = Type::mapType((string)$data->get('type'));
             if (is_a($typeClass, $class, true)) {
                 $class = $typeClass;
             } else {
@@ -181,7 +181,7 @@ abstract class Element implements JsonSerializable
     {
         $type = $data->useValue('type');
 
-        $class = get_class($this);
+        $class = static::class;
         if (is_string($type) && Type::mapType($type) !== $class) {
             throw new Exception('[Hydration] Type %s does not map to class %s.', [$type, $class]);
         }

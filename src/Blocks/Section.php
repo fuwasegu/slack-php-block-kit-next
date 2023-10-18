@@ -69,7 +69,7 @@ class Section extends BlockElement
             throw new Exception('Section accessory already set as type %s', [$this->accessory->getType()]);
         }
 
-        if (!in_array($accessory->getType(), Type::ACCESSORY_ELEMENTS)) {
+        if (!in_array($accessory->getType(), Type::ACCESSORY_ELEMENTS, true)) {
             throw new Exception('Invalid section accessory type: %s', [$accessory->getType()]);
         }
 
@@ -151,14 +151,14 @@ class Section extends BlockElement
 
     public function newSelectMenuAccessory(?string $actionId = null): Inputs\SelectMenus\SelectMenuFactory
     {
-        return new Inputs\SelectMenus\SelectMenuFactory($actionId, function (Inputs\SelectMenus\SelectMenu $menu) {
+        return new Inputs\SelectMenus\SelectMenuFactory($actionId, function (Inputs\SelectMenus\SelectMenu $menu): void {
             $this->setAccessory($menu);
         });
     }
 
     public function newMultiSelectMenuAccessory(?string $actionId = null): Inputs\SelectMenus\MultiSelectMenuFactory
     {
-        return new Inputs\SelectMenus\MultiSelectMenuFactory($actionId, function (Inputs\SelectMenus\SelectMenu $menu) {
+        return new Inputs\SelectMenus\MultiSelectMenuFactory($actionId, function (Inputs\SelectMenus\SelectMenu $menu): void {
             $this->setAccessory($menu);
         });
     }

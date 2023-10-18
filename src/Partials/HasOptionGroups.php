@@ -34,7 +34,7 @@ trait HasOptionGroups
     public function optionGroups(array $optionGroups)
     {
         foreach ($optionGroups as $label => $options) {
-            $this->optionGroup((string) $label, $options);
+            $this->optionGroup((string)$label, $options);
         }
 
         return $this;
@@ -67,7 +67,7 @@ trait HasOptionGroups
     protected function getOptionGroupsAsArray(): array
     {
         if (!empty($this->optionGroups)) {
-            return ['option_groups' => array_map(function (OptionGroup $optionGroup) {
+            return ['option_groups' => array_map(static function (OptionGroup $optionGroup) {
                 return $optionGroup->toArray();
             }, $this->optionGroups)];
         } else {

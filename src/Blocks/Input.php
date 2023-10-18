@@ -80,7 +80,7 @@ class Input extends BlockElement
             throw new Exception('Input element already set as type %s', [$this->element->getType()]);
         }
 
-        if (!in_array($element->getType(), Type::INPUT_ELEMENTS)) {
+        if (!in_array($element->getType(), Type::INPUT_ELEMENTS, true)) {
             throw new Exception('Invalid input element type: %s', [$element->getType()]);
         }
 
@@ -145,14 +145,14 @@ class Input extends BlockElement
 
     public function newSelectMenu(?string $actionId = null): Inputs\SelectMenus\SelectMenuFactory
     {
-        return new Inputs\SelectMenus\SelectMenuFactory($actionId, function (Inputs\SelectMenus\SelectMenu $menu) {
+        return new Inputs\SelectMenus\SelectMenuFactory($actionId, function (Inputs\SelectMenus\SelectMenu $menu): void {
             $this->setElement($menu);
         });
     }
 
     public function newMultiSelectMenu(?string $actionId = null): Inputs\SelectMenus\MultiSelectMenuFactory
     {
-        return new Inputs\SelectMenus\MultiSelectMenuFactory($actionId, function (Inputs\SelectMenus\SelectMenu $menu) {
+        return new Inputs\SelectMenus\MultiSelectMenuFactory($actionId, function (Inputs\SelectMenus\SelectMenu $menu): void {
             $this->setElement($menu);
         });
     }

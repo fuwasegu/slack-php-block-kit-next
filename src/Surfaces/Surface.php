@@ -173,7 +173,7 @@ abstract class Surface extends Element
         $blolckIds = [];
         foreach ($blocks as $block) {
             $block->validate();
-            if (!is_null($block->getBlockId())) {
+            if ($block->getBlockId() !== null) {
                 $blolckIds[] = $block->getBlockId();
             }
         }
@@ -182,7 +182,7 @@ abstract class Surface extends Element
         if (count($blockIdArrayCount) > 0) {
             $duplicateBlockIds = [];
             foreach ($blockIdArrayCount as $key => $value) {
-                if ((int) $value > 1) {
+                if ((int)$value > 1) {
                     $duplicateBlockIds[] = $key;
                 }
             }

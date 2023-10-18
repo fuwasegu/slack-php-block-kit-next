@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SlackPhp\BlockKit\Tests;
 
 use SlackPhp\BlockKit\Blocks\Section;
@@ -64,7 +66,7 @@ class ElementTest extends TestCase
 
     public function testCanTapIntoElementForChaining(): void
     {
-        $element = $this->getMockElement()->tap(function (Element $e) {
+        $element = $this->getMockElement()->tap(static function (Element $e): void {
             $e->setExtra('fizz', 'buzz');
         });
 
@@ -78,7 +80,7 @@ class ElementTest extends TestCase
 
     public function testCanConditionallyTapIntoElementForChaining(): void
     {
-        $callable = function (Element $e) {
+        $callable = static function (Element $e): void {
             $e->setExtra('fizz', 'buzz');
         };
         $tappedElement = $this->getMockElement()->tapIf(true, $callable);

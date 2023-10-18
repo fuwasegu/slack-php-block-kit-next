@@ -12,7 +12,7 @@ use SlackPhp\BlockKit\Tests\TestCase;
  */
 class WorkflowStepTest extends TestCase
 {
-    public function testCanConfigureTextInput()
+    public function testCanConfigureTextInput(): void
     {
         $workflowStep = WorkflowStep::new()
             ->callbackId('my_step')

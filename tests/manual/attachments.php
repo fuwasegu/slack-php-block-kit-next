@@ -6,7 +6,7 @@ use SlackPhp\BlockKit\Surfaces\Message;
 
 require __DIR__ . '/bootstrap.php';
 
-$msg = Message::new()->tap(function (Message $msg) {
+$msg = Message::new()->tap(static function (Message $msg): void {
     $msg->text('Primary Content');
     $msg->newAttachment()->color('#ff0000')->text('Attachment 1');
     $msg->newAttachment()->color('#00ff00')->text('Attachment 2');

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SlackPhp\BlockKit\Tests;
 
 use SlackPhp\BlockKit\Blocks\BlockElement;
@@ -35,7 +37,7 @@ class TestCase extends PhpUnitTestCase
             $this->fail('JSON encoding error in test.');
         }
 
-        return (string) $json;
+        return (string)$json;
     }
 
     protected function getMockSurface(): Surface

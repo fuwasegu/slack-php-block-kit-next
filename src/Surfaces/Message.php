@@ -27,7 +27,7 @@ class Message extends Surface
     ];
 
     /**
-     * @var array|Attachment[] Attachments containing secondary content.
+     * @var array|Attachment[] attachments containing secondary content
      */
     private $attachments = [];
 

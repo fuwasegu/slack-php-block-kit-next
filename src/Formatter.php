@@ -158,7 +158,7 @@ final class Formatter
     {
         $index = 0;
 
-        return $this->lines($this->explode($items), function (string $item) use (&$index) {
+        return $this->lines($this->explode($items), static function (string $item) use (&$index) {
             ++$index;
 
             return "{$index}. {$item}";
@@ -175,14 +175,14 @@ final class Formatter
     public function lines(array $lines, $prefix = null, bool $filter = true): string
     {
         if (\is_string($prefix)) {
-            $prefix = function (string $value) use ($prefix) {
+            $prefix = static function (string $value) use ($prefix) {
                 return "{$prefix}{$value}";
             };
         }
 
         if (\is_callable($prefix)) {
             $lines = \array_map($prefix, $lines);
-        } elseif (!\is_null($prefix)) {
+        } elseif ($prefix !== null) {
             throw new Exception('Formatter::lines given invalid prefix argument');
         }
 

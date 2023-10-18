@@ -7,7 +7,7 @@ use SlackPhp\BlockKit\Surfaces\Message;
 
 require __DIR__ . '/bootstrap.php';
 
-$msg = Kit::newMessage()->tap(function (Message $msg) {
+$msg = Kit::newMessage()->tap(static function (Message $msg): void {
     $f = Kit::formatter();
     $msg->text(<<<MRKDWN
     {$f->escape('<&>')}
@@ -30,7 +30,7 @@ $msg = Kit::newMessage()->tap(function (Message $msg) {
     Hey {$f->atEveryone()}
     MRKDWN);
 
-    $event = (object) [
+    $event = (object)[
         'timestamp' => strtotime('+2 days'),
         'hostId' => 'U123456',
         'channelId' => 'C123456',

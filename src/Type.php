@@ -242,7 +242,7 @@ abstract class Type
 
     public static function mapType(string $type): string
     {
-        $class = array_search($type, self::$typeMap);
+        $class = array_search($type, self::$typeMap, true);
         if (!$class) {
             throw new Exception('No class for type: %s', [$type]);
         }
