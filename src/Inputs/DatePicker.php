@@ -8,6 +8,7 @@ use SlackPhp\BlockKit\Exception;
 use SlackPhp\BlockKit\HydrationData;
 use SlackPhp\BlockKit\Partials\Confirm;
 use SlackPhp\BlockKit\Partials\PlainText;
+use DateTimeImmutable;
 
 class DatePicker extends InputElement
 {
@@ -26,7 +27,7 @@ class DatePicker extends InputElement
      */
     public function initialDate(string $date)
     {
-        $dateTime = \DateTimeImmutable::createFromFormat(self::DATE_FORMAT, $date);
+        $dateTime = DateTimeImmutable::createFromFormat(self::DATE_FORMAT, $date);
         if (!$dateTime) {
             throw new Exception('Date was formatted incorrectly (must be Y-m-d)');
         }

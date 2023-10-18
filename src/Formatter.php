@@ -169,10 +169,8 @@ final class Formatter
      * Takes a list of lines/strings, and concatenates them with newlines, filtering out any empty lines.
      *
      * Optionally applies a prefix to each line. You can use a closure if the prefix varies per line.
-     *
-     * @param string|callable|null $prefix
      */
-    public function lines(array $lines, $prefix = null, bool $filter = true): string
+    public function lines(array $lines, null|callable|string $prefix = null, bool $filter = true): string
     {
         if (\is_string($prefix)) {
             $prefix = static function (string $value) use ($prefix) {
@@ -182,8 +180,6 @@ final class Formatter
 
         if (\is_callable($prefix)) {
             $lines = \array_map($prefix, $lines);
-        } elseif ($prefix !== null) {
-            throw new Exception('Formatter::lines given invalid prefix argument');
         }
 
         if ($filter) {
@@ -243,10 +239,8 @@ final class Formatter
      * Ensures the provided items are an array.
      *
      * Explodes strings on "\n" if a string is provided.
-     *
-     * @param array|string $items
      */
-    private function explode($items): array
+    private function explode(array|string $items): array
     {
         if (\is_string($items)) {
             return \explode("\n", $items);
@@ -254,7 +248,5 @@ final class Formatter
         if (\is_array($items)) {
             return $items;
         }
-
-        throw new Exception('Formatter::explode given invalid items argument');
     }
 }
