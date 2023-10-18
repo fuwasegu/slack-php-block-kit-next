@@ -38,10 +38,7 @@ class Image extends BlockElement
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function title(string $text)
+    public function title(string $text): static
     {
         return $this->setTitle(new PlainText($text));
     }
@@ -62,11 +59,11 @@ class Image extends BlockElement
 
     public function validate(): void
     {
-        if (empty($this->url)) {
+        if ($this->url === null || $this->url === '') {
             throw new Exception('Image must contain "image_url"');
         }
 
-        if (empty($this->altText)) {
+        if ($this->altText === null || $this->altText === '') {
             throw new Exception('Image must contain "alt_text"');
         }
 

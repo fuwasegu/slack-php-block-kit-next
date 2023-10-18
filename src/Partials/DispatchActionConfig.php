@@ -23,25 +23,19 @@ class DispatchActionConfig extends Element
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function triggerActionsOnEnterPressed()
+    public function triggerActionsOnEnterPressed(): static
     {
         return $this->triggerActionsOn(self::ON_ENTER_PRESSED);
     }
 
-    /**
-     * @return static
-     */
-    public function triggerActionsOnCharacterEntered()
+    public function triggerActionsOnCharacterEntered(): static
     {
         return $this->triggerActionsOn(self::ON_CHARACTER_ENTERED);
     }
 
     public function validate(): void
     {
-        if (empty($this->triggerActionsOn)) {
+        if ($this->triggerActionsOn === []) {
             throw new Exception('DispatchActionConfig must have at least one triggerActionsOn set');
         }
     }

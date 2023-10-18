@@ -69,15 +69,15 @@ class ConversationSelectMenu extends SelectMenu
     {
         $data = parent::toArray();
 
-        if (!empty($this->initialConversation)) {
+        if ($this->initialConversation !== null && $this->initialConversation !== '') {
             $data['initial_conversation'] = $this->initialConversation;
         }
 
-        if (!empty($this->responseUrlEnabled)) {
+        if ($this->responseUrlEnabled === true) {
             $data['response_url_enabled'] = $this->responseUrlEnabled;
         }
 
-        if (!empty($this->defaultToCurrentConversation)) {
+        if ($this->defaultToCurrentConversation === true) {
             $data['default_to_current_conversation'] = $this->defaultToCurrentConversation;
         }
 

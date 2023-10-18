@@ -46,26 +46,17 @@ class Context extends BlockElement
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function plainText(string $text, ?bool $emoji = null)
+    public function plainText(string $text, ?bool $emoji = null): static
     {
         return $this->add(new PlainText($text, $emoji));
     }
 
-    /**
-     * @return static
-     */
-    public function mrkdwnText(string $text, ?bool $verbatim = null)
+    public function mrkdwnText(string $text, ?bool $verbatim = null): static
     {
         return $this->add(new MrkdwnText($text, $verbatim));
     }
 
-    /**
-     * @return static
-     */
-    public function image(string $url, string $altText)
+    public function image(string $url, string $altText): static
     {
         return $this->add(new Image(null, $url, $altText));
     }

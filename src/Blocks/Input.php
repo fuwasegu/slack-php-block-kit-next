@@ -84,18 +84,12 @@ class Input extends BlockElement
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function label(string $text, ?bool $emoji = null)
+    public function label(string $text, ?bool $emoji = null): static
     {
         return $this->setLabel(new Partials\PlainText($text, $emoji));
     }
 
-    /**
-     * @return static
-     */
-    public function hint(string $text, ?bool $emoji = null)
+    public function hint(string $text, ?bool $emoji = null): static
     {
         return $this->setHint(new Partials\PlainText($text, $emoji));
     }

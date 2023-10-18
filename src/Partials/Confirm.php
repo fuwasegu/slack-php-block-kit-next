@@ -74,34 +74,22 @@ class Confirm extends Element
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function title(string $title)
+    public function title(string $title): static
     {
         return $this->setTitle(new PlainText($title));
     }
 
-    /**
-     * @return static
-     */
-    public function text(string $text)
+    public function text(string $text): static
     {
         return $this->setText(new MrkdwnText($text));
     }
 
-    /**
-     * @return static
-     */
-    public function confirm(string $confirm)
+    public function confirm(string $confirm): static
     {
         return $this->setConfirm(new PlainText($confirm));
     }
 
-    /**
-     * @return static
-     */
-    public function deny(string $deny)
+    public function deny(string $deny): static
     {
         return $this->setDeny(new PlainText($deny));
     }

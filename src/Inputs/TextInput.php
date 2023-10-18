@@ -67,10 +67,7 @@ class TextInput extends InputElement
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function triggerActionOnEnterPressed()
+    public function triggerActionOnEnterPressed(): static
     {
         $config = $this->dispatchActionConfig ?? DispatchActionConfig::new();
         $config->triggerActionsOnEnterPressed();
@@ -78,10 +75,7 @@ class TextInput extends InputElement
         return $this->setDispatchActionConfig($config);
     }
 
-    /**
-     * @return static
-     */
-    public function triggerActionOnCharacterEntered()
+    public function triggerActionOnCharacterEntered(): static
     {
         $config = $this->dispatchActionConfig ?? DispatchActionConfig::new();
         $config->triggerActionsOnCharacterEntered();
@@ -105,7 +99,7 @@ class TextInput extends InputElement
             }
         }
 
-        if ($this->dispatchActionConfig !== null) {
+        if ($this->dispatchActionConfig instanceof \SlackPhp\BlockKit\Partials\DispatchActionConfig) {
             $this->dispatchActionConfig->validate();
         }
     }
@@ -118,7 +112,7 @@ class TextInput extends InputElement
             $data['placeholder'] = $this->placeholder->toArray();
         }
 
-        if (!empty($this->initialValue)) {
+        if ($this->initialValue !== null && $this->initialValue !== '') {
             $data['initial_value'] = $this->initialValue;
         }
 
@@ -134,7 +128,7 @@ class TextInput extends InputElement
             $data['max_length'] = $this->maxLength;
         }
 
-        if ($this->dispatchActionConfig !== null) {
+        if ($this->dispatchActionConfig instanceof \SlackPhp\BlockKit\Partials\DispatchActionConfig) {
             $data['dispatch_action_config'] = $this->dispatchActionConfig->toArray();
         }
 

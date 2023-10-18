@@ -27,7 +27,7 @@ class MultiUserSelectMenu extends MultiSelectMenu
     {
         $data = parent::toArray();
 
-        if (!empty($this->initialUsers)) {
+        if ($this->initialUsers !== null && $this->initialUsers !== []) {
             $data['initial_users'] = $this->initialUsers;
         }
 

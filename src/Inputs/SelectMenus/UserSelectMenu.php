@@ -21,7 +21,7 @@ class UserSelectMenu extends SelectMenu
     {
         $data = parent::toArray();
 
-        if (!empty($this->initialUser)) {
+        if ($this->initialUser !== null && $this->initialUser !== '') {
             $data['initial_user'] = $this->initialUser;
         }
 

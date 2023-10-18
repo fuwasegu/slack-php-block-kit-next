@@ -69,18 +69,12 @@ class Section extends BlockElement
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function plainText(string $text, ?bool $emoji = null)
+    public function plainText(string $text, ?bool $emoji = null): static
     {
         return $this->setText(new Partials\PlainText($text, $emoji));
     }
 
-    /**
-     * @return static
-     */
-    public function mrkdwnText(string $text, ?bool $verbatim = null)
+    public function mrkdwnText(string $text, ?bool $verbatim = null): static
     {
         return $this->setText(new Partials\MrkdwnText($text, $verbatim));
     }
@@ -94,18 +88,14 @@ class Section extends BlockElement
     }
 
     /**
-     * @param  string[] $values
-     * @return static
+     * @param string[] $values
      */
-    public function fieldList(array $values)
+    public function fieldList(array $values): static
     {
         return $this->setFields(new Partials\Fields($values));
     }
 
-    /**
-     * @return static
-     */
-    public function fieldMap(array $keyValuePairs)
+    public function fieldMap(array $keyValuePairs): static
     {
         $fields = new Partials\Fields();
         foreach ($keyValuePairs as $key => $value) {

@@ -45,10 +45,7 @@ class OptionGroup extends Element
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function label(string $label)
+    public function label(string $label): static
     {
         return $this->setLabel(new PlainText($label, false));
     }

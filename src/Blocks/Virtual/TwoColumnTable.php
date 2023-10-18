@@ -46,7 +46,7 @@ class TwoColumnTable extends VirtualBlock
      */
     public function caption(string $caption): static
     {
-        if ($this->header === null) {
+        if (!$this->header instanceof \SlackPhp\BlockKit\Blocks\Section) {
             $this->header = new Section();
             $this->prependBlock($this->header);
         }
@@ -63,7 +63,7 @@ class TwoColumnTable extends VirtualBlock
      */
     public function cols(string $left, string $right): static
     {
-        if ($this->header === null) {
+        if (!$this->header instanceof \SlackPhp\BlockKit\Blocks\Section) {
             $this->header = new Section();
             $this->prependBlock($this->header);
         }

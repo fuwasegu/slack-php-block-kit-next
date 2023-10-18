@@ -34,10 +34,7 @@ class Button extends InputElement
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function text(string $text)
+    public function text(string $text): static
     {
         return $this->setText(new PlainText($text));
     }
@@ -88,15 +85,15 @@ class Button extends InputElement
         $data = parent::toArray();
         $data['text'] = $this->text->toArray();
 
-        if (!empty($this->value)) {
+        if ($this->value !== null && $this->value !== '') {
             $data['value'] = $this->value;
         }
 
-        if (!empty($this->url)) {
+        if ($this->url !== null && $this->url !== '') {
             $data['url'] = $this->url;
         }
 
-        if (!empty($this->style)) {
+        if ($this->style !== null && $this->style !== '') {
             $data['style'] = $this->style;
         }
 

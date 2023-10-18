@@ -50,10 +50,7 @@ class Option extends Element
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function text(string $text)
+    public function text(string $text): static
     {
         return $this->setText(new PlainText($text));
     }
@@ -72,10 +69,7 @@ class Option extends Element
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function description(string $description)
+    public function description(string $description): static
     {
         return $this->setDescription(new PlainText($description));
     }
@@ -110,7 +104,7 @@ class Option extends Element
             }
         }
 
-        if (!empty($this->url)) {
+        if ($this->url !== null && $this->url !== '') {
             Text::validateString($this->url, 3000);
             if ($parent && $parent->getType() !== Type::OVERFLOW_MENU) {
                 throw new Exception('Option "url" can only be applied to overflow menus.');
@@ -129,7 +123,7 @@ class Option extends Element
             $data['description'] = $this->description->toArray();
         }
 
-        if (!empty($this->url)) {
+        if ($this->url !== null && $this->url !== '') {
             $data['url'] = $this->url;
         }
 

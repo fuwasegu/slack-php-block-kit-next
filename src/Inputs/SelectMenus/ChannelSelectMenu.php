@@ -30,11 +30,11 @@ class ChannelSelectMenu extends SelectMenu
     {
         $data = parent::toArray();
 
-        if (!empty($this->initialChannel)) {
+        if ($this->initialChannel !== null && $this->initialChannel !== '') {
             $data['initial_channel'] = $this->initialChannel;
         }
 
-        if (!empty($this->responseUrlEnabled)) {
+        if ($this->responseUrlEnabled === true) {
             $data['response_url_enabled'] = $this->responseUrlEnabled;
         }
 

@@ -118,7 +118,7 @@ class NumberInput extends InputElement
             throw new Exception('The initial value must be greater than or equal to min_value');
         }
 
-        if ($this->dispatchActionConfig !== null) {
+        if ($this->dispatchActionConfig instanceof \SlackPhp\BlockKit\Partials\DispatchActionConfig) {
             $this->dispatchActionConfig->validate();
         }
     }
@@ -146,13 +146,11 @@ class NumberInput extends InputElement
             $data['max_value'] = (string)$this->maxValue;
         }
 
-        if ($this->dispatchActionConfig !== null) {
+        if ($this->dispatchActionConfig instanceof \SlackPhp\BlockKit\Partials\DispatchActionConfig) {
             $data['dispatch_action_config'] = $this->dispatchActionConfig->toArray();
         }
 
-        if ($this->isDecimalAllowed !== null) {
-            $data['is_decimal_allowed'] = $this->isDecimalAllowed;
-        }
+        $data['is_decimal_allowed'] = $this->isDecimalAllowed;
 
         if ($this->focusOnLoad !== null) {
             $data['focus_on_load'] = $this->focusOnLoad;

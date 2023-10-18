@@ -61,26 +61,17 @@ class Modal extends View
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function title(string $title)
+    public function title(string $title): static
     {
         return $this->setTitle(new PlainText($title));
     }
 
-    /**
-     * @return static
-     */
-    public function submit(string $submit)
+    public function submit(string $submit): static
     {
         return $this->setSubmit(new PlainText($submit));
     }
 
-    /**
-     * @return static
-     */
-    public function close(string $close)
+    public function close(string $close): static
     {
         return $this->setClose(new PlainText($close));
     }
@@ -135,11 +126,11 @@ class Modal extends View
             $data['close'] = $this->close->toArray();
         }
 
-        if (!empty($this->clearOnClose)) {
+        if ($this->clearOnClose === true) {
             $data['clear_on_close'] = $this->clearOnClose;
         }
 
-        if (!empty($this->notifyOnClose)) {
+        if ($this->notifyOnClose === true) {
             $data['notify_on_close'] = $this->notifyOnClose;
         }
 

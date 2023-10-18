@@ -12,7 +12,7 @@ class MultiExternalSelectMenu extends MultiSelectMenu
     /**
      * @var Option[]
      */
-    private $initialOptions;
+    private ?array $initialOptions = null;
 
     private ?int $minQueryLength = null;
 

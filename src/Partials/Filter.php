@@ -39,34 +39,22 @@ class Filter extends Element
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function includeIm()
+    public function includeIm(): static
     {
         return $this->includeType(self::CONVERSATION_TYPE_IM);
     }
 
-    /**
-     * @return static
-     */
-    public function includeMpim()
+    public function includeMpim(): static
     {
         return $this->includeType(self::CONVERSATION_TYPE_MPIM);
     }
 
-    /**
-     * @return static
-     */
-    public function includePrivate()
+    public function includePrivate(): static
     {
         return $this->includeType(self::CONVERSATION_TYPE_PRIVATE);
     }
 
-    /**
-     * @return static
-     */
-    public function includePublic()
+    public function includePublic(): static
     {
         return $this->includeType(self::CONVERSATION_TYPE_PUBLIC);
     }
@@ -87,7 +75,7 @@ class Filter extends Element
 
     public function validate(): void
     {
-        if (empty($this->include) && $this->excludeExternalSharedChannels === null && $this->excludeBotUsers === null) {
+        if ($this->include === [] && $this->excludeExternalSharedChannels === null && $this->excludeBotUsers === null) {
             throw new Exception('Filter must have at least one property set');
         }
     }
@@ -96,7 +84,7 @@ class Filter extends Element
     {
         $data = parent::toArray();
 
-        if (!empty($this->include)) {
+        if ($this->include !== []) {
             $data['include'] = $this->include;
         }
 

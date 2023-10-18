@@ -66,11 +66,11 @@ class MultiConversationSelectMenu extends MultiSelectMenu
     {
         $data = parent::toArray();
 
-        if (!empty($this->initialConversations)) {
+        if ($this->initialConversations !== null && $this->initialConversations !== []) {
             $data['initial_conversations'] = $this->initialConversations;
         }
 
-        if (!empty($this->defaultToCurrentConversation)) {
+        if ($this->defaultToCurrentConversation === true) {
             $data['default_to_current_conversation'] = $this->defaultToCurrentConversation;
         }
 

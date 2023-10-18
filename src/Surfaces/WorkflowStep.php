@@ -45,11 +45,11 @@ class WorkflowStep extends Surface
     {
         $data = [];
 
-        if (!empty($this->callbackId)) {
+        if ($this->callbackId !== null && $this->callbackId !== '') {
             $data['callback_id'] = $this->callbackId;
         }
 
-        if (!empty($this->privateMetadata)) {
+        if ($this->privateMetadata !== null && $this->privateMetadata !== '') {
             $data['private_metadata'] = $this->privateMetadata;
         }
 

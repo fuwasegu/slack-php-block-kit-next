@@ -42,11 +42,11 @@ class File extends BlockElement
 
     public function validate(): void
     {
-        if (empty($this->externalId)) {
+        if ($this->externalId === null || $this->externalId === '') {
             throw new Exception('File must contain "external_id"');
         }
 
-        if (empty($this->source)) {
+        if ($this->source === null || $this->source === '') {
             throw new Exception('File must contain "source"');
         }
     }

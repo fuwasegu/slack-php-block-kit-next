@@ -45,7 +45,7 @@ class Attachment extends Surface
     {
         $data = parent::toArray();
 
-        if (!empty($this->color)) {
+        if ($this->color !== null && $this->color !== '') {
             $data['color'] = $this->color;
         }
 

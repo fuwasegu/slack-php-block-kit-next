@@ -42,40 +42,32 @@ class Message extends Surface
      * Configures message to send privately to the user.
      *
      * This is default behavior for most interactions, and doesn't necessarily need to be explicitly configured.
-     *
-     * @return static
      */
-    public function ephemeral()
+    public function ephemeral(): static
     {
         return $this->directives(self::EPHEMERAL);
     }
 
     /**
      * Configures message to send to the entire channel.
-     *
-     * @return static
      */
-    public function inChannel()
+    public function inChannel(): static
     {
         return $this->directives(self::IN_CHANNEL);
     }
 
     /**
      * Configures message to "replace_original" mode.
-     *
-     * @return static
      */
-    public function replaceOriginal()
+    public function replaceOriginal(): static
     {
         return $this->directives(self::REPLACE_ORIGINAL);
     }
 
     /**
      * Configures message to "delete_original" mode.
-     *
-     * @return static
      */
-    public function deleteOriginal()
+    public function deleteOriginal(): static
     {
         return $this->directives(self::DELETE_ORIGINAL);
     }
@@ -131,7 +123,7 @@ class Message extends Surface
 
     public function validate(): void
     {
-        if (!empty($this->directives) && !in_array($this->directives, self::VALID_DIRECTIVES, true)) {
+        if ($this->directives !== [] && !in_array($this->directives, self::VALID_DIRECTIVES, true)) {
             throw new Exception('Invalid directives for message');
         }
 
@@ -145,7 +137,7 @@ class Message extends Surface
             $attachment->validate();
         }
 
-        $hasText = !empty($this->fallbackText);
+        $hasText = $this->fallbackText !== [];
         if ($hasText) {
             Partials\Text::validateString($this->fallbackText['text']);
         }

@@ -37,7 +37,7 @@ abstract class InputElement extends Element
     {
         $data = parent::toArray();
 
-        if (!empty($this->actionId)) {
+        if ($this->actionId !== null && $this->actionId !== '') {
             $data['action_id'] = $this->actionId;
         }
 

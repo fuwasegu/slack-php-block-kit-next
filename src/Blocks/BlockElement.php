@@ -37,7 +37,7 @@ abstract class BlockElement extends Element
     {
         $data = parent::toArray();
 
-        if (!empty($this->blockId)) {
+        if ($this->blockId !== null && $this->blockId !== '') {
             $data['block_id'] = $this->blockId;
         }
 

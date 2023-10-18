@@ -31,10 +31,7 @@ class Header extends BlockElement
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function text(string $text, ?bool $emoji = null)
+    public function text(string $text, ?bool $emoji = null): static
     {
         return $this->setText(new PlainText($text, $emoji));
     }

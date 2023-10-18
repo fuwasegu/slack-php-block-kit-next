@@ -27,7 +27,7 @@ class MultiChannelSelectMenu extends MultiSelectMenu
     {
         $data = parent::toArray();
 
-        if (!empty($this->initialChannels)) {
+        if ($this->initialChannels !== null && $this->initialChannels !== []) {
             $data['initial_channels'] = $this->initialChannels;
         }
 
