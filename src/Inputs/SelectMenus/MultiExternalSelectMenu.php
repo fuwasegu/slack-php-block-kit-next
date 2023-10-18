@@ -47,7 +47,7 @@ class MultiExternalSelectMenu extends MultiSelectMenu
     {
         $data = parent::toArray();
 
-        if (!empty($this->initialOptions)) {
+        if ($this->initialOptions !== null && $this->initialOptions !== []) {
             $data['initial_options'] = array_map(static fn (Option $option): array => $option->toArray(), $this->initialOptions);
         }
 

@@ -79,10 +79,7 @@ class Section extends BlockElement
         return $this->setText(new Partials\MrkdwnText($text, $verbatim));
     }
 
-    /**
-     * @return static
-     */
-    public function code(string $code)
+    public function code(string $code): static
     {
         return $this->mrkdwnText(Kit::formatter()->codeBlock($code), true);
     }
