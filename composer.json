@@ -32,21 +32,11 @@
     },
     "scripts": {
         "stan": "phpstan analyse -c phpstan.neon",
-        "style-fix": "./vendor/bin/php-cs-fixer fix",
-        "style-lint": "./vendor/bin/php-cs-fixer fix --dry-run",
+        "lint": "./vendor/bin/php-cs-fixer fix --dry-run",
+        "lint:fix": "./vendor/bin/php-cs-fixer fix",
+        "rector": "./vendor/bin/rector process --dry-run",
+        "rector:fix": "./vendor/bin/rector process",
         "test": "phpunit --bootstrap=vendor/autoload.php --no-coverage tests",
-        "test-all":  [
-            "@style-lint",
-            "@stan",
-            "@test-coverage"
-        ],
-        "test-ci": "XDEBUG_MODE=coverage phpunit --bootstrap=vendor/autoload.php --coverage-text --whitelist=src --do-not-cache-result tests",
-        "test-coverage": [
-            "XDEBUG_MODE=coverage phpunit --bootstrap=vendor/autoload.php --coverage-html=build/coverage --whitelist=src tests",
-            "open build/coverage/index.html"
-        ],
-        "test-debug": "phpunit --bootstrap=vendor/autoload.php --no-coverage --debug tests",
-        "test-dox": "phpunit --bootstrap=vendor/autoload.php --no-coverage --testdox tests",
-        "test-gen": "php bin/gen-test.php"
+        "test:coveerage": "XDEBUG_MODE=coverage phpunit --bootstrap=vendor/autoload.php --coverage-text --whitelist=src --do-not-cache-result tests"
     }
 }
