@@ -14,33 +14,24 @@ class Image extends BlockElement
      */
     private $title;
 
-    /**
-     * @var string
-     */
-    private $url;
+    private ?string $url = null;
 
-    /**
-     * @var string
-     */
-    private $altText;
+    private ?string $altText = null;
 
     public function __construct(?string $blockId = null, ?string $url = null, ?string $altText = null)
     {
         parent::__construct($blockId);
 
-        if (!empty($url)) {
+        if ($url !== null && $url !== '') {
             $this->url($url);
         }
 
-        if (!empty($altText)) {
+        if ($altText !== null && $altText !== '') {
             $this->altText($altText);
         }
     }
 
-    /**
-     * @return static
-     */
-    public function setTitle(PlainText $title)
+    public function setTitle(PlainText $title): static
     {
         $this->title = $title->setParent($this);
 
@@ -55,20 +46,14 @@ class Image extends BlockElement
         return $this->setTitle(new PlainText($text));
     }
 
-    /**
-     * @return static
-     */
-    public function url(string $url)
+    public function url(string $url): static
     {
         $this->url = $url;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function altText(string $alt)
+    public function altText(string $alt): static
     {
         $this->altText = $alt;
 
@@ -93,7 +78,7 @@ class Image extends BlockElement
     public function toArray(): array
     {
         $data = parent::toArray();
-        $isBlock = $this->getParent() === null || $this->getParent() instanceof Surface;
+        $isBlock = !$this->getParent() instanceof \SlackPhp\BlockKit\Element || $this->getParent() instanceof Surface;
 
         if ($isBlock && !empty($this->title)) {
             $data['title'] = $this->title->toArray();

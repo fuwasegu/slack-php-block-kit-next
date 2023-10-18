@@ -22,10 +22,7 @@ class TimePicker extends InputElement
      */
     private $initialTime;
 
-    /**
-     * @return static
-     */
-    public function initialTime(string $time)
+    public function initialTime(string $time): static
     {
         $dateTime = DateTimeImmutable::createFromFormat(self::TIME_FORMAT, $time);
         if (!$dateTime) {

@@ -78,7 +78,7 @@ class SurfaceTest extends TestCase
             'Slack Block Kit Error: The following block_ids are duplicated : test-block-1, test-block-3 ]',
         );
 
-        $surface = $this->getMockSurface()
+        $this->getMockSurface()
             ->add(
                 Section::new()
                     ->blockId('test-block-1')

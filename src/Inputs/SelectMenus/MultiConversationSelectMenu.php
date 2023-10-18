@@ -12,12 +12,9 @@ class MultiConversationSelectMenu extends MultiSelectMenu
     /**
      * @var string[]
      */
-    private $initialConversations;
+    private ?array $initialConversations = null;
 
-    /**
-     * @var bool
-     */
-    private $defaultToCurrentConversation;
+    private ?bool $defaultToCurrentConversation = null;
 
     /**
      * @var Filter
@@ -25,30 +22,23 @@ class MultiConversationSelectMenu extends MultiSelectMenu
     private $filter;
 
     /**
-     * @param  string[] $initialConversations
-     * @return static
+     * @param string[] $initialConversations
      */
-    public function initialConversations(array $initialConversations)
+    public function initialConversations(array $initialConversations): static
     {
         $this->initialConversations = $initialConversations;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function defaultToCurrentConversation(bool $enabled)
+    public function defaultToCurrentConversation(bool $enabled): static
     {
         $this->defaultToCurrentConversation = $enabled;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function setFilter(Filter $filter)
+    public function setFilter(Filter $filter): static
     {
         $this->filter = $filter->setParent($this);
 

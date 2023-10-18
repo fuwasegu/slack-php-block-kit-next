@@ -34,11 +34,11 @@ class Confirm extends Element
         ?string $confirm = null,
         ?string $deny = null,
     ) {
-        if (!empty($title)) {
+        if ($title !== null && $title !== '') {
             $this->title($title);
         }
 
-        if (!empty($text)) {
+        if ($text !== null && $text !== '') {
             $this->text($text);
         }
 
@@ -46,40 +46,28 @@ class Confirm extends Element
         $this->deny($deny ?? 'Cancel');
     }
 
-    /**
-     * @return static
-     */
-    public function setTitle(PlainText $title)
+    public function setTitle(PlainText $title): static
     {
         $this->title = $title->setParent($this);
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function setText(Text $text)
+    public function setText(Text $text): static
     {
         $this->text = $text->setParent($this);
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function setConfirm(PlainText $confirm)
+    public function setConfirm(PlainText $confirm): static
     {
         $this->confirm = $confirm->setParent($this);
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function setDeny(PlainText $deny)
+    public function setDeny(PlainText $deny): static
     {
         $this->deny = $deny->setParent($this);
 

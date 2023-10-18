@@ -11,10 +11,7 @@ final class Previewer
 {
     private const BUILDER_URL = 'https://app.slack.com/block-kit-builder';
 
-    /**
-     * @return static
-     */
-    public static function new()
+    public static function new(): self
     {
         return new self();
     }

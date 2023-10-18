@@ -9,14 +9,11 @@ use SlackPhp\BlockKit\HydrationData;
 
 abstract class InputElement extends Element
 {
-    /**
-     * @var string
-     */
-    private $actionId;
+    private ?string $actionId = null;
 
     public function __construct(?string $actionId = null)
     {
-        if (!empty($actionId)) {
+        if ($actionId !== null && $actionId !== '') {
             $this->actionId($actionId);
         }
     }

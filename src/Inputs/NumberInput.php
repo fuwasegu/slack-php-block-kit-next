@@ -12,10 +12,7 @@ class NumberInput extends InputElement
 {
     use HasPlaceholder;
 
-    /**
-     * @var bool
-     */
-    private $isDecimalAllowed = false;
+    private bool $isDecimalAllowed = false;
 
     /**
      * @var int|float
@@ -32,20 +29,11 @@ class NumberInput extends InputElement
      */
     private $maxValue;
 
-    /**
-     * @var DispatchActionConfig
-     */
-    private $dispatchActionConfig;
+    private ?\SlackPhp\BlockKit\Partials\DispatchActionConfig $dispatchActionConfig = null;
 
-    /**
-     * @var bool
-     */
-    private $focusOnLoad;
+    private ?bool $focusOnLoad = null;
 
-    /**
-     * @return static
-     */
-    public function setIsDecimalAllowed(bool $flag)
+    public function setIsDecimalAllowed(bool $flag): static
     {
         $this->isDecimalAllowed = $flag;
 
@@ -53,10 +41,9 @@ class NumberInput extends InputElement
     }
 
     /**
-     * @param  int|float $value
-     * @return static
+     * @param int|float $value
      */
-    public function setInitialValue($value)
+    public function setInitialValue($value): static
     {
         $this->initialValue = $value;
 
@@ -64,10 +51,9 @@ class NumberInput extends InputElement
     }
 
     /**
-     * @param  int|float $value
-     * @return static
+     * @param int|float $value
      */
-    public function setMinValue($value)
+    public function setMinValue($value): static
     {
         $this->minValue = $value;
 
@@ -75,30 +61,23 @@ class NumberInput extends InputElement
     }
 
     /**
-     * @param  int|float $value
-     * @return static
+     * @param int|float $value
      */
-    public function setMaxValue($value)
+    public function setMaxValue($value): static
     {
         $this->maxValue = $value;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function setDispatchActionConfig(DispatchActionConfig $config)
+    public function setDispatchActionConfig(DispatchActionConfig $config): static
     {
         $this->dispatchActionConfig = $config;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function setFocusOnLoad(bool $flag)
+    public function setFocusOnLoad(bool $flag): static
     {
         $this->focusOnLoad = $flag;
 
@@ -112,7 +91,7 @@ class NumberInput extends InputElement
         }
 
         if (
-            isset($this->minValue, $this->maxValue)
+            $this->minValue !== null && $this->maxValue !== null
 
             && $this->minValue > $this->maxValue
         ) {
@@ -124,7 +103,7 @@ class NumberInput extends InputElement
         }
 
         if (
-            isset($this->maxValue, $this->initialValue)
+            $this->maxValue !== null && $this->initialValue !== null
 
             && $this->maxValue <= $this->initialValue
         ) {
@@ -132,14 +111,14 @@ class NumberInput extends InputElement
         }
 
         if (
-            isset($this->minValue, $this->initialValue)
+            $this->minValue !== null && $this->initialValue !== null
 
             && $this->initialValue <= $this->minValue
         ) {
             throw new Exception('The initial value must be greater than or equal to min_value');
         }
 
-        if (isset($this->dispatchActionConfig)) {
+        if ($this->dispatchActionConfig !== null) {
             $this->dispatchActionConfig->validate();
         }
     }
@@ -157,25 +136,25 @@ class NumberInput extends InputElement
             $data['initial_value'] = (string)$this->initialValue;
         }
 
-        if (isset($this->minValue)) {
+        if ($this->minValue !== null) {
             // Must be a String in SlackAPI documentation
             $data['min_value'] = (string)$this->minValue;
         }
 
-        if (isset($this->maxValue)) {
+        if ($this->maxValue !== null) {
             // Must be a String in SlackAPI documentation
             $data['max_value'] = (string)$this->maxValue;
         }
 
-        if (isset($this->dispatchActionConfig)) {
+        if ($this->dispatchActionConfig !== null) {
             $data['dispatch_action_config'] = $this->dispatchActionConfig->toArray();
         }
 
-        if (isset($this->isDecimalAllowed)) {
+        if ($this->isDecimalAllowed !== null) {
             $data['is_decimal_allowed'] = $this->isDecimalAllowed;
         }
 
-        if (isset($this->focusOnLoad)) {
+        if ($this->focusOnLoad !== null) {
             $data['focus_on_load'] = $this->focusOnLoad;
         }
 

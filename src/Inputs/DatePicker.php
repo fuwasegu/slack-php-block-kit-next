@@ -22,10 +22,7 @@ class DatePicker extends InputElement
      */
     private $initialDate;
 
-    /**
-     * @return static
-     */
-    public function initialDate(string $date)
+    public function initialDate(string $date): static
     {
         $dateTime = DateTimeImmutable::createFromFormat(self::DATE_FORMAT, $date);
         if (!$dateTime) {

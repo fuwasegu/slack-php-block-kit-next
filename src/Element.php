@@ -9,10 +9,7 @@ use Throwable;
 
 abstract class Element implements JsonSerializable
 {
-    /**
-     * @var Element|null
-     */
-    protected $parent;
+    protected ?self $parent = null;
 
     /**
      * @var array
@@ -50,10 +47,9 @@ abstract class Element implements JsonSerializable
     /**
      * Allows setting arbitrary extra fields on an element.
      *
-     * @param  mixed  $value
      * @return static
      */
-    final public function setExtra(string $key, $value)
+    final public function setExtra(string $key, mixed $value)
     {
         $this->extra[$key] = $value;
 
@@ -108,7 +104,7 @@ abstract class Element implements JsonSerializable
         $this->validate();
         $type = $this->getType();
 
-        $data = !in_array($type, Type::HIDDEN_TYPES, true) ? compact('type') : [];
+        $data = in_array($type, Type::HIDDEN_TYPES, true) ? [] : ['type' => $type];
 
         foreach ($this->extra ?? [] as $key => $value) {
             $data[$key] = $value instanceof self ? $value->toArray() : $value;
@@ -124,7 +120,7 @@ abstract class Element implements JsonSerializable
             $opts |= JSON_PRETTY_PRINT;
         }
 
-        return (string)json_encode($this, $opts);
+        return json_encode($this, $opts);
     }
 
     public function jsonSerialize(): array

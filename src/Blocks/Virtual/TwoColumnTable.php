@@ -15,15 +15,9 @@ use SlackPhp\BlockKit\Exception;
  */
 class TwoColumnTable extends VirtualBlock
 {
-    /**
-     * @var Section|null
-     */
-    private $header;
+    private ?\SlackPhp\BlockKit\Blocks\Section $header = null;
 
-    /**
-     * @var bool
-     */
-    private $hasRows = false;
+    private bool $hasRows = false;
 
     public function __construct(
         ?string $blockId = null,
@@ -33,28 +27,26 @@ class TwoColumnTable extends VirtualBlock
     ) {
         parent::__construct($blockId);
 
-        if (!empty($caption)) {
+        if ($caption !== null && $caption !== '') {
             $this->caption($caption);
         }
 
-        if (!empty($cols)) {
+        if ($cols !== null && $cols !== []) {
             [$left, $right] = $cols;
             $this->cols($left, $right);
         }
 
-        if (!empty($rows)) {
+        if ($rows !== null && $rows !== []) {
             $this->rows($rows);
         }
     }
 
     /**
      * Sets a caption (text element) at the top of the table.
-     *
-     * @return static
      */
-    public function caption(string $caption)
+    public function caption(string $caption): static
     {
-        if (!$this->header) {
+        if ($this->header === null) {
             $this->header = new Section();
             $this->prependBlock($this->header);
         }
@@ -68,12 +60,10 @@ class TwoColumnTable extends VirtualBlock
      * Sets the left and right column headers.
      *
      * Automatically applies a bold to the header text elements.
-     *
-     * @return static
      */
-    public function cols(string $left, string $right)
+    public function cols(string $left, string $right): static
     {
-        if (!$this->header) {
+        if ($this->header === null) {
             $this->header = new Section();
             $this->prependBlock($this->header);
         }
@@ -101,10 +91,8 @@ class TwoColumnTable extends VirtualBlock
      * Adds multiple rows to the table.
      *
      * Supports list-format (e.g., [[$left, $right], ...]) or map-format (e.g., [$left => $right, ...]) as input.
-     *
-     * @return static
      */
-    public function rows(array $rows)
+    public function rows(array $rows): static
     {
         if (isset($rows[0])) {
             foreach ($rows as [$left, $right]) {

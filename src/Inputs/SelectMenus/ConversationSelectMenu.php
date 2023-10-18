@@ -9,60 +9,39 @@ use SlackPhp\BlockKit\Partials\Filter;
 
 class ConversationSelectMenu extends SelectMenu
 {
-    /**
-     * @var string
-     */
-    private $initialConversation;
+    private ?string $initialConversation = null;
 
-    /**
-     * @var bool
-     */
-    private $responseUrlEnabled;
+    private ?bool $responseUrlEnabled = null;
 
-    /**
-     * @var bool
-     */
-    private $defaultToCurrentConversation;
+    private ?bool $defaultToCurrentConversation = null;
 
     /**
      * @var Filter
      */
     private $filter;
 
-    /**
-     * @return static
-     */
-    public function initialConversation(string $initialConversation)
+    public function initialConversation(string $initialConversation): static
     {
         $this->initialConversation = $initialConversation;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function responseUrlEnabled(bool $enabled)
+    public function responseUrlEnabled(bool $enabled): static
     {
         $this->responseUrlEnabled = $enabled;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function defaultToCurrentConversation(bool $enabled)
+    public function defaultToCurrentConversation(bool $enabled): static
     {
         $this->defaultToCurrentConversation = $enabled;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function setFilter(Filter $filter)
+    public function setFilter(Filter $filter): static
     {
         $this->filter = $filter->setParent($this);
 

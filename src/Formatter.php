@@ -30,10 +30,7 @@ final class Formatter
     public const TIME = '{time}';
     public const TIME_SECS = '{time_secs}';
 
-    /**
-     * @return static
-     */
-    public static function new()
+    public static function new(): self
     {
         return new self();
     }
@@ -130,18 +127,13 @@ final class Formatter
     // endregion
 
     // region Helpers for multi-line content blocks like lists and quotes.
-    /**
-     * @param array|string $lines
-     */
-    public function blockQuote($lines): string
+
+    public function blockQuote(array|string $lines): string
     {
         return $this->lines($this->explode($lines), '> ', false);
     }
 
-    /**
-     * @param array|string $items
-     */
-    public function bulletedList($items, string $bullet = '•'): string
+    public function bulletedList(array|string $items, string $bullet = '•'): string
     {
         return $this->lines($this->explode($items), "{$bullet} ");
     }
@@ -151,14 +143,11 @@ final class Formatter
         return "```\n{$this->escape($text)}\n```";
     }
 
-    /**
-     * @param array|string $items
-     */
-    public function numberedList($items): string
+    public function numberedList(array|string $items): string
     {
         $index = 0;
 
-        return $this->lines($this->explode($items), static function (string $item) use (&$index) {
+        return $this->lines($this->explode($items), static function (string $item) use (&$index): string {
             ++$index;
 
             return "{$index}. {$item}";
@@ -173,9 +162,7 @@ final class Formatter
     public function lines(array $lines, null|callable|string $prefix = null, bool $filter = true): string
     {
         if (\is_string($prefix)) {
-            $prefix = static function (string $value) use ($prefix) {
-                return "{$prefix}{$value}";
-            };
+            $prefix = static fn (string $value): string => "{$prefix}{$value}";
         }
 
         if (\is_callable($prefix)) {
@@ -183,9 +170,7 @@ final class Formatter
         }
 
         if ($filter) {
-            $lines = \array_filter($lines, static function ($line) {
-                return $line !== null && $line !== '';
-            });
+            $lines = \array_filter($lines, static fn ($line): bool => $line !== null && $line !== '');
         }
 
         return \implode("\n", $lines) . "\n";
@@ -245,8 +230,7 @@ final class Formatter
         if (\is_string($items)) {
             return \explode("\n", $items);
         }
-        if (\is_array($items)) {
-            return $items;
-        }
+
+        return $items;
     }
 }

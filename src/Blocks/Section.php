@@ -35,35 +35,26 @@ class Section extends BlockElement
     {
         parent::__construct($blockId);
 
-        if (!empty($text)) {
+        if ($text !== null && $text !== '') {
             $this->mrkdwnText($text);
         }
     }
 
-    /**
-     * @return static
-     */
-    public function setText(Partials\Text $text)
+    public function setText(Partials\Text $text): static
     {
         $this->text = $text->setParent($this);
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function setFields(Partials\Fields $fields)
+    public function setFields(Partials\Fields $fields): static
     {
         $this->fields = $fields->setParent($this);
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function setAccessory(Element $accessory)
+    public function setAccessory(Element $accessory): static
     {
         if (!empty($this->accessory)) {
             throw new Exception('Section accessory already set as type %s', [$this->accessory->getType()]);

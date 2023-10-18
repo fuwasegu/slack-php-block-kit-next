@@ -14,12 +14,9 @@ class DispatchActionConfig extends Element
     /**
      * @var string[]|array
      */
-    private $triggerActionsOn = [];
+    private array $triggerActionsOn = [];
 
-    /**
-     * @return static
-     */
-    public function triggerActionsOn(string $eventType)
+    public function triggerActionsOn(string $eventType): static
     {
         $this->triggerActionsOn[] = $eventType;
 

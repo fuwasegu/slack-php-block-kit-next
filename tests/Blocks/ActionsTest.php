@@ -21,7 +21,7 @@ class ActionsTest extends TestCase
             'Slack Block Kit Error: The following action_ids are duplicated : test-action-1, test-action-3 ]',
         );
 
-        $surface = $this->getMockSurface()
+        $this->getMockSurface()
             ->add(
                 Actions::new()
                     ->add(

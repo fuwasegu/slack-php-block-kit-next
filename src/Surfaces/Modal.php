@@ -36,40 +36,25 @@ class Modal extends View
      */
     private $close;
 
-    /**
-     * @var bool
-     */
-    private $clearOnClose;
+    private ?bool $clearOnClose = null;
 
-    /**
-     * @var bool
-     */
-    private $notifyOnClose;
+    private ?bool $notifyOnClose = null;
 
-    /**
-     * @return static
-     */
-    public function setTitle(PlainText $title)
+    public function setTitle(PlainText $title): static
     {
         $this->title = $title->setParent($this);
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function setSubmit(PlainText $title)
+    public function setSubmit(PlainText $title): static
     {
         $this->submit = $title->setParent($this);
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function setClose(PlainText $title)
+    public function setClose(PlainText $title): static
     {
         $this->close = $title->setParent($this);
 
@@ -100,20 +85,14 @@ class Modal extends View
         return $this->setClose(new PlainText($close));
     }
 
-    /**
-     * @return static
-     */
-    public function clearOnClose(bool $clearOnClose)
+    public function clearOnClose(bool $clearOnClose): static
     {
         $this->clearOnClose = $clearOnClose;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function notifyOnClose(bool $notifyOnClose)
+    public function notifyOnClose(bool $notifyOnClose): static
     {
         $this->notifyOnClose = $notifyOnClose;
 
@@ -164,9 +143,7 @@ class Modal extends View
             $data['notify_on_close'] = $this->notifyOnClose;
         }
 
-        $data += parent::toArray();
-
-        return $data;
+        return $data + parent::toArray();
     }
 
     protected function hydrate(HydrationData $data): void

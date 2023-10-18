@@ -8,10 +8,7 @@ use SlackPhp\BlockKit\{Element, Exception, HydrationData};
 
 abstract class Text extends Element
 {
-    /**
-     * @var string
-     */
-    private $text;
+    private ?string $text = null;
 
     /**
      * @return static

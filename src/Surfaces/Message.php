@@ -29,17 +29,14 @@ class Message extends Surface
     /**
      * @var array|Attachment[] attachments containing secondary content
      */
-    private $attachments = [];
+    private array $attachments = [];
 
     /**
      * @var array|string[] A message can have a directive (e.g., response_type) included along with its blocks.
      */
-    private $directives = [];
+    private array $directives = [];
 
-    /**
-     * @var array
-     */
-    private $fallbackText = [];
+    private array $fallbackText = [];
 
     /**
      * Configures message to send privately to the user.
@@ -83,10 +80,7 @@ class Message extends Surface
         return $this->directives(self::DELETE_ORIGINAL);
     }
 
-    /**
-     * @return static
-     */
-    private function directives(array $directives)
+    private function directives(array $directives): static
     {
         $this->directives = $directives;
 
@@ -95,10 +89,8 @@ class Message extends Surface
 
     /**
      * Sets the legacy "text" property, that acts as a fallback in situations where blocks cannot be rendered.
-     *
-     * @return static
      */
-    public function fallbackText(string $message, ?bool $mrkdwn = null)
+    public function fallbackText(string $message, ?bool $mrkdwn = null): static
     {
         $this->fallbackText = ['text' => $message];
         if ($mrkdwn !== null) {
@@ -108,10 +100,7 @@ class Message extends Surface
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function addAttachment(Attachment $attachment)
+    public function addAttachment(Attachment $attachment): static
     {
         $this->attachments[] = $attachment->setParent($this);
 
@@ -130,9 +119,8 @@ class Message extends Surface
      * Clones a message for the purpose of generating a Block Kit Builder preview URL.
      *
      * @internal used by Previewer only
-     * @return static
      */
-    public function asPreviewableMessage()
+    public function asPreviewableMessage(): static
     {
         $message = clone $this;
         $message->directives = [];
@@ -147,12 +135,12 @@ class Message extends Surface
             throw new Exception('Invalid directives for message');
         }
 
-        $hasBlocks = !empty($this->getBlocks());
+        $hasBlocks = $this->getBlocks() !== [];
         if ($hasBlocks) {
             parent::validate();
         }
 
-        $hasAttachments = !empty($this->attachments);
+        $hasAttachments = $this->attachments !== [];
         foreach ($this->attachments as $attachment) {
             $attachment->validate();
         }

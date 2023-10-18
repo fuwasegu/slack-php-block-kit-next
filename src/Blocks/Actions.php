@@ -14,7 +14,7 @@ class Actions extends BlockElement
     /**
      * @var Element[]
      */
-    private $elements = [];
+    private array $elements = [];
 
     /**
      * @param Element[] $elements
@@ -27,10 +27,7 @@ class Actions extends BlockElement
         }
     }
 
-    /**
-     * @return static
-     */
-    public function add(Element $element)
+    public function add(Element $element): static
     {
         if (!in_array($element->getType(), Type::ACTION_ELEMENTS, true)) {
             throw new Exception('Invalid actions element type: %s', [$element->getType()]);
@@ -109,7 +106,7 @@ class Actions extends BlockElement
 
     public function validate(): void
     {
-        if (empty($this->elements)) {
+        if ($this->elements === []) {
             throw new Exception('Context must contain at least one element');
         }
 
@@ -122,15 +119,15 @@ class Actions extends BlockElement
         }
 
         $actionIdArrayCount = array_count_values($actionIds);
-        if (count($actionIdArrayCount) > 0) {
+        if ($actionIdArrayCount !== []) {
             $duplicateActionIds = [];
             foreach ($actionIdArrayCount as $key => $value) {
-                if ((int)$value > 1) {
+                if ($value > 1) {
                     $duplicateActionIds[] = $key;
                 }
             }
 
-            if (count($duplicateActionIds) > 0) {
+            if ($duplicateActionIds !== []) {
                 throw new Exception(
                     'The following action_ids are duplicated : ' . implode(', ', $duplicateActionIds) . ' ]',
                 );

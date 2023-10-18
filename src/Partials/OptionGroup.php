@@ -16,10 +16,9 @@ class OptionGroup extends Element
     private $label;
 
     /**
-     * @param  array<string, string>|string[]|null $options
-     * @return static
+     * @param array<string, string>|string[]|null $options
      */
-    public static function new(?string $label = null, ?array $options = null)
+    public static function new(?string $label = null, ?array $options = null): static
     {
         $optionGroup = new static();
 
@@ -39,10 +38,7 @@ class OptionGroup extends Element
         return OptionsConfig::new()->setMinOptions(1)->setMaxOptions(100);
     }
 
-    /**
-     * @return static
-     */
-    public function setLabel(PlainText $label)
+    public function setLabel(PlainText $label): static
     {
         $this->label = $label->setParent($this);
 

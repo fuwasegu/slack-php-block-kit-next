@@ -10,46 +10,38 @@ namespace SlackPhp\BlockKit;
 class HydrationData
 {
     /**
-     * @var array<string, mixed>
-     */
-    private $data;
-
-    /**
      * @var array<string, bool>
      */
-    private $consumed;
+    private array $consumed = [];
 
     /**
      * HydrationData constructor.
      */
-    public function __construct(array $data)
-    {
-        $this->data = $data;
-        $this->consumed = [];
+    public function __construct(
+        /**
+         * @var array<string, mixed>
+         */
+        private array $data,
+    ) {
     }
 
-    /**
-     * @return bool
-     */
-    public function has(string $key)
+    public function has(string $key): bool
     {
         return isset($this->data[$key]);
     }
 
     /**
-     * @param  mixed $default
      * @return mixed
      */
-    public function get(string $key, $default = null)
+    public function get(string $key, mixed $default = null)
     {
         return $this->data[$key] ?? $default;
     }
 
     /**
-     * @param  mixed $default
      * @return mixed
      */
-    public function useValue(string $key, $default = null)
+    public function useValue(string $key, mixed $default = null)
     {
         $this->consumed[$key] = true;
 

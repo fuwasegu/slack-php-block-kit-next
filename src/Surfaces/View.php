@@ -13,20 +13,11 @@ use SlackPhp\BlockKit\HydrationData;
  */
 abstract class View extends Surface
 {
-    /**
-     * @var string
-     */
-    private $callbackId;
+    private ?string $callbackId = null;
 
-    /**
-     * @var string
-     */
-    private $externalId;
+    private ?string $externalId = null;
 
-    /**
-     * @var string
-     */
-    private $privateMetadata;
+    private ?string $privateMetadata = null;
 
     /**
      * @return static
@@ -86,9 +77,7 @@ abstract class View extends Surface
             $data['private_metadata'] = $this->privateMetadata;
         }
 
-        $data += parent::toArray();
-
-        return $data;
+        return $data + parent::toArray();
     }
 
     protected function hydrate(HydrationData $data): void

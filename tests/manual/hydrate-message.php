@@ -115,5 +115,5 @@ JSON;
 
 $data = json_decode($json, true);
 $message = Message::fromArray($data);
-assert(json_encode($data) === json_encode($message));
+assert(json_encode($data) === json_encode($message, JSON_THROW_ON_ERROR));
 view($message);

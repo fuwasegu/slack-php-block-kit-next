@@ -9,29 +9,21 @@ class OptionsConfig
     /**
      * @var int|null minimum number of options supported
      */
-    private $minOptions;
+    private ?int $minOptions = 1;
 
     /**
      * @var int|null maximum number of options supported
      */
-    private $maxOptions;
+    private ?int $maxOptions = null;
 
     /**
      * @var int|null maximum number of initial options supported
      */
-    private $maxInitialOptions;
+    private ?int $maxInitialOptions = null;
 
-    /**
-     * @return static
-     */
-    public static function new()
+    public static function new(): static
     {
         return new static();
-    }
-
-    public function __construct()
-    {
-        $this->minOptions = 1;
     }
 
     public function getMinOptions(): ?int
@@ -39,10 +31,7 @@ class OptionsConfig
         return $this->minOptions;
     }
 
-    /**
-     * @return static
-     */
-    public function setMinOptions(?int $minOptions)
+    public function setMinOptions(?int $minOptions): static
     {
         $this->minOptions = $minOptions;
 
@@ -54,10 +43,7 @@ class OptionsConfig
         return $this->maxOptions;
     }
 
-    /**
-     * @return static
-     */
-    public function setMaxOptions(?int $maxOptions)
+    public function setMaxOptions(?int $maxOptions): static
     {
         $this->maxOptions = $maxOptions;
 
@@ -69,10 +55,7 @@ class OptionsConfig
         return $this->maxInitialOptions;
     }
 
-    /**
-     * @return static
-     */
-    public function setMaxInitialOptions(?int $maxInitialOptions)
+    public function setMaxInitialOptions(?int $maxInitialOptions): static
     {
         $this->maxInitialOptions = $maxInitialOptions;
 

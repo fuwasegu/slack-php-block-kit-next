@@ -8,15 +8,9 @@ use SlackPhp\BlockKit\HydrationData;
 
 class UserSelectMenu extends SelectMenu
 {
-    /**
-     * @var string
-     */
-    private $initialUser;
+    private ?string $initialUser = null;
 
-    /**
-     * @return static
-     */
-    public function initialUser(string $initialUser)
+    public function initialUser(string $initialUser): static
     {
         $this->initialUser = $initialUser;
 

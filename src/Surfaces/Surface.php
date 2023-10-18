@@ -23,7 +23,7 @@ abstract class Surface extends Element
     /**
      * @var BlockElement[]
      */
-    private $blocks = [];
+    private array $blocks = [];
 
     /**
      * @return static
@@ -162,7 +162,7 @@ abstract class Surface extends Element
     {
         $blocks = $this->getBlocks();
 
-        if (empty($blocks)) {
+        if ($blocks === []) {
             throw new Exception('A surface must contain at least one block');
         }
 
@@ -179,15 +179,15 @@ abstract class Surface extends Element
         }
 
         $blockIdArrayCount = array_count_values($blolckIds);
-        if (count($blockIdArrayCount) > 0) {
+        if ($blockIdArrayCount !== []) {
             $duplicateBlockIds = [];
             foreach ($blockIdArrayCount as $key => $value) {
-                if ((int)$value > 1) {
+                if ($value > 1) {
                     $duplicateBlockIds[] = $key;
                 }
             }
 
-            if (count($duplicateBlockIds) > 0) {
+            if ($duplicateBlockIds !== []) {
                 throw new Exception(
                     'The following block_ids are duplicated : ' . implode(', ', $duplicateBlockIds) . ' ]',
                 );

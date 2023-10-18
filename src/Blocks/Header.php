@@ -19,15 +19,12 @@ class Header extends BlockElement
     {
         parent::__construct($blockId);
 
-        if (!empty($text)) {
+        if ($text !== null && $text !== '') {
             $this->text($text);
         }
     }
 
-    /**
-     * @return static
-     */
-    public function setText(PlainText $text)
+    public function setText(PlainText $text): static
     {
         $this->text = $text->setParent($this);
 

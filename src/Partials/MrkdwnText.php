@@ -9,10 +9,7 @@ use SlackPhp\BlockKit\Kit;
 
 class MrkdwnText extends Text
 {
-    /**
-     * @var bool
-     */
-    private $verbatim;
+    private ?bool $verbatim = null;
 
     public function __construct(?string $text = null, ?bool $verbatim = null)
     {
@@ -24,10 +21,7 @@ class MrkdwnText extends Text
         $this->verbatim($verbatim);
     }
 
-    /**
-     * @return static
-     */
-    public function verbatim(?bool $verbatim)
+    public function verbatim(?bool $verbatim): static
     {
         $this->verbatim = $verbatim;
 
@@ -38,7 +32,7 @@ class MrkdwnText extends Text
     {
         $data = parent::toArray();
 
-        if (isset($this->verbatim)) {
+        if ($this->verbatim !== null) {
             $data['verbatim'] = $this->verbatim;
         }
 

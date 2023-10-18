@@ -32,12 +32,12 @@ class TestCase extends PhpUnitTestCase
      */
     protected function jsonEncode($data): string
     {
-        $json = json_encode($data);
+        $json = json_encode($data, JSON_THROW_ON_ERROR);
         if (!is_string($json)) {
             $this->fail('JSON encoding error in test.');
         }
 
-        return (string)$json;
+        return $json;
     }
 
     protected function getMockSurface(): Surface

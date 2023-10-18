@@ -14,55 +14,31 @@ class TextInput extends InputElement
 
     private const MAX_MIN_LENGTH = 3000;
 
-    /**
-     * @var string
-     */
-    private $initialValue;
+    private ?string $initialValue = null;
 
-    /**
-     * @var bool
-     */
-    private $multiline;
+    private ?bool $multiline = null;
 
-    /**
-     * @var int
-     */
-    private $minLength;
+    private ?int $minLength = null;
 
-    /**
-     * @var int
-     */
-    private $maxLength;
+    private ?int $maxLength = null;
 
-    /**
-     * @var DispatchActionConfig
-     */
-    private $dispatchActionConfig;
+    private ?\SlackPhp\BlockKit\Partials\DispatchActionConfig $dispatchActionConfig = null;
 
-    /**
-     * @return static
-     */
-    public function initialValue(string $text)
+    public function initialValue(string $text): static
     {
         $this->initialValue = $text;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function multiline(bool $flag)
+    public function multiline(bool $flag): static
     {
         $this->multiline = $flag;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function minLength(int $length)
+    public function minLength(int $length): static
     {
         if ($length < 0) {
             throw new Exception('Min length must be >= 0');
@@ -73,10 +49,7 @@ class TextInput extends InputElement
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function maxLength(int $length)
+    public function maxLength(int $length): static
     {
         if ($length < 1) {
             throw new Exception('Max length must be >= 1');
@@ -87,10 +60,7 @@ class TextInput extends InputElement
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function setDispatchActionConfig(DispatchActionConfig $config)
+    public function setDispatchActionConfig(DispatchActionConfig $config): static
     {
         $this->dispatchActionConfig = $config;
 
@@ -125,17 +95,17 @@ class TextInput extends InputElement
             $this->placeholder->validate();
         }
 
-        if (isset($this->minLength)) {
+        if ($this->minLength !== null) {
             if ($this->minLength > self::MAX_MIN_LENGTH) {
                 throw new Exception('Text input min length cannot exceed %d', [self::MAX_MIN_LENGTH]);
             }
 
-            if (isset($this->maxLength) && $this->maxLength <= $this->minLength) {
+            if ($this->maxLength !== null && $this->maxLength <= $this->minLength) {
                 throw new Exception('Text input max length must be greater than min length');
             }
         }
 
-        if (isset($this->dispatchActionConfig)) {
+        if ($this->dispatchActionConfig !== null) {
             $this->dispatchActionConfig->validate();
         }
     }
@@ -152,19 +122,19 @@ class TextInput extends InputElement
             $data['initial_value'] = $this->initialValue;
         }
 
-        if (isset($this->multiline)) {
+        if ($this->multiline !== null) {
             $data['multiline'] = $this->multiline;
         }
 
-        if (isset($this->minLength)) {
+        if ($this->minLength !== null) {
             $data['min_length'] = $this->minLength;
         }
 
-        if (isset($this->maxLength)) {
+        if ($this->maxLength !== null) {
             $data['max_length'] = $this->maxLength;
         }
 
-        if (isset($this->dispatchActionConfig)) {
+        if ($this->dispatchActionConfig !== null) {
             $data['dispatch_action_config'] = $this->dispatchActionConfig->toArray();
         }
 

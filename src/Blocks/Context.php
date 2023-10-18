@@ -18,7 +18,7 @@ class Context extends BlockElement
     /**
      * @var Element[]
      */
-    private $elements = [];
+    private array $elements = [];
 
     /**
      * @param Element[] $elements
@@ -31,10 +31,7 @@ class Context extends BlockElement
         }
     }
 
-    /**
-     * @return static
-     */
-    public function add(Element $element)
+    public function add(Element $element): static
     {
         if (!in_array($element->getType(), Type::CONTEXT_ELEMENTS, true)) {
             throw new Exception('Invalid context element type: %s', [$element->getType()]);
@@ -75,7 +72,7 @@ class Context extends BlockElement
 
     public function validate(): void
     {
-        if (empty($this->elements)) {
+        if ($this->elements === []) {
             throw new Exception('Context must contain at least one element');
         }
 

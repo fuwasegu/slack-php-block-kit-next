@@ -35,25 +35,19 @@ class Input extends BlockElement
      */
     private $hint;
 
-    /**
-     * @var bool
-     */
-    private $optional;
+    private bool $optional;
 
-    /**
-     * @var bool
-     */
-    private $dispatchAction;
+    private bool $dispatchAction;
 
     public function __construct(?string $blockId = null, ?string $label = null, ?Element $element = null)
     {
         parent::__construct($blockId);
 
-        if (!empty($label)) {
+        if ($label !== null && $label !== '') {
             $this->label($label);
         }
 
-        if (!empty($element)) {
+        if ($element instanceof \SlackPhp\BlockKit\Element) {
             $this->setElement($element);
         }
 
@@ -61,20 +55,14 @@ class Input extends BlockElement
         $this->dispatchAction = false;
     }
 
-    /**
-     * @return static
-     */
-    public function setLabel(Partials\PlainText $label)
+    public function setLabel(Partials\PlainText $label): static
     {
         $this->label = $label->setParent($this);
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function setElement(Element $element)
+    public function setElement(Element $element): static
     {
         if (!empty($this->element)) {
             throw new Exception('Input element already set as type %s', [$this->element->getType()]);
@@ -89,10 +77,7 @@ class Input extends BlockElement
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function setHint(Partials\PlainText $hint)
+    public function setHint(Partials\PlainText $hint): static
     {
         $this->hint = $hint->setParent($this);
 
@@ -115,20 +100,14 @@ class Input extends BlockElement
         return $this->setHint(new Partials\PlainText($text, $emoji));
     }
 
-    /**
-     * @return static
-     */
-    public function optional(bool $optional = true)
+    public function optional(bool $optional = true): static
     {
         $this->optional = $optional;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function dispatchAction(bool $dispatchAction = true)
+    public function dispatchAction(bool $dispatchAction = true): static
     {
         $this->dispatchAction = $dispatchAction;
 

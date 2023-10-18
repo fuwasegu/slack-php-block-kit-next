@@ -25,14 +25,14 @@ abstract class VirtualBlock extends BlockElement implements IteratorAggregate
     /**
      * @var BlockElement[]\array
      */
-    private $blocks = [];
+    private array $blocks = [];
 
     /**
      * @return static
      */
     protected function appendBlock(BlockElement $block)
     {
-        if ($this->getParent() !== null) {
+        if ($this->getParent() instanceof \SlackPhp\BlockKit\Element) {
             $block->setParent($this->getParent());
         }
 
@@ -46,15 +46,13 @@ abstract class VirtualBlock extends BlockElement implements IteratorAggregate
      */
     protected function prependBlock(BlockElement $block)
     {
-        if ($this->getParent() !== null) {
+        if ($this->getParent() instanceof \SlackPhp\BlockKit\Element) {
             $block->setParent($this->getParent());
         }
 
         $this->blocks = array_merge(
             [$this->assignBlockId($block, 1)],
-            array_map(function (BlockElement $block) {
-                return $this->assignBlockId($block);
-            }, $this->blocks),
+            array_map(fn (BlockElement $block): \SlackPhp\BlockKit\Blocks\BlockElement => $this->assignBlockId($block), $this->blocks),
         );
 
         return $this;

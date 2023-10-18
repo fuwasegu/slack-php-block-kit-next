@@ -14,15 +14,9 @@ class MultiExternalSelectMenu extends MultiSelectMenu
      */
     private $initialOptions;
 
-    /**
-     * @var int
-     */
-    private $minQueryLength;
+    private ?int $minQueryLength = null;
 
-    /**
-     * @return static
-     */
-    public function initialOptions(array $options)
+    public function initialOptions(array $options): static
     {
         foreach ($options as $name => $value) {
             $option = Option::new((string)$name, (string)$value);
@@ -33,10 +27,7 @@ class MultiExternalSelectMenu extends MultiSelectMenu
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function minQueryLength(int $minQueryLength)
+    public function minQueryLength(int $minQueryLength): static
     {
         $this->minQueryLength = $minQueryLength;
 
@@ -47,10 +38,8 @@ class MultiExternalSelectMenu extends MultiSelectMenu
     {
         parent::validate();
 
-        if (!empty($this->initialOptions)) {
-            foreach ($this->initialOptions as $option) {
-                $option->validate();
-            }
+        foreach ($this->initialOptions as $option) {
+            $option->validate();
         }
     }
 
@@ -59,12 +48,10 @@ class MultiExternalSelectMenu extends MultiSelectMenu
         $data = parent::toArray();
 
         if (!empty($this->initialOptions)) {
-            $data['initial_options'] = array_map(static function (Option $option) {
-                return $option->toArray();
-            }, $this->initialOptions);
+            $data['initial_options'] = array_map(static fn (Option $option): array => $option->toArray(), $this->initialOptions);
         }
 
-        if (isset($this->minQueryLength)) {
+        if ($this->minQueryLength !== null) {
             $data['min_query_length'] = $this->minQueryLength;
         }
 

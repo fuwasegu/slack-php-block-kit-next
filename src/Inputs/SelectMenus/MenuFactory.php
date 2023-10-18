@@ -7,18 +7,12 @@ namespace SlackPhp\BlockKit\Inputs\SelectMenus;
 abstract class MenuFactory
 {
     /**
-     * @var string|null
-     */
-    protected $actionId;
-
-    /**
      * @var callable|null
      */
     protected $parentCallback;
 
-    public function __construct(?string $actionId = null, ?callable $parentCallback = null)
+    public function __construct(protected ?string $actionId = null, ?callable $parentCallback = null)
     {
-        $this->actionId = $actionId;
         $this->parentCallback = $parentCallback;
     }
 

@@ -11,13 +11,12 @@ class MultiChannelSelectMenu extends MultiSelectMenu
     /**
      * @var string[]
      */
-    private $initialChannels;
+    private ?array $initialChannels = null;
 
     /**
-     * @param  string[] $initialChannels
-     * @return static
+     * @param string[] $initialChannels
      */
-    public function initialChannels(array $initialChannels)
+    public function initialChannels(array $initialChannels): static
     {
         $this->initialChannels = $initialChannels;
 

@@ -16,10 +16,7 @@ class Option extends Element
      */
     private $text;
 
-    /**
-     * @var string
-     */
-    private $value;
+    private ?string $value = null;
 
     /**
      * @var PlainText Description text for option. NOTE: Radio Button and Checkbox groups only.
@@ -29,12 +26,9 @@ class Option extends Element
     /**
      * @var string URL to load in browser when option is clicked. NOTE: Overflow Menu only.
      */
-    private $url;
+    private ?string $url = null;
 
-    /**
-     * @return static
-     */
-    public static function new(?string $text = null, ?string $value = null)
+    public static function new(?string $text = null, ?string $value = null): static
     {
         $option = new static();
 
@@ -49,10 +43,7 @@ class Option extends Element
         return $option;
     }
 
-    /**
-     * @return static
-     */
-    public function setText(PlainText $text)
+    public function setText(PlainText $text): static
     {
         $this->text = $text->setParent($this);
 
@@ -67,20 +58,14 @@ class Option extends Element
         return $this->setText(new PlainText($text));
     }
 
-    /**
-     * @return static
-     */
-    public function value(string $value)
+    public function value(string $value): static
     {
         $this->value = $value;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function setDescription(PlainText $description)
+    public function setDescription(PlainText $description): static
     {
         $this->description = $description->setParent($this);
 
@@ -95,10 +80,7 @@ class Option extends Element
         return $this->setDescription(new PlainText($description));
     }
 
-    /**
-     * @return static
-     */
-    public function url(string $url)
+    public function url(string $url): static
     {
         $this->url = $url;
 

@@ -67,12 +67,10 @@ trait HasOptionGroups
     protected function getOptionGroupsAsArray(): array
     {
         if (!empty($this->optionGroups)) {
-            return ['option_groups' => array_map(static function (OptionGroup $optionGroup) {
-                return $optionGroup->toArray();
-            }, $this->optionGroups)];
-        } else {
-            return $this->getOptionsAsArray();
+            return ['option_groups' => array_map(static fn (OptionGroup $optionGroup): array => $optionGroup->toArray(), $this->optionGroups)];
         }
+
+        return $this->getOptionsAsArray();
     }
 
     protected function hydrateOptionGroups(HydrationData $data): void

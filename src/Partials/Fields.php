@@ -11,22 +11,19 @@ class Fields extends Element
     /**
      * @var Text[]
      */
-    private $fields = [];
+    private array $fields = [];
 
     /**
      * @param Text[]|string[] $fields
      */
     public function __construct(array $fields = [])
     {
-        if (!empty($fields)) {
+        if ($fields !== []) {
             $this->populate($fields);
         }
     }
 
-    /**
-     * @return static
-     */
-    public function add(Text $field)
+    public function add(Text $field): static
     {
         if (count($this->fields) >= 10) {
             throw new Exception('Cannot have more than 10 fields');
@@ -38,10 +35,9 @@ class Fields extends Element
     }
 
     /**
-     * @param  Text[]|string[] $fields
-     * @return static
+     * @param Text[]|string[] $fields
      */
-    public function populate(array $fields = [])
+    public function populate(array $fields = []): static
     {
         foreach ($fields as $field) {
             if (!$field instanceof Text) {
@@ -56,7 +52,7 @@ class Fields extends Element
 
     public function validate(): void
     {
-        if (empty($this->fields)) {
+        if ($this->fields === []) {
             throw new Exception('Fields component must have at least one field.');
         }
 

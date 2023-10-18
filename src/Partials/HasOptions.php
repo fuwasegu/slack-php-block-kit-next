@@ -82,7 +82,7 @@ trait HasOptions
     {
         foreach ($options as $text => $value) {
             $value = (string)$value;
-            $text = is_int($text) ? $value : (string)$text;
+            $text = is_int($text) ? $value : $text;
             $this->addOption(Option::new($text, $value));
         }
 
@@ -109,7 +109,7 @@ trait HasOptions
     {
         foreach ($options as $text => $value) {
             $value = (string)$value;
-            $text = is_int($text) ? $value : (string)$text;
+            $text = is_int($text) ? $value : $text;
             $this->initialOption($text, $value);
         }
 
@@ -163,9 +163,7 @@ trait HasOptions
 
     protected function getOptionsAsArray(): array
     {
-        return ['options' => array_map(static function (Option $option) {
-            return $option->toArray();
-        }, $this->options)];
+        return ['options' => array_map(static fn (Option $option): array => $option->toArray(), $this->options)];
     }
 
     protected function getInitialOptionsAsArray(): array
@@ -180,9 +178,7 @@ trait HasOptions
             return ['initial_option' => $this->initialOptions[0]->toArray()];
         }
 
-        return ['initial_options' => array_map(static function (Option $initialOption) {
-            return $initialOption->toArray();
-        }, $this->initialOptions)];
+        return ['initial_options' => array_map(static fn (Option $initialOption): array => $initialOption->toArray(), $this->initialOptions)];
     }
 
     protected function hydrateOptions(HydrationData $data): void
