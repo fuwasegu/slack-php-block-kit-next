@@ -36,7 +36,7 @@ abstract class Kit
 
     public static function config(): Config
     {
-        if (self::$config === null) {
+        if (!self::$config instanceof Config) {
             self::$config = Config::new();
         }
 
@@ -45,7 +45,7 @@ abstract class Kit
 
     public static function formatter(): Formatter
     {
-        if (self::$formatter === null) {
+        if (!self::$formatter instanceof Formatter) {
             self::$formatter = Formatter::new();
         }
 
@@ -54,7 +54,7 @@ abstract class Kit
 
     public static function preview(Surfaces\Surface $surface): string
     {
-        if (self::$previewer === null) {
+        if (!self::$previewer instanceof Previewer) {
             self::$previewer = Previewer::new();
         }
 

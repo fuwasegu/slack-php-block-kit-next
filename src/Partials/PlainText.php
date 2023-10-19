@@ -30,9 +30,9 @@ class PlainText extends Text
 
     public function toArray(): array
     {
-        return !$this->emoji
-            ? parent::toArray() + ['emoji' => false]
-            : parent::toArray();
+        return $this->emoji
+            ? parent::toArray()
+            : parent::toArray() + ['emoji' => false];
     }
 
     protected function hydrate(HydrationData $data): void

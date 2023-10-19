@@ -55,7 +55,7 @@ class OptionGroup extends Element
 
     public function toArray(): array
     {
-        assert($this->label !== null);
+        assert($this->label instanceof PlainText);
 
         return parent::toArray()
             + ['label' => $this->label->toArray()]

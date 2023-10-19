@@ -34,7 +34,7 @@ class ChannelSelectMenu extends SelectMenu
             $data['initial_channel'] = $this->initialChannel;
         }
 
-        if ($this->responseUrlEnabled === true) {
+        if ($this->responseUrlEnabled) {
             $data['response_url_enabled'] = $this->responseUrlEnabled;
         }
 

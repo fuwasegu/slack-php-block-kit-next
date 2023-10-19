@@ -16,7 +16,7 @@ abstract class SelectMenu extends InputElement
 
     public function validate(): void
     {
-        if ($this->placeholder === null) {
+        if (!$this->placeholder instanceof PlainText) {
             throw new Exception('Select menus must contain a "placeholder"');
         }
 
@@ -33,7 +33,7 @@ abstract class SelectMenu extends InputElement
 
         $data['placeholder'] = $this->placeholder->toArray();
 
-        if (!empty($this->confirm)) {
+        if ($this->confirm instanceof Confirm) {
             $data['confirm'] = $this->confirm->toArray();
         }
 

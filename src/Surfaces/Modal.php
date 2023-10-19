@@ -85,7 +85,7 @@ class Modal extends View
     {
         parent::validate();
 
-        if ($this->title === null) {
+        if (!$this->title instanceof PlainText) {
             throw new Exception('Modals must have a title');
         }
         $this->title->validateWithLength(self::MAX_LENGTH_TITLE);
@@ -107,7 +107,7 @@ class Modal extends View
     {
         $data = [];
 
-        assert($this->title !== null);
+        assert($this->title instanceof PlainText);
 
         $data['title'] = $this->title->toArray();
 
@@ -119,11 +119,11 @@ class Modal extends View
             $data['close'] = $this->close->toArray();
         }
 
-        if ($this->clearOnClose === true) {
+        if ($this->clearOnClose) {
             $data['clear_on_close'] = $this->clearOnClose;
         }
 
-        if ($this->notifyOnClose === true) {
+        if ($this->notifyOnClose) {
             $data['notify_on_close'] = $this->notifyOnClose;
         }
 

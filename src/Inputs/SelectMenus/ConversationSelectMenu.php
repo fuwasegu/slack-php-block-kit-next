@@ -70,11 +70,11 @@ class ConversationSelectMenu extends SelectMenu
             $data['initial_conversation'] = $this->initialConversation;
         }
 
-        if ($this->responseUrlEnabled === true) {
+        if ($this->responseUrlEnabled) {
             $data['response_url_enabled'] = $this->responseUrlEnabled;
         }
 
-        if ($this->defaultToCurrentConversation === true) {
+        if ($this->defaultToCurrentConversation) {
             $data['default_to_current_conversation'] = $this->defaultToCurrentConversation;
         }
 

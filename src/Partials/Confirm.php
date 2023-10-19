@@ -85,10 +85,10 @@ class Confirm extends Element
     public function validate(): void
     {
         if (
-            $this->title === null
-            || $this->confirm === null
-            || $this->deny === null
-            || $this->text === null
+            !$this->title instanceof PlainText
+            || !$this->confirm instanceof PlainText
+            || !$this->deny instanceof PlainText
+            || !$this->text instanceof Text
         ) {
             throw new Exception('Confirm must contain "title", "confirm", "text", "deny"');
         }
@@ -102,10 +102,10 @@ class Confirm extends Element
     public function toArray(): array
     {
         assert(
-            $this->title !== null
-            && $this->text !== null
-            && $this->confirm !== null
-            && $this->deny !== null,
+            $this->title instanceof PlainText
+            && $this->text instanceof Text
+            && $this->confirm instanceof PlainText
+            && $this->deny instanceof PlainText,
         );
 
         return parent::toArray() + [

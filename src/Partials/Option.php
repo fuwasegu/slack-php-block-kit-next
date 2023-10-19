@@ -80,7 +80,7 @@ class Option extends Element
 
     public function validate(): void
     {
-        if ($this->text === null) {
+        if (!$this->text instanceof PlainText) {
             throw new Exception('Option element must contain a "text" element');
         }
 
@@ -111,7 +111,7 @@ class Option extends Element
 
     public function toArray(): array
     {
-        assert($this->text !== null);
+        assert($this->text instanceof PlainText);
 
         $data = [
             'text' => $this->text->toArray(),
