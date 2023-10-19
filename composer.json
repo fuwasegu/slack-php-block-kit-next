@@ -1,5 +1,5 @@
 {
-    "name": "fuwasegu/slack-php-block-kit",
+    "name": "fuwasegu/slack-php-block-kit-next",
     "description": "OOP interface for writing Slack Block Kit messages and modals",
     "type": "library",
     "license": "MIT",

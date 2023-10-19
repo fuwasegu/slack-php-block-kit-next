@@ -1,7 +1,8 @@
 <header>
-  <h1 align="center">Slack Block Kit for PHP</h1>
+  <h1 align="center">Slack PHP BlockKit NEXT</h1>
   <p align="center">:point_right: <em>For formatting messages and modals for Slack using their Block Kit syntax via an OOP interface</em> :point_left:</p>
-  <p align="center">By Jeremy Lindblom (<a href="https://twitter.com/jeremeamia">@jeremeamia</a>)</p>
+  <p align="center">Originally by Jeremy Lindblom (<a href="https://twitter.com/jeremeamia">@jeremeamia</a>)</p>
+  <p align="center">Forked and maintained by Fuwasegu (<a href="https://twitter.com/fuwasegu">@fuwasegu</a>)</p>
 </header>
 
 
