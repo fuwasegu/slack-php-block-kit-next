@@ -9,7 +9,7 @@ use SlackPhp\BlockKit\Kit;
 
 class MrkdwnText extends Text
 {
-    private ?bool $verbatim = null;
+    private bool $verbatim = false;
 
     public function __construct(?string $text = null, ?bool $verbatim = null)
     {
@@ -23,20 +23,16 @@ class MrkdwnText extends Text
 
     public function verbatim(?bool $verbatim): static
     {
-        $this->verbatim = $verbatim;
+        $this->verbatim = $verbatim ?? Kit::config()->getDefaultVerbatimSetting();
 
         return $this;
     }
 
     public function toArray(): array
     {
-        $data = parent::toArray();
-
-        if ($this->verbatim !== null) {
-            $data['verbatim'] = $this->verbatim;
-        }
-
-        return $data;
+        return $this->verbatim
+            ? parent::toArray() + ['verbatim' => true]
+            : parent::toArray();
     }
 
     protected function hydrate(HydrationData $data): void

@@ -17,10 +17,7 @@ class DatePicker extends InputElement
 
     private const DATE_FORMAT = 'Y-m-d';
 
-    /**
-     * @var string
-     */
-    private $initialDate;
+    private ?string $initialDate = null;
 
     public function initialDate(string $date): static
     {
@@ -36,11 +33,11 @@ class DatePicker extends InputElement
 
     public function validate(): void
     {
-        if (!empty($this->placeholder)) {
+        if ($this->placeholder instanceof PlainText) {
             $this->placeholder->validate();
         }
 
-        if (!empty($this->confirm)) {
+        if ($this->confirm instanceof Confirm) {
             $this->confirm->validate();
         }
     }
@@ -49,15 +46,15 @@ class DatePicker extends InputElement
     {
         $data = parent::toArray();
 
-        if (!empty($this->initialDate)) {
+        if ($this->initialDate !== null && $this->initialDate !== '') {
             $data['initial_date'] = $this->initialDate;
         }
 
-        if (!empty($this->placeholder)) {
+        if ($this->placeholder instanceof PlainText) {
             $data['placeholder'] = $this->placeholder->toArray();
         }
 
-        if (!empty($this->confirm)) {
+        if ($this->confirm instanceof Confirm) {
             $data['confirm'] = $this->confirm->toArray();
         }
 

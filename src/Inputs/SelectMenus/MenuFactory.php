@@ -16,6 +16,11 @@ abstract class MenuFactory
         $this->parentCallback = $parentCallback;
     }
 
+    /**
+     * @template T
+     * @param  class-string<T> $class
+     * @return T
+     */
     protected function create(string $class)
     {
         $menu = new $class($this->actionId);

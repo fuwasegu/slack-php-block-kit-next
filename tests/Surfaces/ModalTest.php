@@ -65,7 +65,7 @@ class ModalTest extends TestCase
     {
         $modal = Modal::new()->text('foo');
         $this->expectException(Exception::class);
-        $this->expectExceptionMessageMatches('/Modals must have a "title"/');
+        $this->expectExceptionMessageMatches('/Modals must have a title/');
         $modal->validate();
     }
 

@@ -19,30 +19,21 @@ abstract class View extends Surface
 
     private ?string $privateMetadata = null;
 
-    /**
-     * @return static
-     */
-    public function callbackId(string $callbackId)
+    public function callbackId(string $callbackId): static
     {
         $this->callbackId = $callbackId;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function externalId(string $externalId)
+    public function externalId(string $externalId): static
     {
         $this->externalId = $externalId;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function privateMetadata(string $privateMetadata)
+    public function privateMetadata(string $privateMetadata): static
     {
         $this->privateMetadata = $privateMetadata;
 
@@ -53,10 +44,8 @@ abstract class View extends Surface
      * Encodes the provided associative array of data into a string for `private_metadata`.
      *
      * Note: Can be decoded using `base64_decode()` and `parse_str()`.
-     *
-     * @return static
      */
-    public function encodePrivateMetadata(array $data)
+    public function encodePrivateMetadata(array $data): static
     {
         return $this->privateMetadata(\base64_encode(\http_build_query($data)));
     }

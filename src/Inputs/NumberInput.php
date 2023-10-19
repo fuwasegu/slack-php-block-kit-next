@@ -14,22 +14,13 @@ class NumberInput extends InputElement
 
     private bool $isDecimalAllowed = false;
 
-    /**
-     * @var int|float
-     */
-    private $initialValue;
+    private null|float|int $initialValue = null;
 
-    /**
-     * @var int|float
-     */
-    private $minValue;
+    private null|float|int $minValue = null;
 
-    /**
-     * @var int|float
-     */
-    private $maxValue;
+    private null|float|int $maxValue = null;
 
-    private ?\SlackPhp\BlockKit\Partials\DispatchActionConfig $dispatchActionConfig = null;
+    private ?DispatchActionConfig $dispatchActionConfig = null;
 
     private ?bool $focusOnLoad = null;
 
@@ -40,30 +31,21 @@ class NumberInput extends InputElement
         return $this;
     }
 
-    /**
-     * @param int|float $value
-     */
-    public function setInitialValue($value): static
+    public function setInitialValue(float|int $value): static
     {
         $this->initialValue = $value;
 
         return $this;
     }
 
-    /**
-     * @param int|float $value
-     */
-    public function setMinValue($value): static
+    public function setMinValue(float|int $value): static
     {
         $this->minValue = $value;
 
         return $this;
     }
 
-    /**
-     * @param int|float $value
-     */
-    public function setMaxValue($value): static
+    public function setMaxValue(float|int $value): static
     {
         $this->maxValue = $value;
 
@@ -86,7 +68,7 @@ class NumberInput extends InputElement
 
     public function validate(): void
     {
-        if (!empty($this->placeholder)) {
+        if ($this->placeholder instanceof PlainText) {
             $this->placeholder->validate();
         }
 
@@ -118,7 +100,7 @@ class NumberInput extends InputElement
             throw new Exception('The initial value must be greater than or equal to min_value');
         }
 
-        if ($this->dispatchActionConfig instanceof \SlackPhp\BlockKit\Partials\DispatchActionConfig) {
+        if ($this->dispatchActionConfig instanceof DispatchActionConfig) {
             $this->dispatchActionConfig->validate();
         }
     }
@@ -127,11 +109,11 @@ class NumberInput extends InputElement
     {
         $data = parent::toArray();
 
-        if (!empty($this->placeholder)) {
+        if ($this->placeholder instanceof PlainText) {
             $data['placeholder'] = $this->placeholder->toArray();
         }
 
-        if (!empty($this->initialValue)) {
+        if ($this->initialValue !== null) {
             // Must be a String in SlackAPI documentation
             $data['initial_value'] = (string)$this->initialValue;
         }
@@ -146,7 +128,7 @@ class NumberInput extends InputElement
             $data['max_value'] = (string)$this->maxValue;
         }
 
-        if ($this->dispatchActionConfig instanceof \SlackPhp\BlockKit\Partials\DispatchActionConfig) {
+        if ($this->dispatchActionConfig instanceof DispatchActionConfig) {
             $data['dispatch_action_config'] = $this->dispatchActionConfig->toArray();
         }
 

@@ -12,14 +12,11 @@ class MultiConversationSelectMenu extends MultiSelectMenu
     /**
      * @var string[]
      */
-    private ?array $initialConversations = null;
+    private array $initialConversations = [];
 
-    private ?bool $defaultToCurrentConversation = null;
+    private bool $defaultToCurrentConversation = false;
 
-    /**
-     * @var Filter
-     */
-    private $filter;
+    private ?Filter $filter = null;
 
     /**
      * @param string[] $initialConversations
@@ -57,7 +54,7 @@ class MultiConversationSelectMenu extends MultiSelectMenu
     {
         parent::validate();
 
-        if (!empty($this->filter)) {
+        if ($this->filter instanceof Filter) {
             $this->filter->validate();
         }
     }
@@ -66,15 +63,15 @@ class MultiConversationSelectMenu extends MultiSelectMenu
     {
         $data = parent::toArray();
 
-        if ($this->initialConversations !== null && $this->initialConversations !== []) {
+        if ($this->initialConversations !== []) {
             $data['initial_conversations'] = $this->initialConversations;
         }
 
-        if ($this->defaultToCurrentConversation === true) {
+        if ($this->defaultToCurrentConversation) {
             $data['default_to_current_conversation'] = $this->defaultToCurrentConversation;
         }
 
-        if (!empty($this->filter)) {
+        if ($this->filter instanceof Filter) {
             $data['filter'] = $this->filter->toArray();
         }
 

@@ -11,14 +11,11 @@ class ConversationSelectMenu extends SelectMenu
 {
     private ?string $initialConversation = null;
 
-    private ?bool $responseUrlEnabled = null;
+    private bool $responseUrlEnabled = false;
 
-    private ?bool $defaultToCurrentConversation = null;
+    private bool $defaultToCurrentConversation = false;
 
-    /**
-     * @var Filter
-     */
-    private $filter;
+    private ?Filter $filter = null;
 
     public function initialConversation(string $initialConversation): static
     {
@@ -60,7 +57,7 @@ class ConversationSelectMenu extends SelectMenu
     {
         parent::validate();
 
-        if (!empty($this->filter)) {
+        if ($this->filter instanceof Filter) {
             $this->filter->validate();
         }
     }
@@ -69,7 +66,7 @@ class ConversationSelectMenu extends SelectMenu
     {
         $data = parent::toArray();
 
-        if ($this->initialConversation !== null && $this->initialConversation !== '') {
+        if (is_string($this->initialConversation) && $this->initialConversation !== '') {
             $data['initial_conversation'] = $this->initialConversation;
         }
 
@@ -81,7 +78,7 @@ class ConversationSelectMenu extends SelectMenu
             $data['default_to_current_conversation'] = $this->defaultToCurrentConversation;
         }
 
-        if (!empty($this->filter)) {
+        if ($this->filter instanceof Filter) {
             $data['filter'] = $this->filter->toArray();
         }
 

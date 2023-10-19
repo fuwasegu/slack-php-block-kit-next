@@ -25,7 +25,7 @@ class Checkboxes extends InputElement
         $this->validateOptions();
         $this->validateInitialOptions();
 
-        if (!empty($this->confirm)) {
+        if ($this->confirm instanceof Confirm) {
             $this->confirm->validate();
         }
     }
@@ -34,7 +34,7 @@ class Checkboxes extends InputElement
     {
         $data = parent::toArray() + $this->getOptionsAsArray() + $this->getInitialOptionsAsArray();
 
-        if (!empty($this->confirm)) {
+        if ($this->confirm instanceof Confirm) {
             $data['confirm'] = $this->confirm->toArray();
         }
 

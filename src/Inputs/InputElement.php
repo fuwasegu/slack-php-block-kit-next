@@ -18,10 +18,7 @@ abstract class InputElement extends Element
         }
     }
 
-    /**
-     * @return static
-     */
-    public function actionId(string $actionId)
+    public function actionId(string $actionId): static
     {
         $this->actionId = $actionId;
 

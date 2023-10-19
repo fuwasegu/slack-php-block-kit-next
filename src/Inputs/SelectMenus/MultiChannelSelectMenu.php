@@ -11,7 +11,7 @@ class MultiChannelSelectMenu extends MultiSelectMenu
     /**
      * @var string[]
      */
-    private ?array $initialChannels = null;
+    private array $initialChannels = [];
 
     /**
      * @param string[] $initialChannels
@@ -27,7 +27,7 @@ class MultiChannelSelectMenu extends MultiSelectMenu
     {
         $data = parent::toArray();
 
-        if ($this->initialChannels !== null && $this->initialChannels !== []) {
+        if ($this->initialChannels !== []) {
             $data['initial_channels'] = $this->initialChannels;
         }
 

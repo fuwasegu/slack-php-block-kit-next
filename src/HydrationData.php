@@ -21,7 +21,7 @@ class HydrationData
         /**
          * @var array<string, mixed>
          */
-        private array $data,
+        private readonly array $data,
     ) {
     }
 
@@ -30,18 +30,12 @@ class HydrationData
         return isset($this->data[$key]);
     }
 
-    /**
-     * @return mixed
-     */
-    public function get(string $key, mixed $default = null)
+    public function get(string $key, mixed $default = null): mixed
     {
         return $this->data[$key] ?? $default;
     }
 
-    /**
-     * @return mixed
-     */
-    public function useValue(string $key, mixed $default = null)
+    public function useValue(string $key, mixed $default = null): mixed
     {
         $this->consumed[$key] = true;
 

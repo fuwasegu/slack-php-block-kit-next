@@ -4,16 +4,12 @@ declare(strict_types=1);
 
 namespace SlackPhp\BlockKit\Blocks;
 
-use SlackPhp\BlockKit\Exception;
 use SlackPhp\BlockKit\HydrationData;
 use SlackPhp\BlockKit\Partials\PlainText;
 
 class Header extends BlockElement
 {
-    /**
-     * @var PlainText
-     */
-    private $text;
+    private ?PlainText $text = null;
 
     public function __construct(?string $blockId = null, ?string $text = null)
     {
@@ -38,15 +34,15 @@ class Header extends BlockElement
 
     public function validate(): void
     {
-        if (empty($this->text)) {
-            throw new Exception('Header must contain "text"');
-        }
     }
 
     public function toArray(): array
     {
         $data = parent::toArray();
-        $data['text'] = $this->text->toArray();
+
+        if ($this->text instanceof PlainText) {
+            $data['text'] = $this->text->toArray();
+        }
 
         return $data;
     }

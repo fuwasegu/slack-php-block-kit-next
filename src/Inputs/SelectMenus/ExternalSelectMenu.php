@@ -9,10 +9,7 @@ use SlackPhp\BlockKit\Partials\Option;
 
 class ExternalSelectMenu extends SelectMenu
 {
-    /**
-     * @var Option
-     */
-    private $initialOption;
+    private ?Option $initialOption = null;
 
     private ?int $minQueryLength = null;
 
@@ -35,7 +32,7 @@ class ExternalSelectMenu extends SelectMenu
     {
         parent::validate();
 
-        if (!empty($this->initialOption)) {
+        if ($this->initialOption instanceof Option) {
             $this->initialOption->validate();
         }
     }
@@ -44,7 +41,7 @@ class ExternalSelectMenu extends SelectMenu
     {
         $data = parent::toArray();
 
-        if (!empty($this->initialOption)) {
+        if ($this->initialOption instanceof Option) {
             $data['initial_option'] = $this->initialOption->toArray();
         }
 

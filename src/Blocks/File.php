@@ -53,10 +53,17 @@ class File extends BlockElement
 
     public function toArray(): array
     {
-        return parent::toArray() + [
-            'external_id' => $this->externalId,
-            'source' => $this->source,
-        ];
+        $data = parent::toArray();
+
+        if (is_string($this->externalId)) {
+            $data['external_id'] = $this->externalId;
+        }
+
+        if (is_string($this->source)) {
+            $data['source'] = $this->source;
+        }
+
+        return $data;
     }
 
     protected function hydrate(HydrationData $data): void

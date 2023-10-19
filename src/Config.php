@@ -9,16 +9,16 @@ namespace SlackPhp\BlockKit;
  */
 final class Config
 {
-    private ?bool $defaultVerbatimSetting = null;
+    private bool $defaultVerbatimSetting = false;
 
-    private ?bool $defaultEmojiSetting = null;
+    private bool $defaultEmojiSetting = true;
 
     public static function new(): self
     {
         return new self();
     }
 
-    public function getDefaultVerbatimSetting(): ?bool
+    public function getDefaultVerbatimSetting(): bool
     {
         return $this->defaultVerbatimSetting;
     }
@@ -30,7 +30,7 @@ final class Config
         return $this;
     }
 
-    public function getDefaultEmojiSetting(): ?bool
+    public function getDefaultEmojiSetting(): bool
     {
         return $this->defaultEmojiSetting;
     }

@@ -22,7 +22,7 @@ class TextInput extends InputElement
 
     private ?int $maxLength = null;
 
-    private ?\SlackPhp\BlockKit\Partials\DispatchActionConfig $dispatchActionConfig = null;
+    private ?DispatchActionConfig $dispatchActionConfig = null;
 
     public function initialValue(string $text): static
     {
@@ -99,7 +99,7 @@ class TextInput extends InputElement
             }
         }
 
-        if ($this->dispatchActionConfig instanceof \SlackPhp\BlockKit\Partials\DispatchActionConfig) {
+        if ($this->dispatchActionConfig instanceof DispatchActionConfig) {
             $this->dispatchActionConfig->validate();
         }
     }
@@ -108,7 +108,7 @@ class TextInput extends InputElement
     {
         $data = parent::toArray();
 
-        if (!empty($this->placeholder)) {
+        if ($this->placeholder instanceof PlainText) {
             $data['placeholder'] = $this->placeholder->toArray();
         }
 
@@ -128,7 +128,7 @@ class TextInput extends InputElement
             $data['max_length'] = $this->maxLength;
         }
 
-        if ($this->dispatchActionConfig instanceof \SlackPhp\BlockKit\Partials\DispatchActionConfig) {
+        if ($this->dispatchActionConfig instanceof DispatchActionConfig) {
             $data['dispatch_action_config'] = $this->dispatchActionConfig->toArray();
         }
 

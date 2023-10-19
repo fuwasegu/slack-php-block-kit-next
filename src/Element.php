@@ -11,15 +11,9 @@ abstract class Element implements JsonSerializable
 {
     protected ?self $parent = null;
 
-    /**
-     * @var array
-     */
-    protected $extra;
+    protected array $extra = [];
 
-    /**
-     * @return static
-     */
-    public static function new()
+    public static function new(): static
     {
         return new static();
     }
@@ -29,10 +23,7 @@ abstract class Element implements JsonSerializable
         return $this->parent;
     }
 
-    /**
-     * @return static
-     */
-    final public function setParent(self $parent)
+    final public function setParent(self $parent): static
     {
         $this->parent = $parent;
 
@@ -46,10 +37,8 @@ abstract class Element implements JsonSerializable
 
     /**
      * Allows setting arbitrary extra fields on an element.
-     *
-     * @return static
      */
-    final public function setExtra(string $key, mixed $value)
+    final public function setExtra(string $key, mixed $value): static
     {
         $this->extra[$key] = $value;
 
@@ -64,10 +53,8 @@ abstract class Element implements JsonSerializable
      *         ->tap(function (Elem $elem) {
      *             $elem->newSubElem()->fizz('buzz');
      *         });
-     *
-     * @return static
      */
-    final public function tap(callable $tap)
+    final public function tap(callable $tap): static
     {
         $tap($this);
 
@@ -82,10 +69,8 @@ abstract class Element implements JsonSerializable
      *         ->tapIf($needsSubElem, function (Elem $elem) {
      *             $elem->newSubElem()->fizz('buzz');
      *         });
-     *
-     * @return static
      */
-    final public function tapIf(bool $condition, callable $tap)
+    final public function tapIf(bool $condition, callable $tap): static
     {
         if ($condition) {
             $tap($this);
@@ -128,10 +113,7 @@ abstract class Element implements JsonSerializable
         return $this->toArray();
     }
 
-    /**
-     * @return static
-     */
-    final public static function fromJson(string $json)
+    final public static function fromJson(string $json): static
     {
         try {
             $data = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
@@ -142,10 +124,7 @@ abstract class Element implements JsonSerializable
         return static::fromArray($data);
     }
 
-    /**
-     * @return static
-     */
-    final public static function fromArray(array $data)
+    final public static function fromArray(array $data): static
     {
         $data = new HydrationData($data);
 

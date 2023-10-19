@@ -21,24 +21,15 @@ class Modal extends View
 {
     private const MAX_LENGTH_TITLE = 24;
 
-    /**
-     * @var PlainText
-     */
-    private $title;
+    private ?PlainText $title = null;
 
-    /**
-     * @var PlainText
-     */
-    private $submit;
+    private ?PlainText $submit = null;
 
-    /**
-     * @var PlainText
-     */
-    private $close;
+    private ?PlainText $close = null;
 
-    private ?bool $clearOnClose = null;
+    private bool $clearOnClose = false;
 
-    private ?bool $notifyOnClose = null;
+    private bool $notifyOnClose = false;
 
     public function setTitle(PlainText $title): static
     {
@@ -94,8 +85,8 @@ class Modal extends View
     {
         parent::validate();
 
-        if (empty($this->title)) {
-            throw new Exception('Modals must have a "title"');
+        if ($this->title === null) {
+            throw new Exception('Modals must have a title');
         }
         $this->title->validateWithLength(self::MAX_LENGTH_TITLE);
 
@@ -107,7 +98,7 @@ class Modal extends View
                 break;
             }
         }
-        if ($hasInputs && empty($this->submit)) {
+        if ($hasInputs && !$this->submit instanceof PlainText) {
             throw new Exception('Modals must have a "submit" button defined if they contain any "input" blocks');
         }
     }
@@ -116,13 +107,15 @@ class Modal extends View
     {
         $data = [];
 
+        assert($this->title !== null);
+
         $data['title'] = $this->title->toArray();
 
-        if (!empty($this->submit)) {
+        if ($this->submit instanceof PlainText) {
             $data['submit'] = $this->submit->toArray();
         }
 
-        if (!empty($this->close)) {
+        if ($this->close instanceof PlainText) {
             $data['close'] = $this->close->toArray();
         }
 

@@ -7,17 +7,17 @@ namespace SlackPhp\BlockKit\Partials;
 class OptionsConfig
 {
     /**
-     * @var int|null minimum number of options supported
+     * minimum number of options supported
      */
     private ?int $minOptions = 1;
 
     /**
-     * @var int|null maximum number of options supported
+     * maximum number of options supported
      */
     private ?int $maxOptions = null;
 
     /**
-     * @var int|null maximum number of initial options supported
+     * maximum number of initial options supported
      */
     private ?int $maxInitialOptions = null;
 

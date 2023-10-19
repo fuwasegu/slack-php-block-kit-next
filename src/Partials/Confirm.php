@@ -8,25 +8,13 @@ use SlackPhp\BlockKit\{Element, Exception, HydrationData};
 
 class Confirm extends Element
 {
-    /**
-     * @var PlainText
-     */
-    private $title;
+    private ?PlainText $title = null;
 
-    /**
-     * @var Text
-     */
-    private $text;
+    private ?Text $text = null;
 
-    /**
-     * @var PlainText
-     */
-    private $confirm;
+    private ?PlainText $confirm = null;
 
-    /**
-     * @var PlainText
-     */
-    private $deny;
+    private ?PlainText $deny = null;
 
     public function __construct(
         ?string $title = null,
@@ -96,30 +84,30 @@ class Confirm extends Element
 
     public function validate(): void
     {
-        if (empty($this->title)) {
-            throw new Exception('Confirm component must have a "title" value');
-        }
-
-        if (empty($this->text)) {
-            throw new Exception('Confirm component must have a "text" value');
-        }
-
-        if (empty($this->confirm)) {
-            throw new Exception('Confirm component must have a "confirm" value');
-        }
-
-        if (empty($this->deny)) {
-            throw new Exception('Confirm component must have a "deny" value');
+        if (
+            $this->title === null
+            || $this->confirm === null
+            || $this->deny === null
+            || $this->text === null
+        ) {
+            throw new Exception('Confirm must contain "title", "confirm", "text", "deny"');
         }
 
         $this->title->validate();
-        $this->text->validate();
         $this->confirm->validate();
         $this->deny->validate();
+        $this->text->validate();
     }
 
     public function toArray(): array
     {
+        assert(
+            $this->title !== null
+            && $this->text !== null
+            && $this->confirm !== null
+            && $this->deny !== null,
+        );
+
         return parent::toArray() + [
             'title' => $this->title->toArray(),
             'text' => $this->text->toArray(),

@@ -25,10 +25,7 @@ abstract class Surface extends Element
      */
     private array $blocks = [];
 
-    /**
-     * @return static
-     */
-    public function add(BlockElement $block)
+    public function add(BlockElement $block): static
     {
         if (!in_array($block->getType(), Type::SURFACE_BLOCKS[$this->getType()], true)) {
             throw new Exception(
@@ -43,10 +40,9 @@ abstract class Surface extends Element
     }
 
     /**
-     * @param  iterable|BlockElement[] $blocks
-     * @return static
+     * @param iterable|BlockElement[] $blocks
      */
-    public function blocks(iterable $blocks)
+    public function blocks(iterable $blocks): static
     {
         foreach ($blocks as $block) {
             $this->add($block);
@@ -130,28 +126,19 @@ abstract class Surface extends Element
         return $block;
     }
 
-    /**
-     * @return static
-     */
-    public function divider(?string $blockId = null)
+    public function divider(?string $blockId = null): static
     {
         return $this->add(new Divider($blockId));
     }
 
-    /**
-     * @return static
-     */
-    public function text(string $text, ?string $blockId = null)
+    public function text(string $text, ?string $blockId = null): static
     {
         $block = new Section($blockId, $text);
 
         return $this->add($block);
     }
 
-    /**
-     * @return static
-     */
-    public function header(string $text, ?string $blockId = null)
+    public function header(string $text, ?string $blockId = null): static
     {
         $block = new Header($blockId, $text);
 
@@ -170,15 +157,15 @@ abstract class Surface extends Element
             throw new Exception('A surface cannot have more than %d blocks', [self::MAX_BLOCKS]);
         }
 
-        $blolckIds = [];
+        $blockIds = [];
         foreach ($blocks as $block) {
             $block->validate();
             if ($block->getBlockId() !== null) {
-                $blolckIds[] = $block->getBlockId();
+                $blockIds[] = $block->getBlockId();
             }
         }
 
-        $blockIdArrayCount = array_count_values($blolckIds);
+        $blockIdArrayCount = array_count_values($blockIds);
         if ($blockIdArrayCount !== []) {
             $duplicateBlockIds = [];
             foreach ($blockIdArrayCount as $key => $value) {

@@ -15,7 +15,7 @@ use SlackPhp\BlockKit\Exception;
  */
 class TwoColumnTable extends VirtualBlock
 {
-    private ?\SlackPhp\BlockKit\Blocks\Section $header = null;
+    private ?Section $header = null;
 
     private bool $hasRows = false;
 
@@ -46,7 +46,7 @@ class TwoColumnTable extends VirtualBlock
      */
     public function caption(string $caption): static
     {
-        if (!$this->header instanceof \SlackPhp\BlockKit\Blocks\Section) {
+        if (!$this->header instanceof Section) {
             $this->header = new Section();
             $this->prependBlock($this->header);
         }
@@ -63,7 +63,7 @@ class TwoColumnTable extends VirtualBlock
      */
     public function cols(string $left, string $right): static
     {
-        if (!$this->header instanceof \SlackPhp\BlockKit\Blocks\Section) {
+        if (!$this->header instanceof Section) {
             $this->header = new Section();
             $this->prependBlock($this->header);
         }
@@ -75,10 +75,8 @@ class TwoColumnTable extends VirtualBlock
 
     /**
      * Adds a row (with a left and right value) to the table.
-     *
-     * @return static
      */
-    public function row(string $left, string $right)
+    public function row(string $left, string $right): static
     {
         $row = new Section();
         $row->fieldList([$left, $right]);

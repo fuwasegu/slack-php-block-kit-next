@@ -10,7 +10,7 @@ class ChannelSelectMenu extends SelectMenu
 {
     private ?string $initialChannel = null;
 
-    private ?bool $responseUrlEnabled = null;
+    private bool $responseUrlEnabled = false;
 
     public function initialChannel(string $initialChannel): static
     {
@@ -30,7 +30,7 @@ class ChannelSelectMenu extends SelectMenu
     {
         $data = parent::toArray();
 
-        if ($this->initialChannel !== null && $this->initialChannel !== '') {
+        if (is_string($this->initialChannel) && $this->initialChannel !== '') {
             $data['initial_channel'] = $this->initialChannel;
         }
 

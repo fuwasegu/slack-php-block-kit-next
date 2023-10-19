@@ -25,7 +25,7 @@ class ConfigTest extends TestCase
     {
         $c = Config::new();
 
-        $this->assertNull($c->getDefaultEmojiSetting());
-        $this->assertNull($c->getDefaultVerbatimSetting());
+        $this->assertTrue($c->getDefaultEmojiSetting());
+        $this->assertFalse($c->getDefaultVerbatimSetting());
     }
 }

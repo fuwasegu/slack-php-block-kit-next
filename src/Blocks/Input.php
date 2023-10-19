@@ -4,14 +4,21 @@ declare(strict_types=1);
 
 namespace SlackPhp\BlockKit\Blocks;
 
-use SlackPhp\BlockKit\{
-    Element,
+use SlackPhp\BlockKit\{Element,
     Exception,
     HydrationData,
     Inputs,
+    Inputs\Checkboxes,
+    Inputs\DatePicker,
+    Inputs\NumberInput,
+    Inputs\RadioButtons,
+    Inputs\SelectMenus\MultiSelectMenuFactory,
+    Inputs\SelectMenus\SelectMenu,
+    Inputs\SelectMenus\SelectMenuFactory,
+    Inputs\TextInput,
     Partials,
-    Type,
-};
+    Partials\PlainText,
+    Type};
 
 /**
  * A block that collects information from users.
@@ -20,24 +27,15 @@ use SlackPhp\BlockKit\{
  */
 class Input extends BlockElement
 {
-    /**
-     * @var Partials\PlainText
-     */
-    private $label;
+    private ?PlainText $label = null;
 
-    /**
-     * @var Element
-     */
-    private $element;
+    private ?Element $element = null;
 
-    /**
-     * @var Partials\PlainText
-     */
-    private $hint;
+    private ?PlainText $hint = null;
 
-    private bool $optional;
+    private bool $optional = false;
 
-    private bool $dispatchAction;
+    private bool $dispatchAction = false;
 
     public function __construct(?string $blockId = null, ?string $label = null, ?Element $element = null)
     {
@@ -47,15 +45,12 @@ class Input extends BlockElement
             $this->label($label);
         }
 
-        if ($element instanceof \SlackPhp\BlockKit\Element) {
+        if ($element instanceof Element) {
             $this->setElement($element);
         }
-
-        $this->optional = false;
-        $this->dispatchAction = false;
     }
 
-    public function setLabel(Partials\PlainText $label): static
+    public function setLabel(PlainText $label): static
     {
         $this->label = $label->setParent($this);
 
@@ -64,7 +59,7 @@ class Input extends BlockElement
 
     public function setElement(Element $element): static
     {
-        if (!empty($this->element)) {
+        if ($this->element instanceof Element) {
             throw new Exception('Input element already set as type %s', [$this->element->getType()]);
         }
 
@@ -77,7 +72,7 @@ class Input extends BlockElement
         return $this;
     }
 
-    public function setHint(Partials\PlainText $hint): static
+    public function setHint(PlainText $hint): static
     {
         $this->hint = $hint->setParent($this);
 
@@ -86,12 +81,12 @@ class Input extends BlockElement
 
     public function label(string $text, ?bool $emoji = null): static
     {
-        return $this->setLabel(new Partials\PlainText($text, $emoji));
+        return $this->setLabel(new PlainText($text, $emoji));
     }
 
     public function hint(string $text, ?bool $emoji = null): static
     {
-        return $this->setHint(new Partials\PlainText($text, $emoji));
+        return $this->setHint(new PlainText($text, $emoji));
     }
 
     public function optional(bool $optional = true): static
@@ -108,55 +103,55 @@ class Input extends BlockElement
         return $this;
     }
 
-    public function newDatePicker(?string $actionId = null): Inputs\DatePicker
+    public function newDatePicker(?string $actionId = null): DatePicker
     {
-        $action = new Inputs\DatePicker($actionId);
+        $action = new DatePicker($actionId);
         $this->setElement($action);
 
         return $action;
     }
 
-    public function newSelectMenu(?string $actionId = null): Inputs\SelectMenus\SelectMenuFactory
+    public function newSelectMenu(?string $actionId = null): SelectMenuFactory
     {
-        return new Inputs\SelectMenus\SelectMenuFactory($actionId, function (Inputs\SelectMenus\SelectMenu $menu): void {
+        return new SelectMenuFactory($actionId, function (SelectMenu $menu): void {
             $this->setElement($menu);
         });
     }
 
-    public function newMultiSelectMenu(?string $actionId = null): Inputs\SelectMenus\MultiSelectMenuFactory
+    public function newMultiSelectMenu(?string $actionId = null): MultiSelectMenuFactory
     {
-        return new Inputs\SelectMenus\MultiSelectMenuFactory($actionId, function (Inputs\SelectMenus\SelectMenu $menu): void {
+        return new MultiSelectMenuFactory($actionId, function (SelectMenu $menu): void {
             $this->setElement($menu);
         });
     }
 
-    public function newTextInput(?string $actionId = null): Inputs\TextInput
+    public function newTextInput(?string $actionId = null): TextInput
     {
-        $action = new Inputs\TextInput($actionId);
+        $action = new TextInput($actionId);
         $this->setElement($action);
 
         return $action;
     }
 
-    public function newNumberInput(?string $actionId = null): Inputs\NumberInput
+    public function newNumberInput(?string $actionId = null): NumberInput
     {
-        $action = new Inputs\NumberInput($actionId);
+        $action = new NumberInput($actionId);
         $this->setElement($action);
 
         return $action;
     }
 
-    public function newRadioButtons(?string $actionId = null): Inputs\RadioButtons
+    public function newRadioButtons(?string $actionId = null): RadioButtons
     {
-        $action = new Inputs\RadioButtons($actionId);
+        $action = new RadioButtons($actionId);
         $this->setElement($action);
 
         return $action;
     }
 
-    public function newCheckboxes(?string $actionId = null): Inputs\Checkboxes
+    public function newCheckboxes(?string $actionId = null): Checkboxes
     {
-        $action = new Inputs\Checkboxes($actionId);
+        $action = new Checkboxes($actionId);
         $this->setElement($action);
 
         return $action;
@@ -164,18 +159,18 @@ class Input extends BlockElement
 
     public function validate(): void
     {
-        if (empty($this->label)) {
+        if (!$this->label instanceof PlainText) {
             throw new Exception('Input must contain a "label"');
         }
 
-        if (empty($this->element)) {
+        if (!$this->element instanceof Element) {
             throw new Exception('Input must contain an "element"');
         }
 
         $this->label->validate();
         $this->element->validate();
 
-        if (!empty($this->hint)) {
+        if ($this->hint instanceof PlainText) {
             $this->hint->validate();
         }
     }
@@ -184,10 +179,15 @@ class Input extends BlockElement
     {
         $data = parent::toArray();
 
-        $data['label'] = $this->label->toArray();
-        $data['element'] = $this->element->toArray();
+        if ($this->label instanceof PlainText) {
+            $data['label'] = $this->label->toArray();
+        }
 
-        if (!empty($this->hint)) {
+        if ($this->element instanceof Element) {
+            $data['element'] = $this->element->toArray();
+        }
+
+        if ($this->hint instanceof PlainText) {
             $data['hint'] = $this->hint->toArray();
         }
 
@@ -205,7 +205,7 @@ class Input extends BlockElement
     protected function hydrate(HydrationData $data): void
     {
         if ($data->has('label')) {
-            $this->setLabel(Partials\PlainText::fromArray($data->useElement('label')));
+            $this->setLabel(PlainText::fromArray($data->useElement('label')));
         }
 
         if ($data->has('element')) {
@@ -213,7 +213,7 @@ class Input extends BlockElement
         }
 
         if ($data->has('hint')) {
-            $this->setHint(Partials\PlainText::fromArray($data->useElement('hint')));
+            $this->setHint(PlainText::fromArray($data->useElement('hint')));
         }
 
         if ($data->has('optional')) {

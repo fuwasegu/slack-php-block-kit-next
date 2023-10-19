@@ -10,10 +10,7 @@ abstract class Text extends Element
 {
     private ?string $text = null;
 
-    /**
-     * @return static
-     */
-    public function text(string $text)
+    public function text(string $text): static
     {
         $this->text = $text;
 
@@ -39,9 +36,9 @@ abstract class Text extends Element
     /**
      * Validate string length for textual element properties.
      *
-     * @param string   $text string to validate
-     * @param int|null $max  max length, or null if it doesn't have a max
-     * @param int      $min  min length, defaults to 0
+     * @param string|null $text string to validate
+     * @param int|null    $max  max length, or null if it doesn't have a max
+     * @param int         $min  min length, defaults to 0
      */
     public static function validateString(?string $text, ?int $max = null, int $min = 1): void
     {

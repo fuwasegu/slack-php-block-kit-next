@@ -18,10 +18,7 @@ abstract class BlockElement extends Element
         }
     }
 
-    /**
-     * @return static
-     */
-    public function blockId(string $blockId)
+    public function blockId(string $blockId): static
     {
         $this->blockId = $blockId;
 
@@ -37,7 +34,7 @@ abstract class BlockElement extends Element
     {
         $data = parent::toArray();
 
-        if ($this->blockId !== null && $this->blockId !== '') {
+        if (is_string($this->blockId) && $this->blockId !== '') {
             $data['block_id'] = $this->blockId;
         }
 

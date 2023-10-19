@@ -10,10 +10,7 @@ class OptionGroup extends Element
 {
     use HasOptions;
 
-    /**
-     * @var PlainText
-     */
-    private $label;
+    private ?PlainText $label = null;
 
     /**
      * @param array<string, string>|string[]|null $options
@@ -52,16 +49,14 @@ class OptionGroup extends Element
 
     public function validate(): void
     {
-        if (empty($this->label)) {
-            throw new Exception('OptionGroup element must contain a "label" element');
-        }
-
         $this->label->validate();
         $this->validateOptions();
     }
 
     public function toArray(): array
     {
+        assert($this->label !== null);
+
         return parent::toArray()
             + ['label' => $this->label->toArray()]
             + $this->getOptionsAsArray();

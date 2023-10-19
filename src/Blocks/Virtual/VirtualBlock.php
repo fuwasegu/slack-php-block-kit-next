@@ -7,6 +7,7 @@ namespace SlackPhp\BlockKit\Blocks\Virtual;
 use Iterator;
 use IteratorAggregate;
 use SlackPhp\BlockKit\Blocks\BlockElement;
+use SlackPhp\BlockKit\Element;
 use SlackPhp\BlockKit\HydrationData;
 use SlackPhp\BlockKit\HydrationException;
 
@@ -17,22 +18,16 @@ use SlackPhp\BlockKit\HydrationException;
  */
 abstract class VirtualBlock extends BlockElement implements IteratorAggregate
 {
-    /**
-     * @var int
-     */
-    private $index = 1;
+    private int $index = 1;
 
     /**
-     * @var BlockElement[]\array
+     * @var BlockElement[]
      */
     private array $blocks = [];
 
-    /**
-     * @return static
-     */
-    protected function appendBlock(BlockElement $block)
+    protected function appendBlock(BlockElement $block): static
     {
-        if ($this->getParent() instanceof \SlackPhp\BlockKit\Element) {
+        if ($this->getParent() instanceof Element) {
             $block->setParent($this->getParent());
         }
 
@@ -41,18 +36,15 @@ abstract class VirtualBlock extends BlockElement implements IteratorAggregate
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    protected function prependBlock(BlockElement $block)
+    protected function prependBlock(BlockElement $block): static
     {
-        if ($this->getParent() instanceof \SlackPhp\BlockKit\Element) {
+        if ($this->getParent() instanceof Element) {
             $block->setParent($this->getParent());
         }
 
         $this->blocks = array_merge(
             [$this->assignBlockId($block, 1)],
-            array_map(fn (BlockElement $block): \SlackPhp\BlockKit\Blocks\BlockElement => $this->assignBlockId($block), $this->blocks),
+            array_map(fn (BlockElement $block): BlockElement => $this->assignBlockId($block), $this->blocks),
         );
 
         return $this;
@@ -94,12 +86,7 @@ abstract class VirtualBlock extends BlockElement implements IteratorAggregate
 
     public function toArray(): array
     {
-        $data = [];
-        foreach ($this->blocks as $block) {
-            $data[] = $block->toArray();
-        }
-
-        return $data;
+        return array_map(static fn (BlockElement $block) => $block->toArray(), $this->blocks);
     }
 
     /**

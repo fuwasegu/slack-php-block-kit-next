@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace SlackPhp\BlockKit\Inputs;
 
-use SlackPhp\BlockKit\Exception;
 use SlackPhp\BlockKit\HydrationData;
 use SlackPhp\BlockKit\Partials\Confirm;
 use SlackPhp\BlockKit\Partials\PlainText;
@@ -16,10 +15,7 @@ class Button extends InputElement
     private const STYLE_PRIMARY = 'primary';
     private const STYLE_DANGER = 'danger';
 
-    /**
-     * @var PlainText
-     */
-    private $text;
+    private ?PlainText $text = null;
 
     private ?string $value = null;
 
@@ -69,13 +65,11 @@ class Button extends InputElement
 
     public function validate(): void
     {
-        if (empty($this->text)) {
-            throw new Exception('Button must contain "text"');
+        if ($this->text instanceof PlainText) {
+            $this->text->validate();
         }
 
-        $this->text->validate();
-
-        if (!empty($this->confirm)) {
+        if ($this->confirm instanceof Confirm) {
             $this->confirm->validate();
         }
     }
@@ -83,7 +77,10 @@ class Button extends InputElement
     public function toArray(): array
     {
         $data = parent::toArray();
-        $data['text'] = $this->text->toArray();
+
+        if ($this->text instanceof PlainText) {
+            $data['text'] = $this->text->toArray();
+        }
 
         if ($this->value !== null && $this->value !== '') {
             $data['value'] = $this->value;
@@ -97,7 +94,7 @@ class Button extends InputElement
             $data['style'] = $this->style;
         }
 
-        if (!empty($this->confirm)) {
+        if ($this->confirm instanceof Confirm) {
             $data['confirm'] = $this->confirm->toArray();
         }
 

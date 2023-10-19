@@ -11,20 +11,17 @@ use SlackPhp\BlockKit\{Element, Exception, HydrationData, Type};
  */
 class Option extends Element
 {
-    /**
-     * @var PlainText
-     */
-    private $text;
+    private ?PlainText $text = null;
 
     private ?string $value = null;
 
     /**
-     * @var PlainText Description text for option. NOTE: Radio Button and Checkbox groups only.
+     * Description text for option. NOTE: Radio Button and Checkbox groups only.
      */
-    private $description;
+    private ?PlainText $description = null;
 
     /**
-     * @var string URL to load in browser when option is clicked. NOTE: Overflow Menu only.
+     * URL to load in browser when option is clicked. NOTE: Overflow Menu only.
      */
     private ?string $url = null;
 
@@ -83,13 +80,13 @@ class Option extends Element
 
     public function validate(): void
     {
-        if (empty($this->text)) {
+        if ($this->text === null) {
             throw new Exception('Option element must contain a "text" element');
         }
 
-        $this->text->validateWithLength(75, 1);
+        $this->text->validateWithLength(75);
 
-        if (!is_string($this->value)) {
+        if ($this->value === null) {
             throw new Exception('Option element must have a "value" value');
         }
 
@@ -97,8 +94,8 @@ class Option extends Element
 
         $parent = $this->getParent();
 
-        if (!empty($this->description)) {
-            $this->description->validateWithLength(75, 1);
+        if ($this->description instanceof PlainText) {
+            $this->description->validateWithLength(75);
             if ($parent && !in_array($parent->getType(), [Type::CHECKBOXES, Type::RADIO_BUTTONS], true)) {
                 throw new Exception('Option "description" can only be applied to checkbox and radio button groups.');
             }
@@ -114,12 +111,14 @@ class Option extends Element
 
     public function toArray(): array
     {
+        assert($this->text !== null);
+
         $data = [
             'text' => $this->text->toArray(),
             'value' => $this->value,
         ];
 
-        if (!empty($this->description)) {
+        if ($this->description instanceof PlainText) {
             $data['description'] = $this->description->toArray();
         }
 

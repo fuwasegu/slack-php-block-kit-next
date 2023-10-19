@@ -11,7 +11,7 @@ class MultiUserSelectMenu extends MultiSelectMenu
     /**
      * @var string[]
      */
-    private ?array $initialUsers = null;
+    private array $initialUsers = [];
 
     /**
      * @param string[] $initialUsers
@@ -27,7 +27,7 @@ class MultiUserSelectMenu extends MultiSelectMenu
     {
         $data = parent::toArray();
 
-        if ($this->initialUsers !== null && $this->initialUsers !== []) {
+        if ($this->initialUsers !== []) {
             $data['initial_users'] = $this->initialUsers;
         }
 

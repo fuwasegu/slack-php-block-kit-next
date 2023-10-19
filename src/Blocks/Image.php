@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace SlackPhp\BlockKit\Blocks;
 
-use SlackPhp\BlockKit\{Exception, HydrationData, Surfaces\Surface};
+use SlackPhp\BlockKit\{Element, Exception, HydrationData, Surfaces\Surface};
 use SlackPhp\BlockKit\Partials\PlainText;
 
 class Image extends BlockElement
 {
-    /**
-     * @var PlainText
-     */
-    private $title;
+    private ?PlainText $title = null;
 
     private ?string $url = null;
 
@@ -67,18 +64,16 @@ class Image extends BlockElement
             throw new Exception('Image must contain "alt_text"');
         }
 
-        if (!empty($this->title)) {
-            $this->title->validate();
-        }
+        $this->title?->validate();
     }
 
     public function toArray(): array
     {
         $data = parent::toArray();
-        $isBlock = !$this->getParent() instanceof \SlackPhp\BlockKit\Element || $this->getParent() instanceof Surface;
+        $isBlock = !$this->getParent() instanceof Element || $this->getParent() instanceof Surface;
 
-        if ($isBlock && !empty($this->title)) {
-            $data['title'] = $this->title->toArray();
+        if ($isBlock) {
+            $data['title'] = $this->title?->toArray();
         }
 
         if (!$isBlock) {

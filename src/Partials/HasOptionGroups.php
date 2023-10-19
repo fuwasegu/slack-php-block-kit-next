@@ -14,12 +14,9 @@ trait HasOptionGroups
     /**
      * @var OptionGroup[]
      */
-    private $optionGroups;
+    private array $optionGroups = [];
 
-    /**
-     * @return static
-     */
-    public function addOptionGroup(OptionGroup $group)
+    public function addOptionGroup(OptionGroup $group): static
     {
         $group->setParent($this);
         $this->optionGroups[] = $group;
@@ -28,23 +25,21 @@ trait HasOptionGroups
     }
 
     /**
-     * @param  array<string, array<string, string>|string[]> $optionGroups
-     * @return static
+     * @param array<string, array<string, string>|string[]> $optionGroups
      */
-    public function optionGroups(array $optionGroups)
+    public function optionGroups(array $optionGroups): static
     {
         foreach ($optionGroups as $label => $options) {
-            $this->optionGroup((string)$label, $options);
+            $this->optionGroup($label, $options);
         }
 
         return $this;
     }
 
     /**
-     * @param  array<string, string>|string[] $options
-     * @return static
+     * @param array<string, string>|string[] $options
      */
-    public function optionGroup(string $label, array $options)
+    public function optionGroup(string $label, array $options): static
     {
         return $this->addOptionGroup(OptionGroup::new($label, $options));
     }

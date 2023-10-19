@@ -10,23 +10,20 @@ use SlackPhp\BlockKit\HydrationData;
 trait HasOptions
 {
     /**
-     * @var Option[]|array
+     * @var Option[]
      */
-    private $options = [];
+    private array $options = [];
 
     /**
-     * @var Option[]|array
+     * @var Option[]
      */
-    private $initialOptions = [];
+    private array $initialOptions = [];
 
-    /**
-     * @var OptionsConfig|null
-     */
-    private $config;
+    private ?OptionsConfig $config = null;
 
     private function config(): OptionsConfig
     {
-        if (!$this->config) {
+        if ($this->config === null) {
             $this->config = $this->getOptionsConfig();
         }
 
@@ -38,10 +35,7 @@ trait HasOptions
         return new OptionsConfig();
     }
 
-    /**
-     * @return static
-     */
-    public function addOption(Option $option, bool $isInitial = false)
+    public function addOption(Option $option, bool $isInitial = false): static
     {
         $option->setParent($this);
         $this->options[] = $option;
@@ -54,10 +48,9 @@ trait HasOptions
     }
 
     /**
-     * @param  Option[] $options
-     * @return static
+     * @param Option[] $options
      */
-    public function addOptions(array $options)
+    public function addOptions(array $options): static
     {
         foreach ($options as $option) {
             $this->addOption($option);
@@ -66,22 +59,17 @@ trait HasOptions
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function option(string $text, string $value, bool $isInitial = false)
+    public function option(string $text, string $value, bool $isInitial = false): static
     {
         return $this->addOption(Option::new($text, $value), $isInitial);
     }
 
     /**
-     * @param  array<string, string>|string[] $options
-     * @return static
+     * @param array<string, string>|string[] $options
      */
-    public function options(array $options)
+    public function options(array $options): static
     {
         foreach ($options as $text => $value) {
-            $value = (string)$value;
             $text = is_int($text) ? $value : $text;
             $this->addOption(Option::new($text, $value));
         }
@@ -89,10 +77,7 @@ trait HasOptions
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function initialOption(string $text, string $value)
+    public function initialOption(string $text, string $value): static
     {
         $initialOption = Option::new($text, $value);
         $initialOption->setParent($this);
@@ -102,13 +87,11 @@ trait HasOptions
     }
 
     /**
-     * @param  array<string, string>|string[] $options
-     * @return static
+     * @param array<string, string>|string[] $options
      */
-    public function initialOptions(array $options)
+    public function initialOptions(array $options): static
     {
         foreach ($options as $text => $value) {
-            $value = (string)$value;
             $text = is_int($text) ? $value : $text;
             $this->initialOption($text, $value);
         }
