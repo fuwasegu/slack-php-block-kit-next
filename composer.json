@@ -37,6 +37,6 @@
         "rector": "./vendor/bin/rector process --dry-run",
         "rector:fix": "./vendor/bin/rector process",
         "test": "phpunit --bootstrap=vendor/autoload.php --no-coverage tests",
-        "test:coveerage": "XDEBUG_MODE=coverage phpunit --bootstrap=vendor/autoload.php --coverage-text --whitelist=src --do-not-cache-result tests"
+        "test:coverage": "XDEBUG_MODE=coverage phpunit --bootstrap=vendor/autoload.php --coverage-text --whitelist=src --do-not-cache-result tests"
     }
 }
