@@ -86,7 +86,7 @@ abstract class VirtualBlock extends BlockElement implements IteratorAggregate
 
     public function toArray(): array
     {
-        return array_map(fn (BlockElement $block): array => $block->toArray(), $this->blocks);
+        return array_map(static fn (BlockElement $block): array => $block->toArray(), $this->blocks);
     }
 
     /**
