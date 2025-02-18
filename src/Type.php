@@ -31,6 +31,7 @@ abstract class Type
     public const CHECKBOXES    = 'checkboxes';
     public const DATEPICKER    = 'datepicker';
     public const TEXT_INPUT    = 'plain_text_input';
+    public const RICH_TEXT_INPUT = 'rich_text_input';
     public const TIMEPICKER    = 'timepicker';
     public const OVERFLOW_MENU = 'overflow';
     public const RADIO_BUTTONS = 'radio_buttons';
@@ -159,6 +160,7 @@ abstract class Type
         self::SELECT_MENU_STATIC,
         self::SELECT_MENU_USERS,
         self::TEXT_INPUT,
+        self::RICH_TEXT_INPUT,
         self::TIMEPICKER,
         self::NUMBER_INPUT,
     ];
@@ -203,6 +205,7 @@ abstract class Type
         Inputs\OverflowMenu::class => self::OVERFLOW_MENU,
         Inputs\RadioButtons::class => self::RADIO_BUTTONS,
         Inputs\TextInput::class    => self::TEXT_INPUT,
+        Inputs\RichTextInput::class => self::RICH_TEXT_INPUT,
         Inputs\TimePicker::class   => self::TIMEPICKER,
         Inputs\NumberInput::class  => self::NUMBER_INPUT,
 
