@@ -97,7 +97,6 @@ class IntegrationTest extends TestCase
                     'element' => [
                         'type' => 'rich_text_input',
                         'action_id' => 'xxx_rich_text_input_action',
-                        'multiline' => true,
                         'placeholder' => [
                             'type' => 'plain_text',
                             'text' => 'プレースホルダー',

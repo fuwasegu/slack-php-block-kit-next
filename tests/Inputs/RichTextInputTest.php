@@ -22,7 +22,6 @@ class RichTextInputTest extends TestCase
 
         $this->assertJsonData([
             'type' => 'rich_text_input',
-            'multiline' => true,
             'placeholder' => [
                 'type' => 'plain_text',
                 'text' => 'テストプレースホルダー',
@@ -41,7 +40,6 @@ class RichTextInputTest extends TestCase
 
         $this->assertJsonData([
             'type' => 'rich_text_input',
-            'multiline' => true,
         ], $input);
     }
 
@@ -52,7 +50,6 @@ class RichTextInputTest extends TestCase
 
         $this->assertJsonData([
             'type' => 'rich_text_input',
-            'multiline' => true,
             'action_id' => 'rich_text_1',
         ], $input);
     }
@@ -75,6 +72,6 @@ class RichTextInputTest extends TestCase
 
         $input = RichTextInput::fromArray($data);
 
-        $this->assertJsonData($data + ['multiline' => true], $input);
+        $this->assertJsonData($data, $input);
     }
 }

@@ -61,7 +61,6 @@ class RichTextInput extends InputElement
     {
         $data = parent::toArray();
         $data['type'] = 'rich_text_input';
-        $data['multiline'] = true;
 
         if ($this->placeholder instanceof PlainText) {
             $data['placeholder'] = $this->placeholder->toArray();
