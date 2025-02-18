@@ -11,55 +11,34 @@ class RichTextInput extends InputElement
 {
     use HasPlaceholder;
 
-    /**
-     * @var string|null
-     */
-    private $initialValue;
+    private ?string $initialValue = null;
 
-    /**
-     * @var bool|null
-     */
-    private $focusOnLoad;
+    private ?bool $focusOnLoad = null;
 
-    /**
-     * @var DispatchActionConfig|null
-     */
-    private $dispatchActionConfig;
+    private ?DispatchActionConfig $dispatchActionConfig = null;
 
-    /**
-     * @return static
-     */
-    public function initialValue(string $text)
+    public function initialValue(string $text): static
     {
         $this->initialValue = $text;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function focusOnLoad(bool $flag)
+    public function focusOnLoad(bool $flag): static
     {
         $this->focusOnLoad = $flag;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function setDispatchActionConfig(DispatchActionConfig $config)
+    public function setDispatchActionConfig(DispatchActionConfig $config): static
     {
         $this->dispatchActionConfig = $config;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function triggerActionOnCharacterEntered()
+    public function triggerActionOnCharacterEntered(): static
     {
         $config = $this->dispatchActionConfig ?? DispatchActionConfig::new();
         $config->triggerActionsOnCharacterEntered();
@@ -69,11 +48,11 @@ class RichTextInput extends InputElement
 
     public function validate(): void
     {
-        if (!empty($this->placeholder)) {
+        if ($this->placeholder instanceof PlainText) {
             $this->placeholder->validate();
         }
 
-        if (isset($this->dispatchActionConfig)) {
+        if ($this->dispatchActionConfig instanceof DispatchActionConfig) {
             $this->dispatchActionConfig->validate();
         }
     }
@@ -84,19 +63,19 @@ class RichTextInput extends InputElement
         $data['type'] = 'rich_text_input';
         $data['multiline'] = true;
 
-        if (!empty($this->placeholder)) {
+        if ($this->placeholder instanceof PlainText) {
             $data['placeholder'] = $this->placeholder->toArray();
         }
 
-        if (!empty($this->initialValue)) {
+        if ($this->initialValue !== null && $this->initialValue !== '') {
             $data['initial_value'] = $this->initialValue;
         }
 
-        if (isset($this->focusOnLoad)) {
+        if ($this->focusOnLoad !== null) {
             $data['focus_on_load'] = $this->focusOnLoad;
         }
 
-        if (isset($this->dispatchActionConfig)) {
+        if ($this->dispatchActionConfig instanceof DispatchActionConfig) {
             $data['dispatch_action_config'] = $this->dispatchActionConfig->toArray();
         }
 
