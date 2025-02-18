@@ -12,6 +12,7 @@ use SlackPhp\BlockKit\{Element,
     Inputs\DatePicker,
     Inputs\NumberInput,
     Inputs\RadioButtons,
+    Inputs\RichTextInput,
     Inputs\SelectMenus\MultiSelectMenuFactory,
     Inputs\SelectMenus\SelectMenu,
     Inputs\SelectMenus\SelectMenuFactory,
@@ -157,9 +158,9 @@ class Input extends BlockElement
         return $action;
     }
 
-    public function newRichTextInput(?string $actionId = null): Inputs\RichTextInput
+    public function newRichTextInput(?string $actionId = null): RichTextInput
     {
-        $action = new Inputs\RichTextInput($actionId);
+        $action = new RichTextInput($actionId);
         $this->setElement($action);
 
         return $action;
