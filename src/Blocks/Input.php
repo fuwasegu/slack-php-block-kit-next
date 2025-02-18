@@ -160,6 +160,14 @@ class Input extends BlockElement
         return $action;
     }
 
+    public function newNumberInput(?string $actionId = null): Inputs\NumberInput
+    {
+        $action = new Inputs\NumberInput($actionId);
+        $this->setElement($action);
+
+        return $action;
+    }
+
     public function newRadioButtons(?string $actionId = null): Inputs\RadioButtons
     {
         $action = new Inputs\RadioButtons($actionId);

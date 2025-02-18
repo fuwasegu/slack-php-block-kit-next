@@ -34,6 +34,7 @@ abstract class Type
     public const TIMEPICKER    = 'timepicker';
     public const OVERFLOW_MENU = 'overflow';
     public const RADIO_BUTTONS = 'radio_buttons';
+    public const NUMBER_INPUT  = 'number_input';
 
     // Select Menus
     public const MULTI_SELECT_MENU_CHANNELS      = 'multi_channels_select';
@@ -159,6 +160,7 @@ abstract class Type
         self::SELECT_MENU_USERS,
         self::TEXT_INPUT,
         self::TIMEPICKER,
+        self::NUMBER_INPUT,
     ];
 
     public const HIDDEN_TYPES = [
@@ -202,6 +204,7 @@ abstract class Type
         Inputs\RadioButtons::class => self::RADIO_BUTTONS,
         Inputs\TextInput::class    => self::TEXT_INPUT,
         Inputs\TimePicker::class   => self::TIMEPICKER,
+        Inputs\NumberInput::class  => self::NUMBER_INPUT,
 
         // Select Menus
         SelectMenus\MultiChannelSelectMenu::class       => self::MULTI_SELECT_MENU_CHANNELS,
