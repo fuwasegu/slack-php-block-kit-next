@@ -14,7 +14,6 @@ class RichTextInput extends InputElement
     /**
      * Note: initial_value（フォームの初期値）は現在未実装です。
      */
-
     private ?bool $focusOnLoad = null;
 
     private ?DispatchActionConfig $dispatchActionConfig = null;
