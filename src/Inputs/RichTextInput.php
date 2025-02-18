@@ -12,17 +12,17 @@ class RichTextInput extends InputElement
     use HasPlaceholder;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $initialValue;
 
     /**
-     * @var bool
+     * @var bool|null
      */
     private $focusOnLoad;
 
     /**
-     * @var DispatchActionConfig
+     * @var DispatchActionConfig|null
      */
     private $dispatchActionConfig;
 
