@@ -8,28 +8,26 @@ use SlackPhp\BlockKit\HydrationData;
 
 class MultiUserSelectMenu extends MultiSelectMenu
 {
-    /** @var string[] */
-    private $initialUsers;
+    /**
+     * @var string[]
+     */
+    private array $initialUsers = [];
 
     /**
      * @param string[] $initialUsers
-     * @return static
      */
-    public function initialUsers(array $initialUsers)
+    public function initialUsers(array $initialUsers): static
     {
         $this->initialUsers = $initialUsers;
 
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();
 
-        if (!empty($this->initialUsers)) {
+        if ($this->initialUsers !== []) {
             $data['initial_users'] = $this->initialUsers;
         }
 

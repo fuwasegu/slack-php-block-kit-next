@@ -6,9 +6,6 @@ namespace SlackPhp\BlockKit\Surfaces;
 
 use SlackPhp\BlockKit\HydrationData;
 
-use function base64_encode;
-use function http_build_query;
-
 /**
  * View represents the commonalities between the Modal and App Home surfaces.
  *
@@ -16,42 +13,27 @@ use function http_build_query;
  */
 abstract class View extends Surface
 {
-    /** @var string */
-    private $callbackId;
+    private ?string $callbackId = null;
 
-    /** @var string */
-    private $externalId;
+    private ?string $externalId = null;
 
-    /** @var string */
-    private $privateMetadata;
+    private ?string $privateMetadata = null;
 
-    /**
-     * @param string $callbackId
-     * @return static
-     */
-    public function callbackId(string $callbackId)
+    public function callbackId(string $callbackId): static
     {
         $this->callbackId = $callbackId;
 
         return $this;
     }
 
-    /**
-     * @param string $externalId
-     * @return static
-     */
-    public function externalId(string $externalId)
+    public function externalId(string $externalId): static
     {
         $this->externalId = $externalId;
 
         return $this;
     }
 
-    /**
-     * @param string $privateMetadata
-     * @return static
-     */
-    public function privateMetadata(string $privateMetadata)
+    public function privateMetadata(string $privateMetadata): static
     {
         $this->privateMetadata = $privateMetadata;
 
@@ -62,34 +44,29 @@ abstract class View extends Surface
      * Encodes the provided associative array of data into a string for `private_metadata`.
      *
      * Note: Can be decoded using `base64_decode()` and `parse_str()`.
-     *
-     * @param array $data
-     * @return static
      */
-    public function encodePrivateMetadata(array $data)
+    public function encodePrivateMetadata(array $data): static
     {
-        return $this->privateMetadata(base64_encode(http_build_query($data)));
+        return $this->privateMetadata(\base64_encode(\http_build_query($data)));
     }
 
     public function toArray(): array
     {
         $data = [];
 
-        if (!empty($this->callbackId)) {
+        if ($this->callbackId !== null && $this->callbackId !== '') {
             $data['callback_id'] = $this->callbackId;
         }
 
-        if (!empty($this->externalId)) {
+        if ($this->externalId !== null && $this->externalId !== '') {
             $data['external_id'] = $this->externalId;
         }
 
-        if (!empty($this->privateMetadata)) {
+        if ($this->privateMetadata !== null && $this->privateMetadata !== '') {
             $data['private_metadata'] = $this->privateMetadata;
         }
 
-        $data += parent::toArray();
-
-        return $data;
+        return $data + parent::toArray();
     }
 
     protected function hydrate(HydrationData $data): void

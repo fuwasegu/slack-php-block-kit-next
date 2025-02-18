@@ -9,42 +9,27 @@ use Throwable;
 
 abstract class Element implements JsonSerializable
 {
-    /** @var Element|null */
-    protected $parent;
+    protected ?self $parent = null;
 
-    /** @var array */
-    protected $extra;
+    protected array $extra = [];
 
-    /**
-     * @return static
-     */
-    public static function new()
+    public static function new(): static
     {
         return new static();
     }
 
-    /**
-     * @return Element|null
-     */
-    final public function getParent(): ?Element
+    final public function getParent(): ?self
     {
         return $this->parent;
     }
 
-    /**
-     * @param Element $parent
-     * @return static
-     */
-    final public function setParent(Element $parent)
+    final public function setParent(self $parent): static
     {
         $this->parent = $parent;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return Type::mapClass(static::class);
@@ -52,12 +37,8 @@ abstract class Element implements JsonSerializable
 
     /**
      * Allows setting arbitrary extra fields on an element.
-     *
-     * @param string $key
-     * @param mixed $value
-     * @return static
      */
-    final public function setExtra(string $key, $value)
+    final public function setExtra(string $key, mixed $value): static
     {
         $this->extra[$key] = $value;
 
@@ -72,11 +53,8 @@ abstract class Element implements JsonSerializable
      *         ->tap(function (Elem $elem) {
      *             $elem->newSubElem()->fizz('buzz');
      *         });
-     *
-     * @param callable $tap
-     * @return static
      */
-    final public function tap(callable $tap)
+    final public function tap(callable $tap): static
     {
         $tap($this);
 
@@ -91,12 +69,8 @@ abstract class Element implements JsonSerializable
      *         ->tapIf($needsSubElem, function (Elem $elem) {
      *             $elem->newSubElem()->fizz('buzz');
      *         });
-     *
-     * @param bool $condition
-     * @param callable $tap
-     * @return static
      */
-    final public function tapIf(bool $condition, callable $tap)
+    final public function tapIf(bool $condition, callable $tap): static
     {
         if ($condition) {
             $tap($this);
@@ -110,18 +84,15 @@ abstract class Element implements JsonSerializable
      */
     abstract public function validate(): void;
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $this->validate();
         $type = $this->getType();
 
-        $data = !in_array($type, Type::HIDDEN_TYPES, true) ? compact('type') : [];
+        $data = in_array($type, Type::HIDDEN_TYPES, true) ? [] : ['type' => $type];
 
         foreach ($this->extra ?? [] as $key => $value) {
-            $data[$key] = $value instanceof Element ? $value->toArray() : $value;
+            $data[$key] = $value instanceof self ? $value->toArray() : $value;
         }
 
         return $data;
@@ -134,7 +105,7 @@ abstract class Element implements JsonSerializable
             $opts |= JSON_PRETTY_PRINT;
         }
 
-        return (string) json_encode($this, $opts);
+        return json_encode($this, $opts);
     }
 
     public function jsonSerialize(): array
@@ -142,11 +113,7 @@ abstract class Element implements JsonSerializable
         return $this->toArray();
     }
 
-    /**
-     * @param string $json
-     * @return static
-     */
-    final public static function fromJson(string $json)
+    final public static function fromJson(string $json): static
     {
         try {
             $data = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
@@ -157,11 +124,7 @@ abstract class Element implements JsonSerializable
         return static::fromArray($data);
     }
 
-    /**
-     * @param array $data
-     * @return static
-     */
-    final public static function fromArray(array $data)
+    final public static function fromArray(array $data): static
     {
         $data = new HydrationData($data);
 
@@ -171,7 +134,7 @@ abstract class Element implements JsonSerializable
         // - If no type present, use the late-static-bound class.
         $class = static::class;
         if ($data->has('type')) {
-            $typeClass = Type::mapType((string) $data->get('type'));
+            $typeClass = Type::mapType((string)$data->get('type'));
             if (is_a($typeClass, $class, true)) {
                 $class = $typeClass;
             } else {
@@ -187,14 +150,13 @@ abstract class Element implements JsonSerializable
     }
 
     /**
-     * @param HydrationData $data
-     * @internal Used by fromArray implementations.
+     * @internal used by fromArray implementations
      */
     protected function hydrate(HydrationData $data): void
     {
         $type = $data->useValue('type');
 
-        $class = get_class($this);
+        $class = static::class;
         if (is_string($type) && Type::mapType($type) !== $class) {
             throw new Exception('[Hydration] Type %s does not map to class %s.', [$type, $class]);
         }

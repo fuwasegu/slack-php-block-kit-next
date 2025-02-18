@@ -13,20 +13,16 @@ class Filter extends Element
     private const CONVERSATION_TYPE_PRIVATE = 'private';
     private const CONVERSATION_TYPE_PUBLIC = 'public';
 
-    /** @var string[]|array */
-    private $include = [];
-
-    /** @var bool */
-    private $excludeExternalSharedChannels;
-
-    /** @var bool */
-    private $excludeBotUsers;
-
     /**
-     * @param string $conversationType
-     * @return static
+     * @var string[]|array
      */
-    public function includeType(string $conversationType)
+    private array $include = [];
+
+    private ?bool $excludeExternalSharedChannels = null;
+
+    private ?bool $excludeBotUsers = null;
+
+    public function includeType(string $conversationType): static
     {
         $this->include[] = $conversationType;
 
@@ -35,63 +31,42 @@ class Filter extends Element
 
     /**
      * @param string[] $conversationTypes
-     * @return static
      */
-    public function includeTypes(array $conversationTypes)
+    public function includeTypes(array $conversationTypes): static
     {
         $this->include = $conversationTypes;
 
         return $this;
     }
 
-    /**
-    * @return static
-    */
-    public function includeIm()
+    public function includeIm(): static
     {
         return $this->includeType(self::CONVERSATION_TYPE_IM);
     }
 
-    /**
-    * @return static
-    */
-    public function includeMpim()
+    public function includeMpim(): static
     {
         return $this->includeType(self::CONVERSATION_TYPE_MPIM);
     }
 
-    /**
-    * @return static
-    */
-    public function includePrivate()
+    public function includePrivate(): static
     {
         return $this->includeType(self::CONVERSATION_TYPE_PRIVATE);
     }
 
-    /**
-    * @return static
-    */
-    public function includePublic()
+    public function includePublic(): static
     {
         return $this->includeType(self::CONVERSATION_TYPE_PUBLIC);
     }
 
-    /**
-     * @param bool $excludeBotUsers
-     * @return static
-     */
-    public function excludeBotUsers(bool $excludeBotUsers)
+    public function excludeBotUsers(bool $excludeBotUsers): static
     {
         $this->excludeBotUsers = $excludeBotUsers;
 
         return $this;
     }
 
-    /**
-     * @param bool $excludeExternalSharedChannels
-     * @return static
-     */
-    public function excludeExternalSharedChannels(bool $excludeExternalSharedChannels)
+    public function excludeExternalSharedChannels(bool $excludeExternalSharedChannels): static
     {
         $this->excludeExternalSharedChannels = $excludeExternalSharedChannels;
 
@@ -100,27 +75,24 @@ class Filter extends Element
 
     public function validate(): void
     {
-        if (empty($this->include) && !isset($this->excludeExternalSharedChannels) && !isset($this->excludeBotUsers)) {
+        if ($this->include === [] && $this->excludeExternalSharedChannels === null && $this->excludeBotUsers === null) {
             throw new Exception('Filter must have at least one property set');
         }
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();
 
-        if (!empty($this->include)) {
+        if ($this->include !== []) {
             $data['include'] = $this->include;
         }
 
-        if (isset($this->excludeExternalSharedChannels)) {
+        if ($this->excludeExternalSharedChannels !== null) {
             $data['exclude_external_shared_channels'] = $this->excludeExternalSharedChannels;
         }
 
-        if (isset($this->excludeBotUsers)) {
+        if ($this->excludeBotUsers !== null) {
             $data['exclude_bot_users'] = $this->excludeBotUsers;
         }
 

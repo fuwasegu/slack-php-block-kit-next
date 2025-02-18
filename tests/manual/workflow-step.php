@@ -14,15 +14,15 @@ $step = WorkflowStep::new()
 $step->newInput('b2')
     ->label('Date')
     ->newDatePicker('a1')
-        ->placeholder('Choose a date')
-        ->initialDate('2020-01-01');
+    ->placeholder('Choose a date')
+    ->initialDate('2020-01-01');
 $step->newInput('c1')
     ->label('Multiline')
     ->newTextInput('text_input')
-        ->placeholder('Text Input')
-        ->multiline(true)
-        ->minLength(10)
-        ->maxLength(100);
+    ->placeholder('Text Input')
+    ->multiline(true)
+    ->minLength(10)
+    ->maxLength(100);
 $step->newInput('c2')
     ->label('Radio Buttons')
     ->newRadioButtons('radio_buttons')

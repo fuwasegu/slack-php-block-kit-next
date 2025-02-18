@@ -10,55 +10,55 @@ use SlackPhp\BlockKit\Inputs\SelectMenus;
 abstract class Type
 {
     // Surfaces
-    public const APP_HOME      = 'home';
-    public const ATTACHMENT    = 'attachment';
-    public const MESSAGE       = 'message';
-    public const MODAL         = 'modal';
-    public const WORKFLOW_STEP = 'workflow_step';
+    final public const APP_HOME      = 'home';
+    final public const ATTACHMENT    = 'attachment';
+    final public const MESSAGE       = 'message';
+    final public const MODAL         = 'modal';
+    final public const WORKFLOW_STEP = 'workflow_step';
 
     // Blocks
-    public const ACTIONS = 'actions';
-    public const CONTEXT = 'context';
-    public const DIVIDER = 'divider';
-    public const FILE    = 'file';
-    public const HEADER  = 'header';
-    public const IMAGE   = 'image';
-    public const INPUT   = 'input';
-    public const SECTION = 'section';
+    final public const ACTIONS = 'actions';
+    final public const CONTEXT = 'context';
+    final public const DIVIDER = 'divider';
+    final public const FILE    = 'file';
+    final public const HEADER  = 'header';
+    final public const IMAGE   = 'image';
+    final public const INPUT   = 'input';
+    final public const SECTION = 'section';
 
     // Inputs
-    public const BUTTON        = 'button';
-    public const CHECKBOXES    = 'checkboxes';
-    public const DATEPICKER    = 'datepicker';
-    public const TEXT_INPUT    = 'plain_text_input';
-    public const TIMEPICKER    = 'timepicker';
-    public const OVERFLOW_MENU = 'overflow';
-    public const RADIO_BUTTONS = 'radio_buttons';
-    public const NUMBER_INPUT  = 'number_input';
+    final public const BUTTON        = 'button';
+    final public const CHECKBOXES    = 'checkboxes';
+    final public const DATEPICKER    = 'datepicker';
+    final public const TEXT_INPUT    = 'plain_text_input';
+    final public const TIMEPICKER    = 'timepicker';
+    final public const OVERFLOW_MENU = 'overflow';
+    final public const RADIO_BUTTONS = 'radio_buttons';
+    final public const NUMBER_INPUT  = 'number_input';
 
     // Select Menus
-    public const MULTI_SELECT_MENU_CHANNELS      = 'multi_channels_select';
-    public const MULTI_SELECT_MENU_CONVERSATIONS = 'multi_conversations_select';
-    public const MULTI_SELECT_MENU_EXTERNAL      = 'multi_external_select';
-    public const MULTI_SELECT_MENU_STATIC        = 'multi_static_select';
-    public const MULTI_SELECT_MENU_USERS         = 'multi_users_select';
-    public const SELECT_MENU_CHANNELS            = 'channels_select';
-    public const SELECT_MENU_CONVERSATIONS       = 'conversations_select';
-    public const SELECT_MENU_EXTERNAL            = 'external_select';
-    public const SELECT_MENU_STATIC              = 'static_select';
-    public const SELECT_MENU_USERS               = 'users_select';
+    final public const MULTI_SELECT_MENU_CHANNELS      = 'multi_channels_select';
+    final public const MULTI_SELECT_MENU_CONVERSATIONS = 'multi_conversations_select';
+    final public const MULTI_SELECT_MENU_EXTERNAL      = 'multi_external_select';
+    final public const MULTI_SELECT_MENU_STATIC        = 'multi_static_select';
+    final public const MULTI_SELECT_MENU_USERS         = 'multi_users_select';
+    final public const SELECT_MENU_CHANNELS            = 'channels_select';
+    final public const SELECT_MENU_CONVERSATIONS       = 'conversations_select';
+    final public const SELECT_MENU_EXTERNAL            = 'external_select';
+    final public const SELECT_MENU_STATIC              = 'static_select';
+    final public const SELECT_MENU_USERS               = 'users_select';
 
     // Partials
-    public const CONFIRM                = 'confirm';
-    public const DISPATCH_ACTION_CONFIG = 'dispatch_action_config';
-    public const FIELDS                 = 'fields';
-    public const FILTER                 = 'filter';
-    public const MRKDWNTEXT             = 'mrkdwn';
-    public const OPTION                 = 'option';
-    public const OPTION_GROUP           = 'option_group';
-    public const PLAINTEXT              = 'plain_text';
+    final public const CONFIRM                = 'confirm';
+    final public const DISPATCH_ACTION_CONFIG = 'dispatch_action_config';
+    final public const FIELDS                 = 'fields';
+    final public const FILTER                 = 'filter';
+    final public const MRKDWNTEXT             = 'mrkdwn';
+    final public const OPTION                 = 'option';
+    final public const OPTION_GROUP           = 'option_group';
+    final public const PLAINTEXT              = 'plain_text';
 
-    public const SURFACE_BLOCKS = [
+    final public const SURFACE_BLOCKS = [
         self::APP_HOME => [
             self::ACTIONS,
             self::CONTEXT,
@@ -106,7 +106,7 @@ abstract class Type
         ],
     ];
 
-    public const ACCESSORY_ELEMENTS = [
+    final public const ACCESSORY_ELEMENTS = [
         self::BUTTON,
         self::CHECKBOXES,
         self::DATEPICKER,
@@ -127,7 +127,7 @@ abstract class Type
         self::TIMEPICKER,
     ];
 
-    public const ACTION_ELEMENTS = [
+    final public const ACTION_ELEMENTS = [
         self::BUTTON,
         self::CHECKBOXES,
         self::DATEPICKER,
@@ -142,9 +142,9 @@ abstract class Type
         self::TIMEPICKER,
     ];
 
-    public const CONTEXT_ELEMENTS = [self::IMAGE, self::MRKDWNTEXT, self::PLAINTEXT];
+    final public const CONTEXT_ELEMENTS = [self::IMAGE, self::MRKDWNTEXT, self::PLAINTEXT];
 
-    public const INPUT_ELEMENTS = [
+    final public const INPUT_ELEMENTS = [
         self::CHECKBOXES,
         self::DATEPICKER,
         self::MULTI_SELECT_MENU_CHANNELS,
@@ -163,7 +163,7 @@ abstract class Type
         self::NUMBER_INPUT,
     ];
 
-    public const HIDDEN_TYPES = [
+    final public const HIDDEN_TYPES = [
         self::ATTACHMENT,
         self::CONFIRM,
         self::DISPATCH_ACTION_CONFIG,
@@ -174,8 +174,10 @@ abstract class Type
         self::OPTION_GROUP,
     ];
 
-    /** @var array<string, string> */
-    private static $typeMap = [
+    /**
+     * @var array<string, string>
+     */
+    private static array $typeMap = [
         // Surfaces
         Surfaces\AppHome::class      => self::APP_HOME,
         Surfaces\Attachment::class   => self::ATTACHMENT,
@@ -240,7 +242,7 @@ abstract class Type
 
     public static function mapType(string $type): string
     {
-        $class = array_search($type, self::$typeMap);
+        $class = array_search($type, self::$typeMap, true);
         if (!$class) {
             throw new Exception('No class for type: %s', [$type]);
         }

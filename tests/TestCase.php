@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SlackPhp\BlockKit\Tests;
 
 use SlackPhp\BlockKit\Blocks\BlockElement;
@@ -27,21 +29,17 @@ class TestCase extends PhpUnitTestCase
 
     /**
      * @param object|array $data
-     * @return string
      */
     protected function jsonEncode($data): string
     {
-        $json = json_encode($data);
+        $json = json_encode($data, JSON_THROW_ON_ERROR);
         if (!is_string($json)) {
             $this->fail('JSON encoding error in test.');
         }
 
-        return (string) $json;
+        return $json;
     }
 
-    /**
-     * @return Surface
-     */
     protected function getMockSurface(): Surface
     {
         return new class () extends Surface {
@@ -54,7 +52,6 @@ class TestCase extends PhpUnitTestCase
 
     /**
      * @param BlockElement[] $subBlocks
-     * @return VirtualBlock
      */
     protected function getMockVirtualBlock(array $subBlocks = []): VirtualBlock
     {
@@ -78,8 +75,6 @@ class TestCase extends PhpUnitTestCase
     }
 
     /**
-     * @param string $class
-     * @param array $properties
      * @throws ReflectionException
      */
     protected function setStaticProperties(string $class, array $properties): void

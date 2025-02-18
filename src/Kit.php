@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace SlackPhp\BlockKit;
 
-use SlackPhp\BlockKit\Surfaces;
-
 /**
  * Kit act as a static façade to the whole block kit library.
  *
@@ -15,14 +13,11 @@ use SlackPhp\BlockKit\Surfaces;
  */
 abstract class Kit
 {
-    /** @var Config */
-    private static $config;
+    private static ?Config $config = null;
 
-    /** @var Formatter */
-    private static $formatter;
+    private static ?Formatter $formatter = null;
 
-    /** @var Previewer */
-    private static $previewer;
+    private static ?Previewer $previewer = null;
 
     public static function newAppHome(): Surfaces\AppHome
     {
@@ -41,7 +36,7 @@ abstract class Kit
 
     public static function config(): Config
     {
-        if (!isset(self::$config)) {
+        if (!self::$config instanceof Config) {
             self::$config = Config::new();
         }
 
@@ -50,7 +45,7 @@ abstract class Kit
 
     public static function formatter(): Formatter
     {
-        if (!isset(self::$formatter)) {
+        if (!self::$formatter instanceof Formatter) {
             self::$formatter = Formatter::new();
         }
 
@@ -59,7 +54,7 @@ abstract class Kit
 
     public static function preview(Surfaces\Surface $surface): string
     {
-        if (!isset(self::$previewer)) {
+        if (!self::$previewer instanceof Previewer) {
             self::$previewer = Previewer::new();
         }
 

@@ -9,46 +9,30 @@ use SlackPhp\BlockKit\Kit;
 
 class MrkdwnText extends Text
 {
-    /** @var bool */
-    private $verbatim;
+    private bool $verbatim = false;
 
-    /**
-     * @param string|null $text
-     * @param bool|null $verbatim
-     */
     public function __construct(?string $text = null, ?bool $verbatim = null)
     {
         if ($text !== null) {
             $this->text($text);
         }
 
-        $verbatim = $verbatim ?? Kit::config()->getDefaultVerbatimSetting();
+        $verbatim ??= Kit::config()->getDefaultVerbatimSetting();
         $this->verbatim($verbatim);
     }
 
-    /**
-     * @param bool|null $verbatim
-     * @return static
-     */
-    public function verbatim(?bool $verbatim)
+    public function verbatim(?bool $verbatim): static
     {
-        $this->verbatim = $verbatim;
+        $this->verbatim = $verbatim ?? Kit::config()->getDefaultVerbatimSetting();
 
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
-        $data = parent::toArray();
-
-        if (isset($this->verbatim)) {
-            $data['verbatim'] = $this->verbatim;
-        }
-
-        return $data;
+        return $this->verbatim
+            ? parent::toArray() + ['verbatim' => true]
+            : parent::toArray();
     }
 
     protected function hydrate(HydrationData $data): void

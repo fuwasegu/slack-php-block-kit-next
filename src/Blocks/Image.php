@@ -4,70 +4,50 @@ declare(strict_types=1);
 
 namespace SlackPhp\BlockKit\Blocks;
 
-use SlackPhp\BlockKit\{Exception, HydrationData, Surfaces\Surface};
+use SlackPhp\BlockKit\{Element, Exception, HydrationData, Surfaces\Surface};
 use SlackPhp\BlockKit\Partials\PlainText;
 
 class Image extends BlockElement
 {
-    /** @var PlainText */
-    private $title;
+    private ?PlainText $title = null;
 
-    /** @var string */
-    private $url;
+    private ?string $url = null;
 
-    /** @var string */
-    private $altText;
+    private ?string $altText = null;
 
-    /**
-     * @param string|null $blockId
-     * @param string|null $url
-     * @param string|null $altText
-     */
     public function __construct(?string $blockId = null, ?string $url = null, ?string $altText = null)
     {
         parent::__construct($blockId);
 
-        if (!empty($url)) {
+        if ($url !== null && $url !== '') {
             $this->url($url);
         }
 
-        if (!empty($altText)) {
+        if ($altText !== null && $altText !== '') {
             $this->altText($altText);
         }
     }
 
-    /**
-    * @return static
-    */
-    public function setTitle(PlainText $title)
+    public function setTitle(PlainText $title): static
     {
         $this->title = $title->setParent($this);
 
         return $this;
     }
 
-    /**
-    * @return static
-    */
-    public function title(string $text)
+    public function title(string $text): static
     {
         return $this->setTitle(new PlainText($text));
     }
 
-    /**
-    * @return static
-    */
-    public function url(string $url)
+    public function url(string $url): static
     {
         $this->url = $url;
 
         return $this;
     }
 
-    /**
-    * @return static
-    */
-    public function altText(string $alt)
+    public function altText(string $alt): static
     {
         $this->altText = $alt;
 
@@ -76,29 +56,24 @@ class Image extends BlockElement
 
     public function validate(): void
     {
-        if (empty($this->url)) {
+        if ($this->url === null || $this->url === '') {
             throw new Exception('Image must contain "image_url"');
         }
 
-        if (empty($this->altText)) {
+        if ($this->altText === null || $this->altText === '') {
             throw new Exception('Image must contain "alt_text"');
         }
 
-        if (!empty($this->title)) {
-            $this->title->validate();
-        }
+        $this->title?->validate();
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();
-        $isBlock = $this->getParent() === null || $this->getParent() instanceof Surface;
+        $isBlock = !$this->getParent() instanceof Element || $this->getParent() instanceof Surface;
 
-        if ($isBlock && !empty($this->title)) {
-            $data['title'] = $this->title->toArray();
+        if ($isBlock) {
+            $data['title'] = $this->title?->toArray();
         }
 
         if (!$isBlock) {

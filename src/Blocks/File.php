@@ -9,44 +9,31 @@ use SlackPhp\BlockKit\HydrationData;
 
 class File extends BlockElement
 {
-    /** @var string */
-    private $externalId;
+    private ?string $externalId = null;
 
-    /** @var string */
-    private $source;
+    private ?string $source = null;
 
-    /**
-     * @param string|null $blockId
-     * @param string|null $externalId
-     * @param string $source
-     */
     public function __construct(?string $blockId = null, ?string $externalId = null, string $source = 'remote')
     {
         parent::__construct($blockId);
 
-        if (!empty($externalId)) {
+        if ($externalId !== null && $externalId !== '') {
             $this->externalId($externalId);
         }
 
-        if (!empty($source)) {
+        if ($source !== '') {
             $this->source($source);
         }
     }
 
-    /**
-    * @return static
-    */
-    public function externalId(string $externalId)
+    public function externalId(string $externalId): static
     {
         $this->externalId = $externalId;
 
         return $this;
     }
 
-    /**
-    * @return static
-    */
-    public function source(string $source)
+    public function source(string $source): static
     {
         $this->source = $source;
 
@@ -55,21 +42,28 @@ class File extends BlockElement
 
     public function validate(): void
     {
-        if (empty($this->externalId)) {
+        if ($this->externalId === null || $this->externalId === '') {
             throw new Exception('File must contain "external_id"');
         }
 
-        if (empty($this->source)) {
+        if ($this->source === null || $this->source === '') {
             throw new Exception('File must contain "source"');
         }
     }
 
     public function toArray(): array
     {
-        return parent::toArray() + [
-            'external_id' => $this->externalId,
-            'source' => $this->source,
-        ];
+        $data = parent::toArray();
+
+        if (is_string($this->externalId)) {
+            $data['external_id'] = $this->externalId;
+        }
+
+        if (is_string($this->source)) {
+            $data['source'] = $this->source;
+        }
+
+        return $data;
     }
 
     protected function hydrate(HydrationData $data): void

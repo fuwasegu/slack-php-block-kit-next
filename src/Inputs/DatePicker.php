@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace SlackPhp\BlockKit\Inputs;
 
-use DateTime;
 use SlackPhp\BlockKit\Exception;
 use SlackPhp\BlockKit\HydrationData;
 use SlackPhp\BlockKit\Partials\Confirm;
 use SlackPhp\BlockKit\Partials\PlainText;
+use DateTimeImmutable;
 
 class DatePicker extends InputElement
 {
@@ -17,15 +17,11 @@ class DatePicker extends InputElement
 
     private const DATE_FORMAT = 'Y-m-d';
 
-    /** @var string */
-    private $initialDate;
+    private ?string $initialDate = null;
 
-    /**
-    * @return static
-    */
-    public function initialDate(string $date)
+    public function initialDate(string $date): static
     {
-        $dateTime = DateTime::createFromFormat(self::DATE_FORMAT, $date);
+        $dateTime = DateTimeImmutable::createFromFormat(self::DATE_FORMAT, $date);
         if (!$dateTime) {
             throw new Exception('Date was formatted incorrectly (must be Y-m-d)');
         }
@@ -37,31 +33,28 @@ class DatePicker extends InputElement
 
     public function validate(): void
     {
-        if (!empty($this->placeholder)) {
+        if ($this->placeholder instanceof PlainText) {
             $this->placeholder->validate();
         }
 
-        if (!empty($this->confirm)) {
+        if ($this->confirm instanceof Confirm) {
             $this->confirm->validate();
         }
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();
 
-        if (!empty($this->initialDate)) {
+        if ($this->initialDate !== null && $this->initialDate !== '') {
             $data['initial_date'] = $this->initialDate;
         }
 
-        if (!empty($this->placeholder)) {
+        if ($this->placeholder instanceof PlainText) {
             $data['placeholder'] = $this->placeholder->toArray();
         }
 
-        if (!empty($this->confirm)) {
+        if ($this->confirm instanceof Confirm) {
             $data['confirm'] = $this->confirm->toArray();
         }
 

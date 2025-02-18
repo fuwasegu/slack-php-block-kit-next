@@ -26,62 +26,53 @@ class Message extends Surface
         self::DELETE_ORIGINAL,
     ];
 
-    /** @var array|Attachment[] Attachments containing secondary content. */
-    private $attachments = [];
+    /**
+     * @var array|Attachment[] attachments containing secondary content
+     */
+    private array $attachments = [];
 
-    /** @var array|string[] A message can have a directive (e.g., response_type) included along with its blocks. */
-    private $directives = [];
+    /**
+     * @var array|string[] A message can have a directive (e.g., response_type) included along with its blocks.
+     */
+    private array $directives = [];
 
-    /** @var array */
-    private $fallbackText = [];
+    private array $fallbackText = [];
 
     /**
      * Configures message to send privately to the user.
      *
      * This is default behavior for most interactions, and doesn't necessarily need to be explicitly configured.
-     *
-     * @return static
      */
-    public function ephemeral()
+    public function ephemeral(): static
     {
         return $this->directives(self::EPHEMERAL);
     }
 
     /**
      * Configures message to send to the entire channel.
-     *
-     * @return static
      */
-    public function inChannel()
+    public function inChannel(): static
     {
         return $this->directives(self::IN_CHANNEL);
     }
 
     /**
      * Configures message to "replace_original" mode.
-     *
-     * @return static
      */
-    public function replaceOriginal()
+    public function replaceOriginal(): static
     {
         return $this->directives(self::REPLACE_ORIGINAL);
     }
 
     /**
      * Configures message to "delete_original" mode.
-     *
-     * @return static
      */
-    public function deleteOriginal()
+    public function deleteOriginal(): static
     {
         return $this->directives(self::DELETE_ORIGINAL);
     }
 
-    /**
-     * @param array $directives
-     * @return static
-     */
-    private function directives(array $directives)
+    private function directives(array $directives): static
     {
         $this->directives = $directives;
 
@@ -90,12 +81,8 @@ class Message extends Surface
 
     /**
      * Sets the legacy "text" property, that acts as a fallback in situations where blocks cannot be rendered.
-     *
-     * @param string $message
-     * @param bool|null $mrkdwn
-     * @return static
      */
-    public function fallbackText(string $message, ?bool $mrkdwn = null)
+    public function fallbackText(string $message, ?bool $mrkdwn = null): static
     {
         $this->fallbackText = ['text' => $message];
         if ($mrkdwn !== null) {
@@ -105,20 +92,13 @@ class Message extends Surface
         return $this;
     }
 
-    /**
-     * @param Attachment $attachment
-     * @return static
-     */
-    public function addAttachment(Attachment $attachment)
+    public function addAttachment(Attachment $attachment): static
     {
         $this->attachments[] = $attachment->setParent($this);
 
         return $this;
     }
 
-    /**
-     * @return Attachment
-     */
     public function newAttachment(): Attachment
     {
         $attachment = new Attachment();
@@ -130,10 +110,9 @@ class Message extends Surface
     /**
      * Clones a message for the purpose of generating a Block Kit Builder preview URL.
      *
-     * @internal Used by Previewer only.
-     * @return static
+     * @internal used by Previewer only
      */
-    public function asPreviewableMessage()
+    public function asPreviewableMessage(): static
     {
         $message = clone $this;
         $message->directives = [];
@@ -144,21 +123,21 @@ class Message extends Surface
 
     public function validate(): void
     {
-        if (!empty($this->directives) && !in_array($this->directives, self::VALID_DIRECTIVES, true)) {
+        if ($this->directives !== [] && !in_array($this->directives, self::VALID_DIRECTIVES, true)) {
             throw new Exception('Invalid directives for message');
         }
 
-        $hasBlocks = !empty($this->getBlocks());
+        $hasBlocks = $this->getBlocks() !== [];
         if ($hasBlocks) {
             parent::validate();
         }
 
-        $hasAttachments = !empty($this->attachments);
+        $hasAttachments = $this->attachments !== [];
         foreach ($this->attachments as $attachment) {
             $attachment->validate();
         }
 
-        $hasText = !empty($this->fallbackText);
+        $hasText = $this->fallbackText !== [];
         if ($hasText) {
             Partials\Text::validateString($this->fallbackText['text']);
         }

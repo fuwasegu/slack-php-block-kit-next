@@ -12,81 +12,54 @@ class NumberInput extends InputElement
 {
     use HasPlaceholder;
 
-    /** @var bool */
-    private $isDecimalAllowed = false;
+    private bool $isDecimalAllowed = false;
 
-    /** @var int|float */
-    private $initialValue;
+    private null|float|int $initialValue = null;
 
-    /** @var int|float */
-    private $minValue;
+    private null|float|int $minValue = null;
 
-    /** @var int|float */
-    private $maxValue;
+    private null|float|int $maxValue = null;
 
-    /** @var DispatchActionConfig */
-    private $dispatchActionConfig;
+    private ?DispatchActionConfig $dispatchActionConfig = null;
 
-    /** @var bool */
-    private $focusOnLoad;
+    private ?bool $focusOnLoad = null;
 
-    /**
-     * @return static
-     */
-    public function setIsDecimalAllowed(bool $flag)
+    public function setIsDecimalAllowed(bool $flag): static
     {
         $this->isDecimalAllowed = $flag;
 
         return $this;
     }
 
-    /**
-     * @param int|float $value
-     * @return static
-     */
-    public function setInitialValue($value)
+    public function setInitialValue(float|int $value): static
     {
         $this->initialValue = $value;
 
         return $this;
     }
 
-    /**
-     * @param int|float $value
-     * @return static
-     */
-    public function setMinValue($value)
+    public function setMinValue(float|int $value): static
     {
         $this->minValue = $value;
 
         return $this;
     }
 
-    /**
-     * @param int|float $value
-     * @return static
-     */
-    public function setMaxValue($value)
+    public function setMaxValue(float|int $value): static
     {
         $this->maxValue = $value;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function setDispatchActionConfig(DispatchActionConfig $config)
+    public function setDispatchActionConfig(DispatchActionConfig $config): static
     {
         $this->dispatchActionConfig = $config;
 
         return $this;
     }
 
-    /**
-     * @return static
-     */
-    public function setFocusOnLoad(bool $flag)
+    public function setFocusOnLoad(bool $flag): static
     {
         $this->focusOnLoad = $flag;
 
@@ -95,13 +68,13 @@ class NumberInput extends InputElement
 
     public function validate(): void
     {
-        if (!empty($this->placeholder)) {
+        if ($this->placeholder instanceof PlainText) {
             $this->placeholder->validate();
         }
 
         if (
-            isset($this->minValue)
-            && isset($this->maxValue)
+            $this->minValue !== null && $this->maxValue !== null
+
             && $this->minValue > $this->maxValue
         ) {
             throw new Exception('Number input max value must be greater than min value');
@@ -112,22 +85,22 @@ class NumberInput extends InputElement
         }
 
         if (
-            isset($this->maxValue)
-            && isset($this->initialValue)
+            $this->maxValue !== null && $this->initialValue !== null
+
             && $this->maxValue <= $this->initialValue
         ) {
             throw new Exception('The initial value must be less than or equal to max_value');
         }
 
         if (
-            isset($this->minValue)
-            && isset($this->initialValue)
+            $this->minValue !== null && $this->initialValue !== null
+
             && $this->initialValue <= $this->minValue
         ) {
             throw new Exception('The initial value must be greater than or equal to min_value');
         }
 
-        if (isset($this->dispatchActionConfig)) {
+        if ($this->dispatchActionConfig instanceof DispatchActionConfig) {
             $this->dispatchActionConfig->validate();
         }
     }
@@ -136,34 +109,32 @@ class NumberInput extends InputElement
     {
         $data = parent::toArray();
 
-        if (!empty($this->placeholder)) {
+        if ($this->placeholder instanceof PlainText) {
             $data['placeholder'] = $this->placeholder->toArray();
         }
 
-        if (!empty($this->initialValue)) {
+        if ($this->initialValue !== null) {
             // Must be a String in SlackAPI documentation
             $data['initial_value'] = (string)$this->initialValue;
         }
 
-        if (isset($this->minValue)) {
+        if ($this->minValue !== null) {
             // Must be a String in SlackAPI documentation
             $data['min_value'] = (string)$this->minValue;
         }
 
-        if (isset($this->maxValue)) {
+        if ($this->maxValue !== null) {
             // Must be a String in SlackAPI documentation
             $data['max_value'] = (string)$this->maxValue;
         }
 
-        if (isset($this->dispatchActionConfig)) {
+        if ($this->dispatchActionConfig instanceof DispatchActionConfig) {
             $data['dispatch_action_config'] = $this->dispatchActionConfig->toArray();
         }
 
-        if (isset($this->isDecimalAllowed)) {
-            $data['is_decimal_allowed'] = $this->isDecimalAllowed;
-        }
+        $data['is_decimal_allowed'] = $this->isDecimalAllowed;
 
-        if (isset($this->focusOnLoad)) {
+        if ($this->focusOnLoad !== null) {
             $data['focus_on_load'] = $this->focusOnLoad;
         }
 
@@ -190,7 +161,7 @@ class NumberInput extends InputElement
 
         if ($data->has('dispatch_action_config')) {
             $this->setDispatchActionConfig(
-                DispatchActionConfig::fromArray($data->useElement('dispatch_action_config'))
+                DispatchActionConfig::fromArray($data->useElement('dispatch_action_config')),
             );
         }
 

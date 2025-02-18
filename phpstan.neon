@@ -6,5 +6,3 @@ parameters:
     ignoreErrors:
         # Some elements (especially Partials) have constructors, but all have only optional params.
         - '#Unsafe usage of new static.*#'
-        # I don't know how to do abstract factories the right way, apparently.
-        - '#Method .*MenuFactory::create\(\) has no return typehint specified.#'

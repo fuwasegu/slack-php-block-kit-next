@@ -40,7 +40,7 @@ class OverflowMenuTest extends TestCase
                         'text' => 'bar',
                     ],
                     'value' => 'bar',
-                    'url' => 'https://example.org'
+                    'url' => 'https://example.org',
                 ],
                 [
                     'text' => [
@@ -67,7 +67,7 @@ class OverflowMenuTest extends TestCase
                     'type' => 'plain_text',
                     'text' => 'Cancel',
                 ],
-            ]
+            ],
         ], $input);
     }
 

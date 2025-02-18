@@ -9,65 +9,42 @@ use SlackPhp\BlockKit\Partials\Filter;
 
 class ConversationSelectMenu extends SelectMenu
 {
-    /** @var string */
-    private $initialConversation;
+    private ?string $initialConversation = null;
 
-    /** @var bool */
-    private $responseUrlEnabled;
+    private bool $responseUrlEnabled = false;
 
-    /** @var bool */
-    private $defaultToCurrentConversation;
+    private bool $defaultToCurrentConversation = false;
 
-    /** @var Filter */
-    private $filter;
+    private ?Filter $filter = null;
 
-    /**
-     * @param string $initialConversation
-     * @return static
-     */
-    public function initialConversation(string $initialConversation)
+    public function initialConversation(string $initialConversation): static
     {
         $this->initialConversation = $initialConversation;
 
         return $this;
     }
 
-    /**
-     * @param bool $enabled
-     * @return static
-     */
-    public function responseUrlEnabled(bool $enabled)
+    public function responseUrlEnabled(bool $enabled): static
     {
         $this->responseUrlEnabled = $enabled;
 
         return $this;
     }
 
-    /**
-     * @param bool $enabled
-     * @return static
-     */
-    public function defaultToCurrentConversation(bool $enabled)
+    public function defaultToCurrentConversation(bool $enabled): static
     {
         $this->defaultToCurrentConversation = $enabled;
 
         return $this;
     }
 
-    /**
-     * @param Filter $filter
-     * @return static
-     */
-    public function setFilter(Filter $filter)
+    public function setFilter(Filter $filter): static
     {
         $this->filter = $filter->setParent($this);
 
         return $this;
     }
 
-    /**
-     * @return Filter
-     */
     public function newFilter(): Filter
     {
         $filter = Filter::new();
@@ -80,31 +57,28 @@ class ConversationSelectMenu extends SelectMenu
     {
         parent::validate();
 
-        if (!empty($this->filter)) {
+        if ($this->filter instanceof Filter) {
             $this->filter->validate();
         }
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();
 
-        if (!empty($this->initialConversation)) {
+        if (is_string($this->initialConversation) && $this->initialConversation !== '') {
             $data['initial_conversation'] = $this->initialConversation;
         }
 
-        if (!empty($this->responseUrlEnabled)) {
+        if ($this->responseUrlEnabled) {
             $data['response_url_enabled'] = $this->responseUrlEnabled;
         }
 
-        if (!empty($this->defaultToCurrentConversation)) {
+        if ($this->defaultToCurrentConversation) {
             $data['default_to_current_conversation'] = $this->defaultToCurrentConversation;
         }
 
-        if (!empty($this->filter)) {
+        if ($this->filter instanceof Filter) {
             $data['filter'] = $this->filter->toArray();
         }
 

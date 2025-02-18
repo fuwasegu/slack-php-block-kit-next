@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace SlackPhp\BlockKit;
 
-use SlackPhp\BlockKit\Surfaces;
-
-use function rawurlencode;
-
 /**
  * Provides the ability to preview a surface in Slack's Block Kit Builder by generating a URL.
  */
@@ -15,12 +11,9 @@ final class Previewer
 {
     private const BUILDER_URL = 'https://app.slack.com/block-kit-builder';
 
-    /**
-    * @return static
-    */
-    public static function new()
+    public static function new(): self
     {
-        return new static();
+        return new self();
     }
 
     public function preview(Surfaces\Surface $surface): string
@@ -46,12 +39,9 @@ final class Previewer
      * 1. Encode the surface as JSON.
      * 2. URL encode the JSON.
      * 3. Convert encoded entities for double quotes and colons back to their original characters.
-     *
-     * @param Surfaces\Surface $surface
-     * @return string
      */
     private function encode(Surfaces\Surface $surface): string
     {
-        return strtr(rawurlencode($surface->toJson()), ['%22' => '"', '%3A' => ':']);
+        return strtr(\rawurlencode($surface->toJson()), ['%22' => '"', '%3A' => ':']);
     }
 }

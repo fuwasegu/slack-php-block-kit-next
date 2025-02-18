@@ -9,46 +9,32 @@ use SlackPhp\BlockKit\HydrationData;
 
 abstract class InputElement extends Element
 {
-    /** @var string */
-    private $actionId;
+    private ?string $actionId = null;
 
-    /**
-     * @param string|null $actionId
-     */
     public function __construct(?string $actionId = null)
     {
-        if (!empty($actionId)) {
+        if ($actionId !== null && $actionId !== '') {
             $this->actionId($actionId);
         }
     }
 
-    /**
-     * @param string $actionId
-     * @return static
-     */
-    public function actionId(string $actionId)
+    public function actionId(string $actionId): static
     {
         $this->actionId = $actionId;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getActionId(): ?string
     {
         return $this->actionId;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();
 
-        if (!empty($this->actionId)) {
+        if ($this->actionId !== null && $this->actionId !== '') {
             $data['action_id'] = $this->actionId;
         }
 

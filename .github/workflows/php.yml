@@ -4,8 +4,11 @@ on: [push, pull_request]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php: [ 8.2 ]
 
     steps:
         - uses: actions/checkout@v2
@@ -13,16 +16,20 @@ jobs:
         - name: Setup PHP
           uses: shivammathur/setup-php@v2
           with:
-            php-version: '8.0'
+            php-version: ${{ matrix.php }}
+            coverage: xdebug
 
-        - name: Install dependencies
+        - name: Composer install
           run: composer install
 
-        - name: Run style linter
-          run: composer run-script style-lint
+        - name: Lint
+          run: composer lint
 
-        - name: Run static analyzer
-          run: composer run-script stan
+        - name: Static Analysis
+          run: composer stan
 
-        - name: Run test suite
-          run: composer run-script test-ci
+        - name: Rector
+          run: composer rector
+
+        - name: PHPUnit
+          run: composer test:coverage

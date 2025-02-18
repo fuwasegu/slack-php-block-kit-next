@@ -125,7 +125,7 @@ class MessageTest extends TestCase
 
     public function testCanAddAttachments(): void
     {
-        $msg = Message::new()->tap(function (Message $msg) {
+        $msg = Message::new()->tap(static function (Message $msg): void {
             $msg->text('foo');
             $msg->text('bar');
             $msg->newAttachment()->text('foo')->text('bar');
@@ -140,7 +140,7 @@ class MessageTest extends TestCase
 
     public function testCanAddAttachmentsWithoutPrimaryBlocks(): void
     {
-        $msg = Message::new()->tap(function (Message $msg) {
+        $msg = Message::new()->tap(static function (Message $msg): void {
             $msg->newAttachment()->text('foo')->text('bar');
             $msg->newAttachment()->text('foo')->text('bar');
         });

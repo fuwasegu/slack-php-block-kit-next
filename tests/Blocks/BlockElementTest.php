@@ -17,7 +17,6 @@ class BlockElementTest extends TestCase
         $block = new class () extends BlockElement {
             public function validate(): void
             {
-                return;
             }
         };
         $blockMutated = $block->blockId('foo');
@@ -31,7 +30,6 @@ class BlockElementTest extends TestCase
         $block = new class ('foo') extends BlockElement {
             public function validate(): void
             {
-                return;
             }
 
             public function getType(): string

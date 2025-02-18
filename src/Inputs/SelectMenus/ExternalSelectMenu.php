@@ -9,18 +9,11 @@ use SlackPhp\BlockKit\Partials\Option;
 
 class ExternalSelectMenu extends SelectMenu
 {
-    /** @var Option */
-    private $initialOption;
+    private ?Option $initialOption = null;
 
-    /** @var int */
-    private $minQueryLength;
+    private ?int $minQueryLength = null;
 
-    /**
-     * @param string $name
-     * @param string $value
-     * @return static
-     */
-    public function initialOption(string $name, string $value)
+    public function initialOption(string $name, string $value): static
     {
         $this->initialOption = Option::new($name, $value);
         $this->initialOption->setParent($this);
@@ -28,10 +21,7 @@ class ExternalSelectMenu extends SelectMenu
         return $this;
     }
 
-    /**
-    * @return static
-    */
-    public function minQueryLength(int $minQueryLength)
+    public function minQueryLength(int $minQueryLength): static
     {
         $this->minQueryLength = $minQueryLength;
 
@@ -42,7 +32,7 @@ class ExternalSelectMenu extends SelectMenu
     {
         parent::validate();
 
-        if (!empty($this->initialOption)) {
+        if ($this->initialOption instanceof Option) {
             $this->initialOption->validate();
         }
     }
@@ -51,11 +41,11 @@ class ExternalSelectMenu extends SelectMenu
     {
         $data = parent::toArray();
 
-        if (!empty($this->initialOption)) {
+        if ($this->initialOption instanceof Option) {
             $data['initial_option'] = $this->initialOption->toArray();
         }
 
-        if (isset($this->minQueryLength)) {
+        if ($this->minQueryLength !== null) {
             $data['min_query_length'] = $this->minQueryLength;
         }
 

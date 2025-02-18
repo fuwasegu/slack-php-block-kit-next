@@ -39,7 +39,7 @@ class FilterTest extends TestCase
 
     public function testCanHydrateConversationFilter(): void
     {
-        $json = <<<JSON
+        $json = <<<'JSON'
         {
             "include": ["private"],
             "exclude_bot_users": true,
@@ -52,7 +52,7 @@ class FilterTest extends TestCase
         $this->assertJsonData([
             'include' => ['private'],
             'exclude_bot_users' => true,
-            'exclude_external_shared_channels' => true
+            'exclude_external_shared_channels' => true,
         ], $filter);
     }
 }

@@ -9,51 +9,39 @@ use SlackPhp\BlockKit\Partials\Filter;
 
 class MultiConversationSelectMenu extends MultiSelectMenu
 {
-    /** @var string[] */
-    private $initialConversations;
+    /**
+     * @var string[]
+     */
+    private array $initialConversations = [];
 
-    /** @var bool */
-    private $defaultToCurrentConversation;
+    private bool $defaultToCurrentConversation = false;
 
-    /** @var Filter */
-    private $filter;
+    private ?Filter $filter = null;
 
     /**
      * @param string[] $initialConversations
-     * @return static
      */
-    public function initialConversations(array $initialConversations)
+    public function initialConversations(array $initialConversations): static
     {
         $this->initialConversations = $initialConversations;
 
         return $this;
     }
 
-    /**
-     * @param bool $enabled
-     * @return static
-     */
-    public function defaultToCurrentConversation(bool $enabled)
+    public function defaultToCurrentConversation(bool $enabled): static
     {
         $this->defaultToCurrentConversation = $enabled;
 
         return $this;
     }
 
-    /**
-     * @param Filter $filter
-     * @return static
-     */
-    public function setFilter(Filter $filter)
+    public function setFilter(Filter $filter): static
     {
         $this->filter = $filter->setParent($this);
 
         return $this;
     }
 
-    /**
-     * @return Filter
-     */
     public function newFilter(): Filter
     {
         $filter = Filter::new();
@@ -66,27 +54,24 @@ class MultiConversationSelectMenu extends MultiSelectMenu
     {
         parent::validate();
 
-        if (!empty($this->filter)) {
+        if ($this->filter instanceof Filter) {
             $this->filter->validate();
         }
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();
 
-        if (!empty($this->initialConversations)) {
+        if ($this->initialConversations !== []) {
             $data['initial_conversations'] = $this->initialConversations;
         }
 
-        if (!empty($this->defaultToCurrentConversation)) {
+        if ($this->defaultToCurrentConversation) {
             $data['default_to_current_conversation'] = $this->defaultToCurrentConversation;
         }
 
-        if (!empty($this->filter)) {
+        if ($this->filter instanceof Filter) {
             $data['filter'] = $this->filter->toArray();
         }
 

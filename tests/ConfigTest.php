@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SlackPhp\BlockKit\Tests;
 
 use SlackPhp\BlockKit\Config;
@@ -23,7 +25,7 @@ class ConfigTest extends TestCase
     {
         $c = Config::new();
 
-        $this->assertNull($c->getDefaultEmojiSetting());
-        $this->assertNull($c->getDefaultVerbatimSetting());
+        $this->assertTrue($c->getDefaultEmojiSetting());
+        $this->assertFalse($c->getDefaultVerbatimSetting());
     }
 }

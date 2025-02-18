@@ -8,28 +8,26 @@ use SlackPhp\BlockKit\HydrationData;
 
 class MultiChannelSelectMenu extends MultiSelectMenu
 {
-    /** @var string[] */
-    private $initialChannels;
+    /**
+     * @var string[]
+     */
+    private array $initialChannels = [];
 
     /**
      * @param string[] $initialChannels
-     * @return static
      */
-    public function initialChannels(array $initialChannels)
+    public function initialChannels(array $initialChannels): static
     {
         $this->initialChannels = $initialChannels;
 
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();
 
-        if (!empty($this->initialChannels)) {
+        if ($this->initialChannels !== []) {
             $data['initial_channels'] = $this->initialChannels;
         }
 

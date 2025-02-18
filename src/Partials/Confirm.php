@@ -8,29 +8,25 @@ use SlackPhp\BlockKit\{Element, Exception, HydrationData};
 
 class Confirm extends Element
 {
-    /** @var PlainText */
-    private $title;
+    private ?PlainText $title = null;
 
-    /** @var Text */
-    private $text;
+    private ?Text $text = null;
 
-    /** @var PlainText */
-    private $confirm;
+    private ?PlainText $confirm = null;
 
-    /** @var PlainText */
-    private $deny;
+    private ?PlainText $deny = null;
 
     public function __construct(
         ?string $title = null,
         ?string $text = null,
         ?string $confirm = null,
-        ?string $deny = null
+        ?string $deny = null,
     ) {
-        if (!empty($title)) {
+        if ($title !== null && $title !== '') {
             $this->title($title);
         }
 
-        if (!empty($text)) {
+        if ($text !== null && $text !== '') {
             $this->text($text);
         }
 
@@ -38,115 +34,80 @@ class Confirm extends Element
         $this->deny($deny ?? 'Cancel');
     }
 
-    /**
-     * @param PlainText $title
-     * @return static
-     */
-    public function setTitle(PlainText $title)
+    public function setTitle(PlainText $title): static
     {
         $this->title = $title->setParent($this);
 
         return $this;
     }
 
-    /**
-     * @param Text $text
-     * @return static
-     */
-    public function setText(Text $text)
+    public function setText(Text $text): static
     {
         $this->text = $text->setParent($this);
 
         return $this;
     }
 
-    /**
-     * @param PlainText $confirm
-     * @return static
-     */
-    public function setConfirm(PlainText $confirm)
+    public function setConfirm(PlainText $confirm): static
     {
         $this->confirm = $confirm->setParent($this);
 
         return $this;
     }
 
-    /**
-     * @param PlainText $deny
-     * @return static
-     */
-    public function setDeny(PlainText $deny)
+    public function setDeny(PlainText $deny): static
     {
         $this->deny = $deny->setParent($this);
 
         return $this;
     }
 
-    /**
-     * @param string $title
-     * @return static
-     */
-    public function title(string $title)
+    public function title(string $title): static
     {
         return $this->setTitle(new PlainText($title));
     }
 
-    /**
-     * @param string $text
-     * @return static
-     */
-    public function text(string $text)
+    public function text(string $text): static
     {
         return $this->setText(new MrkdwnText($text));
     }
 
-    /**
-     * @param string $confirm
-     * @return static
-     */
-    public function confirm(string $confirm)
+    public function confirm(string $confirm): static
     {
         return $this->setConfirm(new PlainText($confirm));
     }
 
-    /**
-     * @param string $deny
-     * @return static
-     */
-    public function deny(string $deny)
+    public function deny(string $deny): static
     {
         return $this->setDeny(new PlainText($deny));
     }
 
     public function validate(): void
     {
-        if (empty($this->title)) {
-            throw new Exception('Confirm component must have a "title" value');
-        }
-
-        if (empty($this->text)) {
-            throw new Exception('Confirm component must have a "text" value');
-        }
-
-        if (empty($this->confirm)) {
-            throw new Exception('Confirm component must have a "confirm" value');
-        }
-
-        if (empty($this->deny)) {
-            throw new Exception('Confirm component must have a "deny" value');
+        if (
+            !$this->title instanceof PlainText
+            || !$this->confirm instanceof PlainText
+            || !$this->deny instanceof PlainText
+            || !$this->text instanceof Text
+        ) {
+            throw new Exception('Confirm must contain "title", "confirm", "text", "deny"');
         }
 
         $this->title->validate();
-        $this->text->validate();
         $this->confirm->validate();
         $this->deny->validate();
+        $this->text->validate();
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
+        assert(
+            $this->title instanceof PlainText
+            && $this->text instanceof Text
+            && $this->confirm instanceof PlainText
+            && $this->deny instanceof PlainText,
+        );
+
         return parent::toArray() + [
             'title' => $this->title->toArray(),
             'text' => $this->text->toArray(),

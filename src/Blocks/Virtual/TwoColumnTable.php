@@ -15,49 +15,38 @@ use SlackPhp\BlockKit\Exception;
  */
 class TwoColumnTable extends VirtualBlock
 {
-    /** @var Section|null */
-    private $header;
+    private ?Section $header = null;
 
-    /** @var bool */
-    private $hasRows = false;
+    private bool $hasRows = false;
 
-    /**
-     * @param string|null $blockId
-     * @param array|null $rows
-     * @param array|null $cols
-     * @param string|null $caption
-     */
     public function __construct(
         ?string $blockId = null,
         ?array $rows = null,
         ?array $cols = null,
-        ?string $caption = null
+        ?string $caption = null,
     ) {
         parent::__construct($blockId);
 
-        if (!empty($caption)) {
+        if ($caption !== null && $caption !== '') {
             $this->caption($caption);
         }
 
-        if (!empty($cols)) {
+        if ($cols !== null && $cols !== []) {
             [$left, $right] = $cols;
             $this->cols($left, $right);
         }
 
-        if (!empty($rows)) {
+        if ($rows !== null && $rows !== []) {
             $this->rows($rows);
         }
     }
 
     /**
      * Sets a caption (text element) at the top of the table.
-     *
-     * @param string $caption
-     * @return static
      */
-    public function caption(string $caption)
+    public function caption(string $caption): static
     {
-        if (!$this->header) {
+        if (!$this->header instanceof Section) {
             $this->header = new Section();
             $this->prependBlock($this->header);
         }
@@ -71,14 +60,10 @@ class TwoColumnTable extends VirtualBlock
      * Sets the left and right column headers.
      *
      * Automatically applies a bold to the header text elements.
-     *
-     * @param string $left
-     * @param string $right
-     * @return static
      */
-    public function cols(string $left, string $right)
+    public function cols(string $left, string $right): static
     {
-        if (!$this->header) {
+        if (!$this->header instanceof Section) {
             $this->header = new Section();
             $this->prependBlock($this->header);
         }
@@ -90,12 +75,8 @@ class TwoColumnTable extends VirtualBlock
 
     /**
      * Adds a row (with a left and right value) to the table.
-     *
-     * @param string $left
-     * @param string $right
-     * @return static
      */
-    public function row(string $left, string $right)
+    public function row(string $left, string $right): static
     {
         $row = new Section();
         $row->fieldList([$left, $right]);
@@ -108,11 +89,8 @@ class TwoColumnTable extends VirtualBlock
      * Adds multiple rows to the table.
      *
      * Supports list-format (e.g., [[$left, $right], ...]) or map-format (e.g., [$left => $right, ...]) as input.
-     *
-     * @param array $rows
-     * @return static
      */
-    public function rows(array $rows)
+    public function rows(array $rows): static
     {
         if (isset($rows[0])) {
             foreach ($rows as [$left, $right]) {

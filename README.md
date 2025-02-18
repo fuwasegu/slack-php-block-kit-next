@@ -1,26 +1,14 @@
 <header>
-  <h1 align="center">Slack Block Kit for PHP</h1>
+  <h1 align="center">Slack PHP BlockKit NEXT</h1>
   <p align="center">:point_right: <em>For formatting messages and modals for Slack using their Block Kit syntax via an OOP interface</em> :point_left:</p>
-  <p align="center">By Jeremy Lindblom (<a href="https://twitter.com/jeremeamia">@jeremeamia</a>)</p>
+  <p align="center">Originally by Jeremy Lindblom (<a href="https://twitter.com/jeremeamia">@jeremeamia</a>)</p>
+  <p align="center">Forked and maintained by Fuwasegu (<a href="https://twitter.com/fuwasegu">@fuwasegu</a>)</p>
 </header>
 
-<p align="center">
-  <img src="https://repository-images.githubusercontent.com/358292134/398fbb00-9dbe-11eb-9167-fd67cf034596" alt="Slack logo placed on top of blocks" width="50%">
-</p>
-
-<p align="center">
-  <a href="http://php.net/">
-    <img src="https://img.shields.io/badge/code-php7-8892bf.svg" alt="Coded in PHP 7">
-  </a>
-  <a href="https://packagist.org/packages/slack-php/slack-block-kit">
-    <img src="https://img.shields.io/packagist/v/slack-php/slack-block-kit.svg" alt="Packagist Version">
-  </a>
-  <a href="https://github.com/slack-php/slack-php-block-kit/actions">
-    <img src="https://img.shields.io/github/workflow/status/slack-php/slack-php-block-kit/PHP%20Composer.svg" alt="Build Status">
-  </a>
-</p>
 
 ---
+## Warning!
+This project is a fork of [this](https://github.com/slack-php/slack-php-block-kit), but deviates from the original project.
 
 ## Introduction
 
@@ -293,27 +281,3 @@ Actions {bg:cornsilk}]
 </pre>
 </details>
 
-### Contributions
-
-Contributions welcome to support new elements, add tests, improve, etc.
-
-When implementing elements, to fit within the existing DSL, consider these points:
-
-- To set instantiated sub-element objects, provide a `set`-prefixed setter (e.g., `setText(Text $text): self`).
-    - Should return `self` to support chaining.
-    - Should set the parent (e.g., `setParent()`) of the sub-element to `$this`.
-- To set simple sub-element objects, provide a simple setter method (e.g., `title(string $title): self`).
-    - Should be in addition to the `set`-prefixed setter.
-    - Should be named after the property being set.
-    - Should return `self` to support chaining.
-    - Should have a maximum of 2 parameters.
-    - Should call the regular setter (e.g., `return $this->setText(new PlainText($title));`).
-- To set other non-element properties, provide a simple setter method (e.g., `url(string $url): self`).
-    - Should be named after the property being set.
-    - Should return `self` to support chaining.
-- To create new sub-elements attached to the current one, provide a `new`-prefixed factory method (e.g., `newImage(): Image`).
-    - Should return an instance of the sub-element.
-    - Should set the parent (e.g., `setParent()`) of the sub-element to `$this` before returning.
-    - Should support a `$blockId` parameter if it's a Block or an `$actionId` parameter if it's an Input element.
-- All element types should be defined in the `Type` class and registered in relevant constant lists to be appropriately validated.
-- If you implement a custom constructor for an element, make sure all the parameters are optional.

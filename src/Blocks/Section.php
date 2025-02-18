@@ -4,73 +4,64 @@ declare(strict_types=1);
 
 namespace SlackPhp\BlockKit\Blocks;
 
-use SlackPhp\BlockKit\{
-    Element,
+use SlackPhp\BlockKit\{Element,
     Exception,
     HydrationData,
     Inputs,
+    Inputs\Button,
+    Inputs\DatePicker,
+    Inputs\OverflowMenu,
+    Inputs\RadioButtons,
+    Inputs\SelectMenus\MultiSelectMenuFactory,
+    Inputs\SelectMenus\SelectMenu,
+    Inputs\SelectMenus\SelectMenuFactory,
+    Inputs\TextInput,
     Kit,
     Partials,
-    Type,
-};
+    Partials\Fields,
+    Partials\MrkdwnText,
+    Partials\PlainText,
+    Partials\Text,
+    Type};
 
 class Section extends BlockElement
 {
-    /** @var Partials\Text */
-    private $text;
+    private ?Text $text = null;
 
-    /** @var Partials\Fields */
-    private $fields;
+    private ?Fields $fields = null;
 
-    /** @var Element */
-    private $accessory;
+    private ?Element $accessory = null;
 
-    /**
-     * @param string|null $blockId
-     * @param string|null $text
-     */
     public function __construct(?string $blockId = null, ?string $text = null)
     {
         parent::__construct($blockId);
 
-        if (!empty($text)) {
+        if ($text !== null && $text !== '') {
             $this->mrkdwnText($text);
         }
     }
 
-    /**
-     * @param Partials\Text $text
-     * @return static
-     */
-    public function setText(Partials\Text $text)
+    public function setText(Text $text): static
     {
         $this->text = $text->setParent($this);
 
         return $this;
     }
 
-    /**
-     * @param Partials\Fields $fields
-     * @return static
-     */
-    public function setFields(Partials\Fields $fields)
+    public function setFields(Fields $fields): static
     {
         $this->fields = $fields->setParent($this);
 
         return $this;
     }
 
-    /**
-     * @param Element $accessory
-     * @return static
-     */
-    public function setAccessory(Element $accessory)
+    public function setAccessory(Element $accessory): static
     {
-        if (!empty($this->accessory)) {
+        if ($this->accessory instanceof Element) {
             throw new Exception('Section accessory already set as type %s', [$this->accessory->getType()]);
         }
 
-        if (!in_array($accessory->getType(), Type::ACCESSORY_ELEMENTS)) {
+        if (!in_array($accessory->getType(), Type::ACCESSORY_ELEMENTS, true)) {
             throw new Exception('Invalid section accessory type: %s', [$accessory->getType()]);
         }
 
@@ -79,54 +70,35 @@ class Section extends BlockElement
         return $this;
     }
 
-    /**
-     * @param string $text
-     * @param bool $emoji
-     * @return static
-     */
-    public function plainText(string $text, ?bool $emoji = null)
+    public function plainText(string $text, ?bool $emoji = null): static
     {
-        return $this->setText(new Partials\PlainText($text, $emoji));
+        return $this->setText(new PlainText($text, $emoji));
     }
 
-    /**
-     * @param string $text
-     * @param bool|null $verbatim
-     * @return static
-     */
-    public function mrkdwnText(string $text, ?bool $verbatim = null)
+    public function mrkdwnText(string $text, ?bool $verbatim = null): static
     {
-        return $this->setText(new Partials\MrkdwnText($text, $verbatim));
+        return $this->setText(new MrkdwnText($text, $verbatim));
     }
 
-    /**
-     * @param string $code
-     * @return static
-     */
-    public function code(string $code)
+    public function code(string $code): static
     {
         return $this->mrkdwnText(Kit::formatter()->codeBlock($code), true);
     }
 
     /**
      * @param string[] $values
-     * @return static
      */
-    public function fieldList(array $values)
+    public function fieldList(array $values): static
     {
-        return $this->setFields(new Partials\Fields($values));
+        return $this->setFields(new Fields($values));
     }
 
-    /**
-     * @param array $keyValuePairs
-     * @return static
-     */
-    public function fieldMap(array $keyValuePairs)
+    public function fieldMap(array $keyValuePairs): static
     {
-        $fields = new Partials\Fields();
+        $fields = new Fields();
         foreach ($keyValuePairs as $key => $value) {
-            $fields->add(new Partials\MrkdwnText($key));
-            $fields->add(new Partials\MrkdwnText($value));
+            $fields->add(new MrkdwnText($key));
+            $fields->add(new MrkdwnText($value));
         }
 
         return $this->setFields($fields);
@@ -140,47 +112,47 @@ class Section extends BlockElement
         return $accessory;
     }
 
-    public function newButtonAccessory(?string $actionId = null): Inputs\Button
+    public function newButtonAccessory(?string $actionId = null): Button
     {
-        $accessory = new Inputs\Button($actionId);
+        $accessory = new Button($actionId);
         $this->setAccessory($accessory);
 
         return $accessory;
     }
 
-    public function newDatePickerAccessory(?string $actionId = null): Inputs\DatePicker
+    public function newDatePickerAccessory(?string $actionId = null): DatePicker
     {
-        $action = new Inputs\DatePicker($actionId);
+        $action = new DatePicker($actionId);
         $this->setAccessory($action);
 
         return $action;
     }
 
-    public function newSelectMenuAccessory(?string $actionId = null): Inputs\SelectMenus\SelectMenuFactory
+    public function newSelectMenuAccessory(?string $actionId = null): SelectMenuFactory
     {
-        return new Inputs\SelectMenus\SelectMenuFactory($actionId, function (Inputs\SelectMenus\SelectMenu $menu) {
+        return new SelectMenuFactory($actionId, function (SelectMenu $menu): void {
             $this->setAccessory($menu);
         });
     }
 
-    public function newMultiSelectMenuAccessory(?string $actionId = null): Inputs\SelectMenus\MultiSelectMenuFactory
+    public function newMultiSelectMenuAccessory(?string $actionId = null): MultiSelectMenuFactory
     {
-        return new Inputs\SelectMenus\MultiSelectMenuFactory($actionId, function (Inputs\SelectMenus\SelectMenu $menu) {
+        return new MultiSelectMenuFactory($actionId, function (SelectMenu $menu): void {
             $this->setAccessory($menu);
         });
     }
 
-    public function newTextInputAccessory(?string $actionId = null): Inputs\TextInput
+    public function newTextInputAccessory(?string $actionId = null): TextInput
     {
-        $action = new Inputs\TextInput($actionId);
+        $action = new TextInput($actionId);
         $this->setAccessory($action);
 
         return $action;
     }
 
-    public function newRadioButtonsAccessory(?string $actionId = null): Inputs\RadioButtons
+    public function newRadioButtonsAccessory(?string $actionId = null): RadioButtons
     {
-        $action = new Inputs\RadioButtons($actionId);
+        $action = new RadioButtons($actionId);
         $this->setAccessory($action);
 
         return $action;
@@ -194,9 +166,9 @@ class Section extends BlockElement
         return $action;
     }
 
-    public function newOverflowMenuAccessory(?string $actionId = null): Inputs\OverflowMenu
+    public function newOverflowMenuAccessory(?string $actionId = null): OverflowMenu
     {
-        $action = new Inputs\OverflowMenu($actionId);
+        $action = new OverflowMenu($actionId);
         $this->setAccessory($action);
 
         return $action;
@@ -204,39 +176,36 @@ class Section extends BlockElement
 
     public function validate(): void
     {
-        if (empty($this->text) && empty($this->fields)) {
+        if (!$this->text instanceof Text && !$this->fields instanceof Fields) {
             throw new Exception('Section must contain at least a "text" or "fields" item');
         }
 
-        if (!empty($this->text)) {
+        if ($this->text instanceof Text) {
             $this->text->validate();
         }
 
-        if (!empty($this->fields)) {
+        if ($this->fields instanceof Fields) {
             $this->fields->validate();
         }
 
-        if (!empty($this->accessory)) {
+        if ($this->accessory instanceof Element) {
             $this->accessory->validate();
         }
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();
 
-        if (!empty($this->text)) {
+        if ($this->text instanceof Text) {
             $data['text'] = $this->text->toArray();
         }
 
-        if (!empty($this->fields)) {
+        if ($this->fields instanceof Fields) {
             $data['fields'] = $this->fields->toArray();
         }
 
-        if (!empty($this->accessory)) {
+        if ($this->accessory instanceof Element) {
             $data['accessory'] = $this->accessory->toArray();
         }
 
@@ -246,11 +215,11 @@ class Section extends BlockElement
     protected function hydrate(HydrationData $data): void
     {
         if ($data->has('text')) {
-            $this->setText(Partials\Text::fromArray($data->useElement('text')));
+            $this->setText(Text::fromArray($data->useElement('text')));
         }
 
         if ($data->has('fields')) {
-            $this->setFields(Partials\Fields::fromArray($data->useElements('fields')));
+            $this->setFields(Fields::fromArray($data->useElements('fields')));
         }
 
         if ($data->has('accessory')) {

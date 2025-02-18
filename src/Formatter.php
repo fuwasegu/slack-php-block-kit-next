@@ -4,16 +4,7 @@ declare(strict_types=1);
 
 namespace SlackPhp\BlockKit;
 
-use function array_filter;
-use function array_map;
 use function date;
-use function explode;
-use function implode;
-use function is_array;
-use function is_callable;
-use function is_null;
-use function is_string;
-use function strtr;
 use function time;
 
 /**
@@ -39,23 +30,17 @@ final class Formatter
     public const TIME = '{time}';
     public const TIME_SECS = '{time_secs}';
 
-    /**
-    * @return static
-    */
-    public static function new()
+    public static function new(): self
     {
-        return new static();
+        return new self();
     }
 
     /**
      * Escapes ambiguous characters to their HTML entities.
-     *
-     * @param string $text
-     * @return string
      */
     public function escape(string $text): string
     {
-        return strtr($text, [
+        return \strtr($text, [
             '&' => '&amp;',
             '<' => '&lt;',
             '>' => '&gt;',
@@ -64,10 +49,6 @@ final class Formatter
 
     /**
      * Performs a string interpolation by substituting keys (in curly braces) for their values.
-     *
-     * @param string $text
-     * @param array $values
-     * @return string
      */
     public function sub(string $text, array $values): string
     {
@@ -76,10 +57,10 @@ final class Formatter
             $replacements["{{$key}}"] = $value;
         }
 
-        return strtr($text, $replacements);
+        return \strtr($text, $replacements);
     }
 
-    //region Helpers for @here, @channel, and @everyone mentions.
+    // region Helpers for @here, @channel, and @everyone mentions.
     public function atChannel(): string
     {
         return '<!channel>';
@@ -94,9 +75,9 @@ final class Formatter
     {
         return '<!here>';
     }
-    //endregion
+    // endregion
 
-    //region Helpers for mentioning/linking specific channels, users, or user groups.
+    // region Helpers for mentioning/linking specific channels, users, or user groups.
     public function channel(string $id): string
     {
         return "<#{$id}>";
@@ -111,9 +92,9 @@ final class Formatter
     {
         return "<!subteam^{$id}>";
     }
-    //endregion
+    // endregion
 
-    //region Helpers for basic text formatting (B/I/S) and links.
+    // region Helpers for basic text formatting (B/I/S) and links.
     public function bold(string $text): string
     {
         return "*{$text}*";
@@ -143,24 +124,16 @@ final class Formatter
     {
         return $this->link("mailto:{$email}", $text);
     }
-    //endregion
+    // endregion
 
-    //region Helpers for multi-line content blocks like lists and quotes.
-    /**
-     * @param array|string $lines
-     * @return string
-     */
-    public function blockQuote($lines): string
+    // region Helpers for multi-line content blocks like lists and quotes.
+
+    public function blockQuote(array|string $lines): string
     {
         return $this->lines($this->explode($lines), '> ', false);
     }
 
-    /**
-     * @param array|string $items
-     * @param string $bullet
-     * @return string
-     */
-    public function bulletedList($items, string $bullet = '•'): string
+    public function bulletedList(array|string $items, string $bullet = '•'): string
     {
         return $this->lines($this->explode($items), "{$bullet} ");
     }
@@ -170,15 +143,13 @@ final class Formatter
         return "```\n{$this->escape($text)}\n```";
     }
 
-    /**
-     * @param array|string $items
-     * @return string
-     */
-    public function numberedList($items): string
+    public function numberedList(array|string $items): string
     {
         $index = 0;
-        return $this->lines($this->explode($items), function (string $item) use (&$index) {
-            $index++;
+
+        return $this->lines($this->explode($items), static function (string $item) use (&$index): string {
+            ++$index;
+
             return "{$index}. {$item}";
         });
     }
@@ -187,55 +158,43 @@ final class Formatter
      * Takes a list of lines/strings, and concatenates them with newlines, filtering out any empty lines.
      *
      * Optionally applies a prefix to each line. You can use a closure if the prefix varies per line.
-     *
-     * @param array $lines
-     * @param string|callable|null $prefix
-     * @param bool $filter
-     * @return string
      */
-    public function lines(array $lines, $prefix = null, bool $filter = true): string
+    public function lines(array $lines, null|callable|string $prefix = null, bool $filter = true): string
     {
-        if (is_string($prefix)) {
-            $prefix = function (string $value) use ($prefix) {
-                return "{$prefix}{$value}";
-            };
+        if (\is_string($prefix)) {
+            $prefix = static fn (string $value): string => "{$prefix}{$value}";
         }
 
-        if (is_callable($prefix)) {
-            $lines = array_map($prefix, $lines);
-        } elseif (!is_null($prefix)) {
-            throw new Exception('Formatter::lines given invalid prefix argument');
+        if (\is_callable($prefix)) {
+            $lines = \array_map($prefix, $lines);
         }
 
         if ($filter) {
-            $lines = array_filter($lines, static function ($line) {
-                return $line !== null && $line !== '';
-            });
+            $lines = \array_filter($lines, static fn ($line): bool => $line !== null && $line !== '');
         }
 
-        return implode("\n", $lines) . "\n";
+        return \implode("\n", $lines) . "\n";
     }
-    //endregion
+    // endregion
 
-    //region Helpers for formatting dates and times.
+    // region Helpers for formatting dates and times.
     /**
      * Formats a timestamp as a date in mrkdwn.
      *
-     * @param int|null $timestamp Timestamp to format. Defaults to now.
-     * @param string $format Format name supported by Slack. Defaults to "{date}".
-     * @param string|null $fallback Fallback text for old Slack clients. Defaults to an ISO-formatted timestamp.
-     * @param string|null $link URL, if the date is to act as a link.
-     * @return string
+     * @param int|null    $timestamp Timestamp to format. Defaults to now.
+     * @param string      $format    Format name supported by Slack. Defaults to "{date}".
+     * @param string|null $fallback  Fallback text for old Slack clients. Defaults to an ISO-formatted timestamp.
+     * @param string|null $link      URL, if the date is to act as a link
      * @see https://api.slack.com/reference/surfaces/formatting#date-formatting
      */
     public function date(
         ?int $timestamp = null,
         string $format = self::DATE,
         ?string $fallback = null,
-        ?string $link = null
+        ?string $link = null,
     ): string {
-        $timestamp = $timestamp ?? time();
-        $fallback = $this->escape($fallback ?? date('c', $timestamp));
+        $timestamp ??= \time();
+        $fallback = $this->escape($fallback ?? \date('c', $timestamp));
         $link = $link ? "^{$this->escape($link)}" : '';
 
         return "<!date^{$timestamp}^{$this->escape($format)}{$link}|{$fallback}>";
@@ -246,38 +205,32 @@ final class Formatter
      *
      * Equivalent to Formatter::date(), but uses the TIME format as default.
      *
-     * @param int|null $timestamp Timestamp to format. Defaults to now.
-     * @param string $format Format name supported by Slack. Defaults to "{time}".
-     * @param string|null $fallback Fallback text for old Slack clients. Defaults to an ISO-formatted timestamp.
-     * @param string|null $link URL, if the time is to act as a link.
-     * @return string
+     * @param int|null    $timestamp Timestamp to format. Defaults to now.
+     * @param string      $format    Format name supported by Slack. Defaults to "{time}".
+     * @param string|null $fallback  Fallback text for old Slack clients. Defaults to an ISO-formatted timestamp.
+     * @param string|null $link      URL, if the time is to act as a link
      */
     public function time(
         ?int $timestamp = null,
         string $format = self::TIME,
         ?string $fallback = null,
-        ?string $link = null
+        ?string $link = null,
     ): string {
         return $this->date($timestamp, $format, $fallback, $link);
     }
-    //endregion
+    // endregion
 
     /**
      * Ensures the provided items are an array.
      *
      * Explodes strings on "\n" if a string is provided.
-     *
-     * @param array|string $items
-     * @return array
      */
-    private function explode($items): array
+    private function explode(array|string $items): array
     {
-        if (is_string($items)) {
-            return explode("\n", $items);
-        } elseif (is_array($items)) {
-            return $items;
+        if (\is_string($items)) {
+            return \explode("\n", $items);
         }
 
-        throw new Exception('Formatter::explode given invalid items argument');
+        return $items;
     }
 }

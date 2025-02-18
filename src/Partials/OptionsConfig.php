@@ -6,79 +6,56 @@ namespace SlackPhp\BlockKit\Partials;
 
 class OptionsConfig
 {
-    /** @var int|null Minimum number of options supported. */
-    private $minOptions;
-
-    /** @var int|null Maximum number of options supported. */
-    private $maxOptions;
-
-    /** @var int|null Maximum number of initial options supported. */
-    private $maxInitialOptions;
+    /**
+     * minimum number of options supported
+     */
+    private ?int $minOptions = 1;
 
     /**
-    * @return static
-    */
-    public static function new()
+     * maximum number of options supported
+     */
+    private ?int $maxOptions = null;
+
+    /**
+     * maximum number of initial options supported
+     */
+    private ?int $maxInitialOptions = null;
+
+    public static function new(): static
     {
         return new static();
     }
 
-    public function __construct()
-    {
-        $this->minOptions = 1;
-    }
-
-    /**
-     * @return int|null
-     */
     public function getMinOptions(): ?int
     {
         return $this->minOptions;
     }
 
-    /**
-     * @param int|null $minOptions
-     * @return static
-     */
-    public function setMinOptions(?int $minOptions)
+    public function setMinOptions(?int $minOptions): static
     {
         $this->minOptions = $minOptions;
 
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
     public function getMaxOptions(): ?int
     {
         return $this->maxOptions;
     }
 
-    /**
-     * @param int|null $maxOptions
-     * @return static
-     */
-    public function setMaxOptions(?int $maxOptions)
+    public function setMaxOptions(?int $maxOptions): static
     {
         $this->maxOptions = $maxOptions;
 
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
     public function getMaxInitialOptions(): ?int
     {
         return $this->maxInitialOptions;
     }
 
-    /**
-     * @param int|null $maxInitialOptions
-     * @return static
-     */
-    public function setMaxInitialOptions(?int $maxInitialOptions)
+    public function setMaxInitialOptions(?int $maxInitialOptions): static
     {
         $this->maxInitialOptions = $maxInitialOptions;
 

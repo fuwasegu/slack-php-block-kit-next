@@ -23,7 +23,7 @@ class HeaderTest extends TestCase
             'text' => [
                 'type' => Type::PLAINTEXT,
                 'text' => 'foo',
-            ]
+            ],
         ], $header);
     }
 }

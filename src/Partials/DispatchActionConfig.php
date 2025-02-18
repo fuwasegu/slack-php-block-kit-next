@@ -11,46 +11,35 @@ class DispatchActionConfig extends Element
     private const ON_ENTER_PRESSED = 'on_enter_pressed';
     private const ON_CHARACTER_ENTERED = 'on_character_entered';
 
-    /** @var string[]|array */
-    private $triggerActionsOn = [];
-
     /**
-     * @param string $eventType
-     * @return static
+     * @var string[]|array
      */
-    public function triggerActionsOn(string $eventType)
+    private array $triggerActionsOn = [];
+
+    public function triggerActionsOn(string $eventType): static
     {
         $this->triggerActionsOn[] = $eventType;
 
         return $this;
     }
 
-    /**
-    * @return static
-    */
-    public function triggerActionsOnEnterPressed()
+    public function triggerActionsOnEnterPressed(): static
     {
         return $this->triggerActionsOn(self::ON_ENTER_PRESSED);
     }
 
-    /**
-    * @return static
-    */
-    public function triggerActionsOnCharacterEntered()
+    public function triggerActionsOnCharacterEntered(): static
     {
         return $this->triggerActionsOn(self::ON_CHARACTER_ENTERED);
     }
 
     public function validate(): void
     {
-        if (empty($this->triggerActionsOn)) {
+        if ($this->triggerActionsOn === []) {
             throw new Exception('DispatchActionConfig must have at least one triggerActionsOn set');
         }
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();

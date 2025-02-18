@@ -20,19 +20,17 @@ abstract class Surface extends Element
 {
     private const MAX_BLOCKS = 50;
 
-    /** @var BlockElement[] */
-    private $blocks = [];
-
     /**
-     * @param BlockElement $block
-     * @return static
+     * @var BlockElement[]
      */
-    public function add(BlockElement $block)
+    private array $blocks = [];
+
+    public function add(BlockElement $block): static
     {
         if (!in_array($block->getType(), Type::SURFACE_BLOCKS[$this->getType()], true)) {
             throw new Exception(
                 'Block type %s is not supported for surface type %s',
-                [$block->getType(), $this->getType()]
+                [$block->getType(), $this->getType()],
             );
         }
 
@@ -43,9 +41,8 @@ abstract class Surface extends Element
 
     /**
      * @param iterable|BlockElement[] $blocks
-     * @return static
      */
-    public function blocks(iterable $blocks)
+    public function blocks(iterable $blocks): static
     {
         foreach ($blocks as $block) {
             $this->add($block);
@@ -73,10 +70,6 @@ abstract class Surface extends Element
         return $blocks;
     }
 
-    /**
-     * @param string|null $blockId
-     * @return Actions
-     */
     public function newActions(?string $blockId = null): Actions
     {
         $block = new Actions($blockId);
@@ -85,10 +78,6 @@ abstract class Surface extends Element
         return $block;
     }
 
-    /**
-     * @param string|null $blockId
-     * @return Context
-     */
     public function newContext(?string $blockId = null): Context
     {
         $block = new Context($blockId);
@@ -97,10 +86,6 @@ abstract class Surface extends Element
         return $block;
     }
 
-    /**
-     * @param string|null $blockId
-     * @return Header
-     */
     public function newHeader(?string $blockId = null): Header
     {
         $block = new Header($blockId);
@@ -109,10 +94,6 @@ abstract class Surface extends Element
         return $block;
     }
 
-    /**
-     * @param string|null $blockId
-     * @return Image
-     */
     public function newImage(?string $blockId = null): Image
     {
         $block = new Image($blockId);
@@ -129,10 +110,6 @@ abstract class Surface extends Element
         return $block;
     }
 
-    /**
-     * @param string|null $blockId
-     * @return Section
-     */
     public function newSection(?string $blockId = null): Section
     {
         $block = new Section($blockId);
@@ -141,10 +118,6 @@ abstract class Surface extends Element
         return $block;
     }
 
-    /**
-     * @param string|null $blockId
-     * @return TwoColumnTable
-     */
     public function newTwoColumnTable(?string $blockId = null): TwoColumnTable
     {
         $block = new TwoColumnTable($blockId);
@@ -153,33 +126,19 @@ abstract class Surface extends Element
         return $block;
     }
 
-    /**
-     * @param string|null $blockId
-     * @return static
-     */
-    public function divider(?string $blockId = null)
+    public function divider(?string $blockId = null): static
     {
         return $this->add(new Divider($blockId));
     }
 
-    /**
-     * @param string $text
-     * @param string|null $blockId
-     * @return static
-     */
-    public function text(string $text, ?string $blockId = null)
+    public function text(string $text, ?string $blockId = null): static
     {
         $block = new Section($blockId, $text);
 
         return $this->add($block);
     }
 
-    /**
-     * @param string $text
-     * @param string|null $blockId
-     * @return static
-     */
-    public function header(string $text, ?string $blockId = null)
+    public function header(string $text, ?string $blockId = null): static
     {
         $block = new Header($blockId, $text);
 
@@ -190,7 +149,7 @@ abstract class Surface extends Element
     {
         $blocks = $this->getBlocks();
 
-        if (empty($blocks)) {
+        if ($blocks === []) {
             throw new Exception('A surface must contain at least one block');
         }
 
@@ -198,26 +157,26 @@ abstract class Surface extends Element
             throw new Exception('A surface cannot have more than %d blocks', [self::MAX_BLOCKS]);
         }
 
-        $blolckIds = [];
+        $blockIds = [];
         foreach ($blocks as $block) {
             $block->validate();
-            if (! is_null($block->getBlockId())) {
-                $blolckIds[] = $block->getBlockId();
+            if ($block->getBlockId() !== null) {
+                $blockIds[] = $block->getBlockId();
             }
         }
 
-        $blockIdArrayCount = array_count_values($blolckIds);
-        if (count($blockIdArrayCount) > 0) {
+        $blockIdArrayCount = array_count_values($blockIds);
+        if ($blockIdArrayCount !== []) {
             $duplicateBlockIds = [];
             foreach ($blockIdArrayCount as $key => $value) {
-                if ((int)$value > 1) {
+                if ($value > 1) {
                     $duplicateBlockIds[] = $key;
                 }
             }
 
-            if (count($duplicateBlockIds) > 0) {
+            if ($duplicateBlockIds !== []) {
                 throw new Exception(
-                    'The following block_ids are duplicated : ' . implode(', ', $duplicateBlockIds) . ' ]'
+                    'The following block_ids are duplicated : ' . implode(', ', $duplicateBlockIds) . ' ]',
                 );
             }
         }

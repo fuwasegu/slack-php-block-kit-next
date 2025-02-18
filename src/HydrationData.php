@@ -5,52 +5,37 @@ declare(strict_types=1);
 namespace SlackPhp\BlockKit;
 
 /**
- * @internal Used by fromArray implementations.
+ * @internal used by fromArray implementations
  */
 class HydrationData
 {
-    /** @var array<string, mixed> */
-    private $data;
-
-    /** @var array<string, bool> */
-    private $consumed;
+    /**
+     * @var array<string, bool>
+     */
+    private array $consumed = [];
 
     /**
      * HydrationData constructor.
-     *
-     * @param array $data
      */
-    public function __construct(array $data)
-    {
-        $this->data = $data;
-        $this->consumed = [];
+    public function __construct(
+        /**
+         * @var array<string, mixed>
+         */
+        private readonly array $data,
+    ) {
     }
 
-    /**
-     * @param string $key
-     * @return bool
-     */
-    public function has(string $key)
+    public function has(string $key): bool
     {
         return isset($this->data[$key]);
     }
 
-    /**
-     * @param string $key
-     * @param mixed $default
-     * @return mixed
-     */
-    public function get(string $key, $default = null)
+    public function get(string $key, mixed $default = null): mixed
     {
         return $this->data[$key] ?? $default;
     }
 
-    /**
-     * @param string $key
-     * @param mixed $default
-     * @return mixed
-     */
-    public function useValue(string $key, $default = null)
+    public function useValue(string $key, mixed $default = null): mixed
     {
         $this->consumed[$key] = true;
 
@@ -58,7 +43,6 @@ class HydrationData
     }
 
     /**
-     * @param string|null $key
      * @return array<int, mixed>
      */
     public function useArray(?string $key): array
@@ -75,7 +59,6 @@ class HydrationData
     }
 
     /**
-     * @param string|null $key
      * @return array<int, array<string, mixed>>
      */
     public function useElements(?string $key): array
@@ -84,7 +67,6 @@ class HydrationData
     }
 
     /**
-     * @param string $key
      * @return array<string, mixed>|null
      */
     public function useElement(string $key): ?array

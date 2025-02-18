@@ -15,7 +15,7 @@ $modal = Modal::new()
     ->notifyOnClose(true)
     ->clearOnClose(true)
     ->privateMetadata('foo=bar')
-    ->tap(function (Modal $m) {
+    ->tap(static function (Modal $m): void {
         $m->newHeader('id1')->text('Header');
         $m->newInput('id2')->label('Stuff')->newTextInput('a1')->placeholder('type something');
     });

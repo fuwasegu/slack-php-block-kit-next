@@ -17,7 +17,6 @@ class InputElementTest extends TestCase
         $input = new class () extends InputElement {
             public function validate(): void
             {
-                return;
             }
 
             public function getType(): string
@@ -39,7 +38,6 @@ class InputElementTest extends TestCase
         $input = new class ('foo') extends InputElement {
             public function validate(): void
             {
-                return;
             }
 
             public function getType(): string

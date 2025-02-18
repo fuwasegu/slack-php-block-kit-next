@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace SlackPhp\BlockKit\Inputs;
 
-use SlackPhp\BlockKit\Exception;
 use SlackPhp\BlockKit\HydrationData;
 use SlackPhp\BlockKit\Partials\Confirm;
 use SlackPhp\BlockKit\Partials\PlainText;
@@ -16,70 +15,48 @@ class Button extends InputElement
     private const STYLE_PRIMARY = 'primary';
     private const STYLE_DANGER = 'danger';
 
-    /** @var PlainText */
-    private $text;
+    private ?PlainText $text = null;
 
-    /** @var string */
-    private $value;
+    private ?string $value = null;
 
-    /** @var string|null */
-    private $url;
+    private ?string $url = null;
 
-    /** @var string|null */
-    private $style;
+    private ?string $style = null;
 
-    /**
-    * @return static
-    */
-    public function setText(PlainText $text)
+    public function setText(PlainText $text): static
     {
         $this->text = $text->setParent($this);
 
         return $this;
     }
 
-    /**
-    * @return static
-    */
-    public function text(string $text)
+    public function text(string $text): static
     {
         return $this->setText(new PlainText($text));
     }
 
-    /**
-    * @return static
-    */
-    public function value(string $value)
+    public function value(string $value): static
     {
         $this->value = $value;
 
         return $this;
     }
 
-    /**
-    * @return static
-    */
-    public function url(string $url)
+    public function url(string $url): static
     {
         $this->url = $url;
 
         return $this;
     }
 
-    /**
-    * @return static
-    */
-    public function asPrimary()
+    public function asPrimary(): static
     {
         $this->style = self::STYLE_PRIMARY;
 
         return $this;
     }
 
-    /**
-    * @return static
-    */
-    public function asDangerous()
+    public function asDangerous(): static
     {
         $this->style = self::STYLE_DANGER;
 
@@ -88,38 +65,36 @@ class Button extends InputElement
 
     public function validate(): void
     {
-        if (empty($this->text)) {
-            throw new Exception('Button must contain "text"');
+        if ($this->text instanceof PlainText) {
+            $this->text->validate();
         }
 
-        $this->text->validate();
-
-        if (!empty($this->confirm)) {
+        if ($this->confirm instanceof Confirm) {
             $this->confirm->validate();
         }
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();
-        $data['text'] = $this->text->toArray();
 
-        if (!empty($this->value)) {
+        if ($this->text instanceof PlainText) {
+            $data['text'] = $this->text->toArray();
+        }
+
+        if ($this->value !== null && $this->value !== '') {
             $data['value'] = $this->value;
         }
 
-        if (!empty($this->url)) {
+        if ($this->url !== null && $this->url !== '') {
             $data['url'] = $this->url;
         }
 
-        if (!empty($this->style)) {
+        if ($this->style !== null && $this->style !== '') {
             $data['style'] = $this->style;
         }
 
-        if (!empty($this->confirm)) {
+        if ($this->confirm instanceof Confirm) {
             $data['confirm'] = $this->confirm->toArray();
         }
 
@@ -144,9 +119,12 @@ class Button extends InputElement
             switch ($data->useValue('style')) {
                 case self::STYLE_PRIMARY:
                     $this->asPrimary();
+
                     break;
+
                 case self::STYLE_DANGER:
                     $this->asDangerous();
+
                     break;
             }
         }

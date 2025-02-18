@@ -11,14 +11,12 @@ trait HasOptionGroups
 {
     use HasOptions;
 
-    /** @var OptionGroup[] */
-    private $optionGroups;
-
     /**
-     * @param OptionGroup $group
-     * @return static
+     * @var OptionGroup[]
      */
-    public function addOptionGroup(OptionGroup $group)
+    private array $optionGroups = [];
+
+    public function addOptionGroup(OptionGroup $group): static
     {
         $group->setParent($this);
         $this->optionGroups[] = $group;
@@ -28,23 +26,20 @@ trait HasOptionGroups
 
     /**
      * @param array<string, array<string, string>|string[]> $optionGroups
-     * @return static
      */
-    public function optionGroups(array $optionGroups)
+    public function optionGroups(array $optionGroups): static
     {
         foreach ($optionGroups as $label => $options) {
-            $this->optionGroup((string) $label, $options);
+            $this->optionGroup($label, $options);
         }
 
         return $this;
     }
 
     /**
-     * @param string $label
      * @param array<string, string>|string[] $options
-     * @return static
      */
-    public function optionGroup(string $label, array $options)
+    public function optionGroup(string $label, array $options): static
     {
         return $this->addOptionGroup(OptionGroup::new($label, $options));
     }
@@ -67,12 +62,10 @@ trait HasOptionGroups
     protected function getOptionGroupsAsArray(): array
     {
         if (!empty($this->optionGroups)) {
-            return ['option_groups' => array_map(function (OptionGroup $optionGroup) {
-                return $optionGroup->toArray();
-            }, $this->optionGroups)];
-        } else {
-            return $this->getOptionsAsArray();
+            return ['option_groups' => array_map(static fn (OptionGroup $optionGroup): array => $optionGroup->toArray(), $this->optionGroups)];
         }
+
+        return $this->getOptionsAsArray();
     }
 
     protected function hydrateOptionGroups(HydrationData $data): void

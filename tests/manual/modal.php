@@ -16,15 +16,15 @@ $msg = Kit::newModal()
 $msg->newInput('b2')
     ->label('Date')
     ->newDatePicker('a1')
-        ->placeholder('Choose a date')
-        ->initialDate('2020-01-01');
+    ->placeholder('Choose a date')
+    ->initialDate('2020-01-01');
 $msg->newInput('c1')
     ->label('Multiline')
     ->newTextInput('text_input')
-        ->placeholder('Text Input')
-        ->multiline(true)
-        ->minLength(10)
-        ->maxLength(100);
+    ->placeholder('Text Input')
+    ->multiline(true)
+    ->minLength(10)
+    ->maxLength(100);
 $msg->newInput('c2')
     ->label('Radio Buttons')
     ->newRadioButtons('radio_buttons')

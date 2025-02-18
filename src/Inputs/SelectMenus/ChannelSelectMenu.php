@@ -8,46 +8,33 @@ use SlackPhp\BlockKit\HydrationData;
 
 class ChannelSelectMenu extends SelectMenu
 {
-    /** @var string */
-    private $initialChannel;
+    private ?string $initialChannel = null;
 
-    /** @var bool */
-    private $responseUrlEnabled;
+    private bool $responseUrlEnabled = false;
 
-    /**
-     * @param string $initialChannel
-     * @return static
-     */
-    public function initialChannel(string $initialChannel)
+    public function initialChannel(string $initialChannel): static
     {
         $this->initialChannel = $initialChannel;
 
         return $this;
     }
 
-    /**
-     * @param bool $enabled
-     * @return static
-     */
-    public function responseUrlEnabled(bool $enabled)
+    public function responseUrlEnabled(bool $enabled): static
     {
         $this->responseUrlEnabled = $enabled;
 
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();
 
-        if (!empty($this->initialChannel)) {
+        if (is_string($this->initialChannel) && $this->initialChannel !== '') {
             $data['initial_channel'] = $this->initialChannel;
         }
 
-        if (!empty($this->responseUrlEnabled)) {
+        if ($this->responseUrlEnabled) {
             $data['response_url_enabled'] = $this->responseUrlEnabled;
         }
 

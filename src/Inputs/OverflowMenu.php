@@ -20,13 +20,7 @@ class OverflowMenu extends InputElement
             ->setMaxInitialOptions(0);
     }
 
-    /**
-     * @param string $text
-     * @param string $value
-     * @param string $url
-     * @return static
-     */
-    public function urlOption(string $text, string $value, string $url)
+    public function urlOption(string $text, string $value, string $url): static
     {
         return $this->addOption(Option::new($text, $value)->url($url));
     }
@@ -35,21 +29,16 @@ class OverflowMenu extends InputElement
     {
         $this->validateOptions();
 
-        if (!empty($this->confirm)) {
-            $this->confirm->validate();
-        }
+        $this->confirm->validate();
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();
 
         $data += $this->getOptionsAsArray();
 
-        if (!empty($this->confirm)) {
+        if ($this->confirm instanceof Confirm) {
             $data['confirm'] = $this->confirm->toArray();
         }
 

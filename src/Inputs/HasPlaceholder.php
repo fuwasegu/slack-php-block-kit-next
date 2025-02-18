@@ -9,25 +9,16 @@ use SlackPhp\BlockKit\Partials\PlainText;
 
 trait HasPlaceholder
 {
-    /** @var PlainText */
-    private $placeholder;
+    private ?PlainText $placeholder = null;
 
-    /**
-     * @param PlainText $placeholder
-     * @return static
-     */
-    public function setPlaceholder(PlainText $placeholder)
+    public function setPlaceholder(PlainText $placeholder): static
     {
         $this->placeholder = $placeholder->setParent($this);
 
         return $this;
     }
 
-    /**
-     * @param string $placeholder
-     * @return static
-     */
-    public function placeholder(string $placeholder)
+    public function placeholder(string $placeholder): static
     {
         if (mb_strlen($placeholder, 'UTF-8') > 150) {
             throw new Exception('Placeholder cannot exceed 150 characters');

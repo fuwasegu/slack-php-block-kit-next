@@ -9,46 +9,32 @@ use SlackPhp\BlockKit\HydrationData;
 
 abstract class BlockElement extends Element
 {
-    /** @var string|null */
-    private $blockId;
+    private ?string $blockId = null;
 
-    /**
-     * @param string|null $blockId
-     */
     public function __construct(?string $blockId = null)
     {
-        if (!empty($blockId)) {
+        if ($blockId !== null && $blockId !== '') {
             $this->blockId($blockId);
         }
     }
 
-    /**
-     * @param string $blockId
-     * @return static
-     */
-    public function blockId(string $blockId)
+    public function blockId(string $blockId): static
     {
         $this->blockId = $blockId;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getBlockId(): ?string
     {
         return $this->blockId;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();
 
-        if (!empty($this->blockId)) {
+        if (is_string($this->blockId) && $this->blockId !== '') {
             $data['block_id'] = $this->blockId;
         }
 

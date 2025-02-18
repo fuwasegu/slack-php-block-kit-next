@@ -15,11 +15,12 @@ class Context extends BlockElement
 {
     private const MAX_ELEMENTS = 10;
 
-    /** @var Element[] */
-    private $elements = [];
+    /**
+     * @var Element[]
+     */
+    private array $elements = [];
 
     /**
-     * @param string|null $blockId
      * @param Element[] $elements
      */
     public function __construct(?string $blockId = null, array $elements = [])
@@ -30,12 +31,9 @@ class Context extends BlockElement
         }
     }
 
-    /**
-    * @return static
-    */
-    public function add(Element $element)
+    public function add(Element $element): static
     {
-        if (!in_array($element->getType(), Type::CONTEXT_ELEMENTS)) {
+        if (!in_array($element->getType(), Type::CONTEXT_ELEMENTS, true)) {
             throw new Exception('Invalid context element type: %s', [$element->getType()]);
         }
 
@@ -48,33 +46,24 @@ class Context extends BlockElement
         return $this;
     }
 
-    /**
-    * @return static
-    */
-    public function plainText(string $text, ?bool $emoji = null)
+    public function plainText(string $text, ?bool $emoji = null): static
     {
         return $this->add(new PlainText($text, $emoji));
     }
 
-    /**
-    * @return static
-    */
-    public function mrkdwnText(string $text, ?bool $verbatim = null)
+    public function mrkdwnText(string $text, ?bool $verbatim = null): static
     {
         return $this->add(new MrkdwnText($text, $verbatim));
     }
 
-    /**
-    * @return static
-    */
-    public function image(string $url, string $altText)
+    public function image(string $url, string $altText): static
     {
         return $this->add(new Image(null, $url, $altText));
     }
 
     public function validate(): void
     {
-        if (empty($this->elements)) {
+        if ($this->elements === []) {
             throw new Exception('Context must contain at least one element');
         }
 
@@ -83,9 +72,6 @@ class Context extends BlockElement
         }
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();

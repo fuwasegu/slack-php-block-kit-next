@@ -9,46 +9,30 @@ use SlackPhp\BlockKit\Kit;
 
 class PlainText extends Text
 {
-    /** @var bool|null */
-    private $emoji;
+    private bool $emoji = false;
 
-    /**
-     * @param string|null $text
-     * @param bool|null $emoji
-     */
     public function __construct(?string $text = null, ?bool $emoji = null)
     {
         if ($text !== null) {
             $this->text($text);
         }
 
-        $emoji = $emoji ?? Kit::config()->getDefaultEmojiSetting();
+        $emoji ??= Kit::config()->getDefaultEmojiSetting();
         $this->emoji($emoji);
     }
 
-    /**
-     * @param bool|null $emoji
-     * @return static
-     */
-    public function emoji(?bool $emoji)
+    public function emoji(?bool $emoji): static
     {
-        $this->emoji = $emoji;
+        $this->emoji = $emoji ?? Kit::config()->getDefaultEmojiSetting();
 
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
-        $data = parent::toArray();
-
-        if (isset($this->emoji)) {
-            $data['emoji'] = $this->emoji;
-        }
-
-        return $data;
+        return $this->emoji
+            ? parent::toArray()
+            : parent::toArray() + ['emoji' => false];
     }
 
     protected function hydrate(HydrationData $data): void

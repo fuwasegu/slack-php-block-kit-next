@@ -21,89 +21,60 @@ class Modal extends View
 {
     private const MAX_LENGTH_TITLE = 24;
 
-    /** @var PlainText */
-    private $title;
+    private ?PlainText $title = null;
 
-    /** @var PlainText */
-    private $submit;
+    private ?PlainText $submit = null;
 
-    /** @var PlainText */
-    private $close;
+    private ?PlainText $close = null;
 
-    /** @var bool */
-    private $clearOnClose;
+    private bool $clearOnClose = false;
 
-    /** @var bool */
-    private $notifyOnClose;
+    private bool $notifyOnClose = false;
 
-    /**
-    * @return static
-    */
-    public function setTitle(PlainText $title)
+    public function setTitle(PlainText $title): static
     {
         $this->title = $title->setParent($this);
 
         return $this;
     }
 
-    /**
-    * @return static
-    */
-    public function setSubmit(PlainText $title)
+    public function setSubmit(PlainText $title): static
     {
         $this->submit = $title->setParent($this);
 
         return $this;
     }
 
-    /**
-    * @return static
-    */
-    public function setClose(PlainText $title)
+    public function setClose(PlainText $title): static
     {
         $this->close = $title->setParent($this);
 
         return $this;
     }
 
-    /**
-    * @return static
-    */
-    public function title(string $title)
+    public function title(string $title): static
     {
         return $this->setTitle(new PlainText($title));
     }
 
-    /**
-    * @return static
-    */
-    public function submit(string $submit)
+    public function submit(string $submit): static
     {
         return $this->setSubmit(new PlainText($submit));
     }
 
-    /**
-    * @return static
-    */
-    public function close(string $close)
+    public function close(string $close): static
     {
         return $this->setClose(new PlainText($close));
     }
 
-    /**
-    * @return static
-    */
-    public function clearOnClose(bool $clearOnClose)
+    public function clearOnClose(bool $clearOnClose): static
     {
         $this->clearOnClose = $clearOnClose;
 
         return $this;
     }
 
-    /**
-    * @return static
-    */
-    public function notifyOnClose(bool $notifyOnClose)
+    public function notifyOnClose(bool $notifyOnClose): static
     {
         $this->notifyOnClose = $notifyOnClose;
 
@@ -114,8 +85,8 @@ class Modal extends View
     {
         parent::validate();
 
-        if (empty($this->title)) {
-            throw new Exception('Modals must have a "title"');
+        if (!$this->title instanceof PlainText) {
+            throw new Exception('Modals must have a title');
         }
         $this->title->validateWithLength(self::MAX_LENGTH_TITLE);
 
@@ -123,10 +94,11 @@ class Modal extends View
         foreach ($this->getBlocks() as $block) {
             if ($block->getType() === Type::INPUT) {
                 $hasInputs = true;
+
                 break;
             }
         }
-        if ($hasInputs && empty($this->submit)) {
+        if ($hasInputs && !$this->submit instanceof PlainText) {
             throw new Exception('Modals must have a "submit" button defined if they contain any "input" blocks');
         }
     }
@@ -135,27 +107,27 @@ class Modal extends View
     {
         $data = [];
 
+        assert($this->title instanceof PlainText);
+
         $data['title'] = $this->title->toArray();
 
-        if (!empty($this->submit)) {
+        if ($this->submit instanceof PlainText) {
             $data['submit'] = $this->submit->toArray();
         }
 
-        if (!empty($this->close)) {
+        if ($this->close instanceof PlainText) {
             $data['close'] = $this->close->toArray();
         }
 
-        if (!empty($this->clearOnClose)) {
+        if ($this->clearOnClose) {
             $data['clear_on_close'] = $this->clearOnClose;
         }
 
-        if (!empty($this->notifyOnClose)) {
+        if ($this->notifyOnClose) {
             $data['notify_on_close'] = $this->notifyOnClose;
         }
 
-        $data += parent::toArray();
-
-        return $data;
+        return $data + parent::toArray();
     }
 
     protected function hydrate(HydrationData $data): void

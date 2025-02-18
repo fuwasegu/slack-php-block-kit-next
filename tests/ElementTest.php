@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SlackPhp\BlockKit\Tests;
 
 use SlackPhp\BlockKit\Blocks\Section;
@@ -64,7 +66,7 @@ class ElementTest extends TestCase
 
     public function testCanTapIntoElementForChaining(): void
     {
-        $element = $this->getMockElement()->tap(function (Element $e) {
+        $element = $this->getMockElement()->tap(static function (Element $e): void {
             $e->setExtra('fizz', 'buzz');
         });
 
@@ -78,7 +80,7 @@ class ElementTest extends TestCase
 
     public function testCanConditionallyTapIntoElementForChaining(): void
     {
-        $callable = function (Element $e) {
+        $callable = static function (Element $e): void {
             $e->setExtra('fizz', 'buzz');
         };
         $tappedElement = $this->getMockElement()->tapIf(true, $callable);
@@ -100,13 +102,10 @@ class ElementTest extends TestCase
     private function getMockElement(bool $valid = true): Element
     {
         return new class ($valid) extends Element {
-            private string $text;
-            private bool $valid;
+            private string $text = 'foo';
 
-            public function __construct(bool $valid)
+            public function __construct(private readonly bool $valid)
             {
-                $this->text = 'foo';
-                $this->valid = $valid;
             }
 
             public function getType(): string
@@ -130,7 +129,7 @@ class ElementTest extends TestCase
 
     public function testHydration(): void
     {
-        $beforeJson = <<<JSON
+        $beforeJson = <<<'JSON'
         {
             "type": "modal",
             "title": {
