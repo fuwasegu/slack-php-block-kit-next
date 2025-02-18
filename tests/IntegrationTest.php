@@ -72,8 +72,8 @@ class IntegrationTest extends TestCase
                     'element' => [
                         'type' => 'number_input',
                         'action_id' => 'xxx_number_input_action',
-                        'min_value' => 10,
-                        'max_value' => 100,
+                        'min_value' => "10",
+                        'max_value' => "100",
                         'is_decimal_allowed' => false,
                     ],
                 ]
