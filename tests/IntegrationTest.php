@@ -37,7 +37,6 @@ class IntegrationTest extends TestCase
                     ->label('RichTextInput')
                     ->newRichTextInput('xxx_rich_text_input_action')
                     ->placeholder('プレースホルダー')
-                    ->initialValue('初期値')
                     ->focusOnLoad(true)
                     ->triggerActionOnCharacterEntered();
             });
@@ -101,7 +100,6 @@ class IntegrationTest extends TestCase
                             'type' => 'plain_text',
                             'text' => 'プレースホルダー',
                         ],
-                        'initial_value' => '初期値',
                         'focus_on_load' => true,
                         'dispatch_action_config' => [
                             'trigger_actions_on' => ['on_character_entered'],

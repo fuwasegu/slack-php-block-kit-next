@@ -16,7 +16,6 @@ class RichTextInputTest extends TestCase
     {
         $input = (new RichTextInput())
             ->placeholder('テストプレースホルダー')
-            ->initialValue('初期値テキスト')
             ->focusOnLoad(true)
             ->triggerActionOnCharacterEntered();
 
@@ -26,7 +25,6 @@ class RichTextInputTest extends TestCase
                 'type' => 'plain_text',
                 'text' => 'テストプレースホルダー',
             ],
-            'initial_value' => '初期値テキスト',
             'focus_on_load' => true,
             'dispatch_action_config' => [
                 'trigger_actions_on' => ['on_character_entered'],
@@ -63,7 +61,6 @@ class RichTextInputTest extends TestCase
                 'type' => 'plain_text',
                 'text' => 'プレースホルダー',
             ],
-            'initial_value' => '初期値',
             'focus_on_load' => true,
             'dispatch_action_config' => [
                 'trigger_actions_on' => ['on_character_entered'],

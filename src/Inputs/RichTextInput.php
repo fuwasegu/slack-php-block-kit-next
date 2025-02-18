@@ -11,18 +11,13 @@ class RichTextInput extends InputElement
 {
     use HasPlaceholder;
 
-    private ?string $initialValue = null;
+    /**
+     * Note: initial_value（フォームの初期値）は現在未実装です。
+     */
 
     private ?bool $focusOnLoad = null;
 
     private ?DispatchActionConfig $dispatchActionConfig = null;
-
-    public function initialValue(string $text): static
-    {
-        $this->initialValue = $text;
-
-        return $this;
-    }
 
     public function focusOnLoad(bool $flag): static
     {
@@ -66,10 +61,6 @@ class RichTextInput extends InputElement
             $data['placeholder'] = $this->placeholder->toArray();
         }
 
-        if ($this->initialValue !== null && $this->initialValue !== '') {
-            $data['initial_value'] = $this->initialValue;
-        }
-
         if ($this->focusOnLoad !== null) {
             $data['focus_on_load'] = $this->focusOnLoad;
         }
@@ -83,10 +74,6 @@ class RichTextInput extends InputElement
 
     protected function hydrate(HydrationData $data): void
     {
-        if ($data->has('initial_value')) {
-            $this->initialValue($data->useValue('initial_value'));
-        }
-
         if ($data->has('focus_on_load')) {
             $this->focusOnLoad($data->useValue('focus_on_load'));
         }
