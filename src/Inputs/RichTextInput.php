@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace SlackPhp\BlockKit\Inputs;
 
-use SlackPhp\BlockKit\Exception;
 use SlackPhp\BlockKit\HydrationData;
 use SlackPhp\BlockKit\Partials\{DispatchActionConfig, PlainText};
 
@@ -12,13 +11,19 @@ class RichTextInput extends InputElement
 {
     use HasPlaceholder;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $initialValue;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     private $focusOnLoad;
 
-    /** @var DispatchActionConfig */
+    /**
+     * @var DispatchActionConfig
+     */
     private $dispatchActionConfig;
 
     /**
@@ -73,9 +78,6 @@ class RichTextInput extends InputElement
         }
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();
@@ -117,7 +119,7 @@ class RichTextInput extends InputElement
 
         if ($data->has('dispatch_action_config')) {
             $this->setDispatchActionConfig(
-                DispatchActionConfig::fromArray($data->useElement('dispatch_action_config'))
+                DispatchActionConfig::fromArray($data->useElement('dispatch_action_config')),
             );
         }
 
