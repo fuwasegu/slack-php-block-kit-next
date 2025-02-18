@@ -30,6 +30,16 @@ class IntegrationTest extends TestCase
                     ->newNumberInput('xxx_number_input_action')
                     ->setMaxValue(100)
                     ->setMinValue(10);
+            })
+            ->tap(static function (Modal $modal): void {
+                $modal
+                    ->newInput('xxx_rich_text_input_block')
+                    ->label('RichTextInput')
+                    ->newRichTextInput('xxx_rich_text_input_action')
+                    ->placeholder('プレースホルダー')
+                    ->initialValue('初期値')
+                    ->focusOnLoad(true)
+                    ->triggerActionOnCharacterEntered();
             });
 
         $this->assertJsonData([
@@ -75,6 +85,28 @@ class IntegrationTest extends TestCase
                         'min_value' => '10',
                         'max_value' => '100',
                         'is_decimal_allowed' => false,
+                    ],
+                ],
+                [
+                    'type' => 'input',
+                    'block_id' => 'xxx_rich_text_input_block',
+                    'label' => [
+                        'type' => 'plain_text',
+                        'text' => 'RichTextInput',
+                    ],
+                    'element' => [
+                        'type' => 'rich_text_input',
+                        'action_id' => 'xxx_rich_text_input_action',
+                        'multiline' => true,
+                        'placeholder' => [
+                            'type' => 'plain_text',
+                            'text' => 'プレースホルダー',
+                        ],
+                        'initial_value' => '初期値',
+                        'focus_on_load' => true,
+                        'dispatch_action_config' => [
+                            'trigger_actions_on' => ['on_character_entered'],
+                        ],
                     ],
                 ],
             ],

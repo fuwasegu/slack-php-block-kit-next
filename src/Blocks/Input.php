@@ -157,6 +157,14 @@ class Input extends BlockElement
         return $action;
     }
 
+    public function newRichTextInput(?string $actionId = null): Inputs\RichTextInput
+    {
+        $action = new Inputs\RichTextInput($actionId);
+        $this->setElement($action);
+
+        return $action;
+    }
+
     public function validate(): void
     {
         if (!$this->label instanceof PlainText) {
