@@ -43,7 +43,7 @@ In general, we refer to all of the different things in Block Kit collectively as
 Install easily via Composer:
 
 ```bash
-composer require slack-php/slack-block-kit
+composer require fuwasegu/slack-php-block-kit-next
 ```
 
 Then include the Composer-generated autoloader in your project's initialization code.
