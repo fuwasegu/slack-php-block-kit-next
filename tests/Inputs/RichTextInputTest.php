@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SlackPhp\BlockKit\Tests\Inputs;
 
+use SlackPhp\BlockKit\Blocks\RichText;
 use SlackPhp\BlockKit\Inputs\RichTextInput;
 use SlackPhp\BlockKit\Partials\RichTextElements\RichTextSection;
 use SlackPhp\BlockKit\Partials\RichTextElements\TextElements\Text;
@@ -19,10 +20,13 @@ class RichTextInputTest extends TestCase
         $section = new RichTextSection();
         $section->addElement((new Text())->text('テスト初期値'));
 
+        $richText = new RichText();
+        $richText->addElement($section);
+
         $input = (new RichTextInput())
             ->placeholder('テストプレースホルダー')
             ->focusOnLoad(true)
-            ->initialValue([$section])
+            ->initialValue($richText)
             ->triggerActionOnCharacterEntered();
 
         $this->assertJsonData([
@@ -74,8 +78,11 @@ class RichTextInputTest extends TestCase
         $section = new RichTextSection();
         $section->addElement((new Text())->text('初期テキスト'));
 
+        $richText = new RichText();
+        $richText->addElement($section);
+
         $input = (new RichTextInput())
-            ->initialValue([$section]);
+            ->initialValue($richText);
 
         $this->assertJsonData([
             'type' => 'rich_text_input',
@@ -99,24 +106,39 @@ class RichTextInputTest extends TestCase
         $section = new RichTextSection();
         $section->addElement((new Text())->text('初期テキスト値'));
 
+        $richText = new RichText();
+        $richText->addElement($section);
+
         $input = new RichTextInput();
         $input->actionId('rich_text_1')
             ->placeholder('プレースホルダー')
             ->focusOnLoad(true)
-            ->initialValue([$section])
+            ->initialValue($richText)
             ->triggerActionOnCharacterEntered();
 
-        // 配列に変換して検証
-        $result = $input->toArray();
-        $this->assertEquals('rich_text_input', $result['type']);
-        $this->assertEquals('rich_text_1', $result['action_id']);
-        $this->assertTrue($result['focus_on_load']);
-        $this->assertArrayHasKey('initial_value', $result);
-        $this->assertCount(1, $result['initial_value']);
-        $this->assertEquals('rich_text_section', $result['initial_value'][0]['type']);
-        $this->assertArrayHasKey('elements', $result['initial_value'][0]);
-        $this->assertCount(1, $result['initial_value'][0]['elements']);
-        $this->assertEquals('text', $result['initial_value'][0]['elements'][0]['type']);
-        $this->assertEquals('初期テキスト値', $result['initial_value'][0]['elements'][0]['text']);
+        // assertJsonDataを使用して検証
+        $this->assertJsonData([
+            'type' => 'rich_text_input',
+            'action_id' => 'rich_text_1',
+            'placeholder' => [
+                'type' => 'plain_text',
+                'text' => 'プレースホルダー',
+            ],
+            'focus_on_load' => true,
+            'initial_value' => [
+                [
+                    'type' => 'rich_text_section',
+                    'elements' => [
+                        [
+                            'type' => 'text',
+                            'text' => '初期テキスト値',
+                        ],
+                    ],
+                ],
+            ],
+            'dispatch_action_config' => [
+                'trigger_actions_on' => ['on_character_entered'],
+            ],
+        ], $input);
     }
 }

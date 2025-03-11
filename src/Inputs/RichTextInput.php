@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SlackPhp\BlockKit\Inputs;
 
 use SlackPhp\BlockKit\HydrationData;
+use SlackPhp\BlockKit\Blocks\RichText;
 use SlackPhp\BlockKit\Partials\{DispatchActionConfig, PlainText};
 use SlackPhp\BlockKit\Partials\RichTextElements\RichTextElement;
 
@@ -19,19 +20,16 @@ class RichTextInput extends InputElement
 
     private ?DispatchActionConfig $dispatchActionConfig = null;
 
-    /**
-     * @var array<RichTextElement>|null
-     */
-    private ?array $initialValue = null;
+    private ?RichText $initialValue = null;
 
     /**
      * リッチテキスト入力の初期値を設定する
      *
-     * @param array<RichTextElement> $elements リッチテキスト要素の配列
+     * @param RichText $richText リッチテキストブロック
      */
-    public function initialValue(array $elements): static
+    public function initialValue(RichText $richText): static
     {
-        $this->initialValue = $elements;
+        $this->initialValue = $richText;
 
         return $this;
     }
@@ -67,6 +65,10 @@ class RichTextInput extends InputElement
         if ($this->dispatchActionConfig instanceof DispatchActionConfig) {
             $this->dispatchActionConfig->validate();
         }
+
+        if ($this->initialValue instanceof RichText) {
+            $this->initialValue->validate();
+        }
     }
 
     public function toArray(): array
@@ -82,10 +84,10 @@ class RichTextInput extends InputElement
             $data['focus_on_load'] = $this->focusOnLoad;
         }
 
-        if ($this->initialValue !== null) {
+        if ($this->initialValue instanceof RichText) {
             $data['initial_value'] = array_map(
-                static fn ($element): array => $element->toArray(),
-                $this->initialValue,
+                static fn (RichTextElement $element): array => $element->toArray(),
+                $this->initialValue->getElements(),
             );
         }
 
@@ -107,17 +109,17 @@ class RichTextInput extends InputElement
         }
 
         if ($data->has('initial_value') && is_array($data->get('initial_value'))) {
-            $elements = [];
+            $richText = new RichText();
             foreach ($data->useValue('initial_value') as $elementData) {
                 $type = $elementData['type'] ?? null;
                 if ($type) {
                     $element = RichTextElement::createFromType($type);
                     $element->hydrate(new HydrationData($elementData));
-                    $elements[] = $element;
+                    $richText->addElement($element);
                 }
             }
-            if ($elements !== []) {
-                $this->initialValue($elements);
+            if ($richText->getElements() !== []) {
+                $this->initialValue($richText);
             }
         }
 

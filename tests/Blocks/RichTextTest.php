@@ -503,4 +503,69 @@ class RichTextTest extends TestCase
             ],
         ], $richText);
     }
+
+    public function testRichTextInputInitialValue(): void
+    {
+        // RichTextオブジェクトを作成
+        $richText = new RichText();
+
+        // セクションを追加
+        $section = new RichTextSection();
+        $section->addElement((new Text())->text('テストテキスト'));
+        $richText->addElement($section);
+
+        // リストを追加
+        $list = new RichTextList();
+        $list->setStyle('bullet');
+
+        $listItem1 = new RichTextSection();
+        $listItem1->addElement((new Text())->text('リストアイテム1'));
+        $list->addElement($listItem1);
+
+        $listItem2 = new RichTextSection();
+        $listItem2->addElement((new Text())->text('リストアイテム2'));
+        $list->addElement($listItem2);
+
+        $richText->addElement($list);
+
+        // assertJsonDataを使用して検証
+        $this->assertJsonData([
+            'type' => Type::RICH_TEXT,
+            'elements' => [
+                [
+                    'type' => Type::RICH_TEXT_SECTION,
+                    'elements' => [
+                        [
+                            'type' => Type::TEXT,
+                            'text' => 'テストテキスト',
+                        ],
+                    ],
+                ],
+                [
+                    'type' => Type::RICH_TEXT_LIST,
+                    'style' => 'bullet',
+                    'elements' => [
+                        [
+                            'type' => Type::RICH_TEXT_SECTION,
+                            'elements' => [
+                                [
+                                    'type' => Type::TEXT,
+                                    'text' => 'リストアイテム1',
+                                ],
+                            ],
+                        ],
+                        [
+                            'type' => Type::RICH_TEXT_SECTION,
+                            'elements' => [
+                                [
+                                    'type' => Type::TEXT,
+                                    'text' => 'リストアイテム2',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ], $richText);
+    }
 }
