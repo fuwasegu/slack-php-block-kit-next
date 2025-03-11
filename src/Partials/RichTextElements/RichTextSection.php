@@ -15,7 +15,7 @@ class RichTextSection extends RichTextElement
     private array $elements = [];
 
     /**
-     * 要素を追加する
+     * Add an element
      */
     public function addElement(TextElement $element): static
     {
@@ -25,7 +25,7 @@ class RichTextSection extends RichTextElement
     }
 
     /**
-     * 要素のコレクションを設定する
+     * Set a collection of elements
      *
      * @param TextElement[] $elements
      */
@@ -41,8 +41,6 @@ class RichTextSection extends RichTextElement
     }
 
     /**
-     * 要素のコレクションを取得する
-     *
      * @return TextElement[]
      */
     public function getElements(): array
@@ -50,20 +48,17 @@ class RichTextSection extends RichTextElement
         return $this->elements;
     }
 
-    /**
-     * 要素の型を取得する
-     */
     public function getElementType(): string
     {
         return 'rich_text_section';
     }
 
     /**
-     * 要素を検証する
+     * Validate the element
      */
     public function validate(): void
     {
-        // elements は空配列も許可する（Slack API仕様に準拠）
+        // Empty elements array is allowed (according to Slack API specification)
 
         foreach ($this->elements as $element) {
             $element->validate();
@@ -71,7 +66,7 @@ class RichTextSection extends RichTextElement
     }
 
     /**
-     * 要素を配列に変換する
+     * Convert the element to an array
      */
     public function toArray(): array
     {
@@ -88,7 +83,7 @@ class RichTextSection extends RichTextElement
     }
 
     /**
-     * 配列から要素を生成する
+     * Generate an element from an array
      */
     protected function hydrate(HydrationData $data): void
     {

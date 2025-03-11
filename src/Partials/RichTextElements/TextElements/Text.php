@@ -13,7 +13,7 @@ class Text extends TextElement
     private ?array $style = null;
 
     /**
-     * テキストを設定する
+     * Set text
      */
     public function text(string $text): static
     {
@@ -23,7 +23,7 @@ class Text extends TextElement
     }
 
     /**
-     * テキストを取得する
+     * Get text
      */
     public function getText(): ?string
     {
@@ -31,11 +31,11 @@ class Text extends TextElement
     }
 
     /**
-     * スタイルを設定する
+     * Set style
      */
     public function setStyle(array $style): static
     {
-        // スタイル属性がブール値であることを確認
+        // Verify that style attributes are boolean values
         foreach ($style as $key => $value) {
             if (!in_array($key, ['bold', 'italic', 'strike', 'code'], true)) {
                 throw new Exception('Invalid style property for Text element: %s', [$key]);
@@ -52,7 +52,7 @@ class Text extends TextElement
     }
 
     /**
-     * 太字スタイルを設定する
+     * Set bold style
      */
     public function bold(bool $flag = true): static
     {
@@ -63,7 +63,7 @@ class Text extends TextElement
     }
 
     /**
-     * 斜体スタイルを設定する
+     * Set italic style
      */
     public function italic(bool $flag = true): static
     {
@@ -74,7 +74,7 @@ class Text extends TextElement
     }
 
     /**
-     * 取り消し線スタイルを設定する
+     * Set strikethrough style
      */
     public function strike(bool $flag = true): static
     {
@@ -85,7 +85,7 @@ class Text extends TextElement
     }
 
     /**
-     * コードスタイルを設定する
+     * Set code style
      */
     public function code(bool $flag = true): static
     {
@@ -96,7 +96,7 @@ class Text extends TextElement
     }
 
     /**
-     * 要素の型を取得する
+     * Get element type
      */
     public function getElementType(): string
     {
@@ -104,7 +104,7 @@ class Text extends TextElement
     }
 
     /**
-     * 要素を検証する
+     * Validate the element
      */
     public function validate(): void
     {
@@ -112,7 +112,7 @@ class Text extends TextElement
             throw new Exception('Text element must have a text value');
         }
 
-        // スタイルが設定されている場合は検証
+        // Validate style if set
         if ($this->style !== null) {
             foreach ($this->style as $key => $value) {
                 if (!in_array($key, ['bold', 'italic', 'strike', 'code'], true)) {
@@ -127,7 +127,7 @@ class Text extends TextElement
     }
 
     /**
-     * 要素を配列に変換する
+     * Convert the element to an array
      */
     public function toArray(): array
     {
@@ -142,7 +142,7 @@ class Text extends TextElement
     }
 
     /**
-     * 配列から要素を生成する
+     * Generate an element from an array
      */
     protected function hydrate(HydrationData $data): void
     {

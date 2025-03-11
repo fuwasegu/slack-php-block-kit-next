@@ -506,15 +506,12 @@ class RichTextTest extends TestCase
 
     public function testRichTextInputInitialValue(): void
     {
-        // RichTextオブジェクトを作成
         $richText = new RichText();
 
-        // セクションを追加
         $section = new RichTextSection();
         $section->addElement((new Text())->text('テストテキスト'));
         $richText->addElement($section);
 
-        // リストを追加
         $list = new RichTextList();
         $list->setStyle('bullet');
 
@@ -528,7 +525,6 @@ class RichTextTest extends TestCase
 
         $richText->addElement($list);
 
-        // assertJsonDataを使用して検証
         $this->assertJsonData([
             'type' => Type::RICH_TEXT,
             'elements' => [

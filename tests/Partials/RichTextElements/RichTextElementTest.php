@@ -138,7 +138,7 @@ class RichTextElementTest extends TestCase
     public function testThatRichTextListValidatesElements(): void
     {
         $list = new RichTextList();
-        // スタイルを設定せずにvalidateを呼び出すと例外が発生するはず
+        // An exception should be thrown when calling validate without setting a style
 
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('RichTextList must have a style');

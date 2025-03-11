@@ -13,7 +13,7 @@ class Emoji extends TextElement
     private ?string $unicode = null;
 
     /**
-     * 絵文字名を設定する
+     * Set emoji name
      */
     public function setName(string $name): static
     {
@@ -23,7 +23,7 @@ class Emoji extends TextElement
     }
 
     /**
-     * Unicode値を設定する
+     * Set Unicode value
      */
     public function setUnicode(string $unicode): static
     {
@@ -33,7 +33,7 @@ class Emoji extends TextElement
     }
 
     /**
-     * 要素の型を取得する
+     * Get element type
      */
     public function getElementType(): string
     {
@@ -41,7 +41,7 @@ class Emoji extends TextElement
     }
 
     /**
-     * 要素を検証する
+     * Validate the element
      */
     public function validate(): void
     {
@@ -51,7 +51,7 @@ class Emoji extends TextElement
     }
 
     /**
-     * 要素を配列に変換する
+     * Convert the element to an array
      */
     public function toArray(): array
     {
@@ -66,7 +66,7 @@ class Emoji extends TextElement
     }
 
     /**
-     * 配列から要素を生成する
+     * Generate an element from an array
      */
     protected function hydrate(HydrationData $data): void
     {

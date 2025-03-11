@@ -102,7 +102,6 @@ class RichTextInputTest extends TestCase
 
     public function testCanHydrateFromArray(): void
     {
-        // 手動でRichTextInputを構築
         $section = new RichTextSection();
         $section->addElement((new Text())->text('初期テキスト値'));
 
@@ -116,7 +115,6 @@ class RichTextInputTest extends TestCase
             ->initialValue($richText)
             ->triggerActionOnCharacterEntered();
 
-        // assertJsonDataを使用して検証
         $this->assertJsonData([
             'type' => 'rich_text_input',
             'action_id' => 'rich_text_1',

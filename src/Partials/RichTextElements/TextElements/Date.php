@@ -17,7 +17,7 @@ class Date extends TextElement
     private ?string $fallback = null;
 
     /**
-     * タイムスタンプを設定する
+     * Set timestamp
      */
     public function setTimestamp(int $timestamp): static
     {
@@ -27,7 +27,7 @@ class Date extends TextElement
     }
 
     /**
-     * フォーマットを設定する
+     * Set format
      */
     public function setFormat(string $format): static
     {
@@ -41,7 +41,7 @@ class Date extends TextElement
     }
 
     /**
-     * URLを設定する
+     * Set URL
      */
     public function setUrl(string $url): static
     {
@@ -51,7 +51,7 @@ class Date extends TextElement
     }
 
     /**
-     * フォールバックテキストを設定する
+     * Set fallback text
      */
     public function setFallback(string $fallback): static
     {
@@ -61,7 +61,7 @@ class Date extends TextElement
     }
 
     /**
-     * 要素の型を取得する
+     * Get element type
      */
     public function getElementType(): string
     {
@@ -69,7 +69,7 @@ class Date extends TextElement
     }
 
     /**
-     * 要素を検証する
+     * Validate the element
      */
     public function validate(): void
     {
@@ -83,7 +83,7 @@ class Date extends TextElement
     }
 
     /**
-     * 要素を配列に変換する
+     * Convert the element to an array
      */
     public function toArray(): array
     {
@@ -103,7 +103,7 @@ class Date extends TextElement
     }
 
     /**
-     * 配列から要素を生成する
+     * Generate an element from an array
      */
     protected function hydrate(HydrationData $data): void
     {

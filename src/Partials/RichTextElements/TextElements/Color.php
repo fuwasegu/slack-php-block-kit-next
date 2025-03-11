@@ -11,7 +11,7 @@ class Color extends TextElement
     private ?string $value = null;
 
     /**
-     * カラー値を設定する
+     * Set color value
      */
     public function setValue(string $value): static
     {
@@ -21,7 +21,7 @@ class Color extends TextElement
     }
 
     /**
-     * 色の値を取得する
+     * Get color value
      */
     public function getValue(): ?string
     {
@@ -29,7 +29,7 @@ class Color extends TextElement
     }
 
     /**
-     * 要素の型を取得する
+     * Get element type
      */
     public function getElementType(): string
     {
@@ -37,7 +37,7 @@ class Color extends TextElement
     }
 
     /**
-     * 要素を検証する
+     * Validate the element
      */
     public function validate(): void
     {
@@ -47,7 +47,7 @@ class Color extends TextElement
     }
 
     /**
-     * 要素を配列に変換する
+     * Convert the element to an array
      */
     public function toArray(): array
     {
@@ -58,7 +58,7 @@ class Color extends TextElement
     }
 
     /**
-     * 配列から要素を生成する
+     * Generate an element from an array
      */
     protected function hydrate(HydrationData $data): void
     {

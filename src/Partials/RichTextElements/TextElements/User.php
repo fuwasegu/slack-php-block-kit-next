@@ -13,7 +13,7 @@ class User extends TextElement
     private ?array $style = null;
 
     /**
-     * ユーザーIDを設定する
+     * Set user ID
      */
     public function setUserId(string $userId): static
     {
@@ -23,7 +23,7 @@ class User extends TextElement
     }
 
     /**
-     * ユーザーIDを取得する
+     * Get user ID
      */
     public function getUserId(): ?string
     {
@@ -31,11 +31,11 @@ class User extends TextElement
     }
 
     /**
-     * スタイルを設定する
+     * Set style
      */
     public function setStyle(array $style): static
     {
-        // スタイル属性がブール値であることを確認
+        // Verify that style attributes are boolean values
         foreach ($style as $key => $value) {
             if (!in_array($key, ['bold', 'italic', 'strike', 'highlight', 'client_highlight', 'unlink'], true)) {
                 throw new Exception('Invalid style property for User element: %s', [$key]);
@@ -52,7 +52,7 @@ class User extends TextElement
     }
 
     /**
-     * 太字スタイルを設定する
+     * Set bold style
      */
     public function bold(bool $flag = true): static
     {
@@ -63,7 +63,7 @@ class User extends TextElement
     }
 
     /**
-     * 斜体スタイルを設定する
+     * Set italic style
      */
     public function italic(bool $flag = true): static
     {
@@ -74,7 +74,7 @@ class User extends TextElement
     }
 
     /**
-     * 取り消し線スタイルを設定する
+     * Set strikethrough style
      */
     public function strike(bool $flag = true): static
     {
@@ -85,7 +85,7 @@ class User extends TextElement
     }
 
     /**
-     * ハイライトスタイルを設定する
+     * Set highlight style
      */
     public function highlight(bool $flag = true): static
     {
@@ -96,7 +96,7 @@ class User extends TextElement
     }
 
     /**
-     * クライアントハイライトスタイルを設定する
+     * Set client highlight style
      */
     public function clientHighlight(bool $flag = true): static
     {
@@ -107,7 +107,7 @@ class User extends TextElement
     }
 
     /**
-     * リンク解除スタイルを設定する
+     * Set unlink style
      */
     public function unlink(bool $flag = true): static
     {
@@ -118,7 +118,7 @@ class User extends TextElement
     }
 
     /**
-     * 要素の型を取得する
+     * Get element type
      */
     public function getElementType(): string
     {
@@ -126,7 +126,7 @@ class User extends TextElement
     }
 
     /**
-     * 要素を検証する
+     * Validate the element
      */
     public function validate(): void
     {
@@ -134,7 +134,7 @@ class User extends TextElement
             throw new Exception('User element must have a user_id value');
         }
 
-        // スタイルが設定されている場合は検証
+        // Validate style if set
         if ($this->style !== null) {
             foreach ($this->style as $key => $value) {
                 if (!in_array($key, ['bold', 'italic', 'strike', 'highlight', 'client_highlight', 'unlink'], true)) {
@@ -149,7 +149,7 @@ class User extends TextElement
     }
 
     /**
-     * 要素を配列に変換する
+     * Convert the element to an array
      */
     public function toArray(): array
     {
@@ -164,7 +164,7 @@ class User extends TextElement
     }
 
     /**
-     * 配列から要素を生成する
+     * Generate an element from an array
      */
     protected function hydrate(HydrationData $data): void
     {

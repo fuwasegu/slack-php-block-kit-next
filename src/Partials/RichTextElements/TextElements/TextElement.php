@@ -9,12 +9,12 @@ use SlackPhp\BlockKit\{Element, Exception, HydrationData};
 abstract class TextElement extends Element
 {
     /**
-     * 要素の型を取得する
+     * Get the element type
      */
     abstract public function getElementType(): string;
 
     /**
-     * 要素を配列に変換する
+     * Convert the element to an array
      */
     public function toArray(): array
     {
@@ -25,10 +25,10 @@ abstract class TextElement extends Element
     }
 
     /**
-     * 型から対応するTextElement要素を作成する
+     * Create a TextElement from the specified type
      *
-     * @param  string    $type 要素の型
-     * @return static    作成された要素
+     * @param  string    $type Element type
+     * @return static    Created element
      * @throws Exception
      */
     public static function createFromType(string $type): static
@@ -44,10 +44,10 @@ abstract class TextElement extends Element
     }
 
     /**
-     * 型に対応するクラス名を取得する
+     * Get the class name corresponding to the type
      *
-     * @param  string $type 要素の型
-     * @return string クラス名
+     * @param  string $type Element type
+     * @return string Class name
      */
     protected static function getClassForType(string $type): string
     {

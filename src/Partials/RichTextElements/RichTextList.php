@@ -22,7 +22,7 @@ class RichTextList extends RichTextElement
     private ?int $border = null;
 
     /**
-     * 要素を追加する
+     * Add an element
      */
     public function addElement(RichTextSection $element): static
     {
@@ -32,7 +32,7 @@ class RichTextList extends RichTextElement
     }
 
     /**
-     * 要素のコレクションを設定する
+     * Set a collection of elements
      *
      * @param RichTextSection[] $elements
      */
@@ -48,8 +48,6 @@ class RichTextList extends RichTextElement
     }
 
     /**
-     * 要素のコレクションを取得する
-     *
      * @return RichTextSection[]
      */
     public function getElements(): array
@@ -58,7 +56,7 @@ class RichTextList extends RichTextElement
     }
 
     /**
-     * リストスタイルを設定する
+     * Set the list style
      */
     public function setStyle(string $style): static
     {
@@ -72,7 +70,7 @@ class RichTextList extends RichTextElement
     }
 
     /**
-     * 箇条書きスタイルを設定する
+     * Set bullet style
      */
     public function bullet(): static
     {
@@ -80,7 +78,7 @@ class RichTextList extends RichTextElement
     }
 
     /**
-     * 番号付きスタイルを設定する
+     * Set ordered style
      */
     public function ordered(): static
     {
@@ -88,7 +86,7 @@ class RichTextList extends RichTextElement
     }
 
     /**
-     * インデントレベルを設定する
+     * Set the indent level
      */
     public function setIndent(int $indent): static
     {
@@ -98,7 +96,7 @@ class RichTextList extends RichTextElement
     }
 
     /**
-     * オフセットを設定する
+     * Set the offset
      */
     public function setOffset(int $offset): static
     {
@@ -108,7 +106,7 @@ class RichTextList extends RichTextElement
     }
 
     /**
-     * ボーダーを設定する
+     * Set the border
      */
     public function setBorder(int $border): static
     {
@@ -117,16 +115,13 @@ class RichTextList extends RichTextElement
         return $this;
     }
 
-    /**
-     * 要素の型を取得する
-     */
     public function getElementType(): string
     {
         return 'rich_text_list';
     }
 
     /**
-     * 要素を検証する
+     * Validate the element
      */
     public function validate(): void
     {
@@ -134,7 +129,7 @@ class RichTextList extends RichTextElement
             throw new Exception('RichTextList must have a style');
         }
 
-        // elements は空配列も許可する（仕様に準拠）
+        // Empty elements array is allowed (according to the specification)
 
         foreach ($this->elements as $element) {
             $element->validate();
@@ -142,7 +137,7 @@ class RichTextList extends RichTextElement
     }
 
     /**
-     * 要素を配列に変換する
+     * Convert the element to an array
      */
     public function toArray(): array
     {
@@ -172,7 +167,7 @@ class RichTextList extends RichTextElement
     }
 
     /**
-     * 配列から要素を生成する
+     * Generate an element from an array
      */
     protected function hydrate(HydrationData $data): void
     {
@@ -181,7 +176,7 @@ class RichTextList extends RichTextElement
         if ($data->has('style')) {
             $this->setStyle($data->useValue('style'));
         } else {
-            // style は必須属性なので、存在しない場合はエラーを投げる
+            // Style is a required attribute, so throw an error if it doesn't exist
             throw new Exception('RichTextList must have a style');
         }
 

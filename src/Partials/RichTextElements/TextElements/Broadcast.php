@@ -11,7 +11,7 @@ class Broadcast extends TextElement
     private ?string $range = null;
 
     /**
-     * 範囲を設定する
+     * Set broadcast range
      */
     public function setRange(string $range): static
     {
@@ -25,7 +25,7 @@ class Broadcast extends TextElement
     }
 
     /**
-     * 'here'範囲を設定する
+     * Set range to 'here'
      */
     public function here(): static
     {
@@ -33,7 +33,7 @@ class Broadcast extends TextElement
     }
 
     /**
-     * 'channel'範囲を設定する
+     * Set range to 'channel'
      */
     public function channel(): static
     {
@@ -41,7 +41,7 @@ class Broadcast extends TextElement
     }
 
     /**
-     * 'everyone'範囲を設定する
+     * Set range to 'everyone'
      */
     public function everyone(): static
     {
@@ -49,7 +49,7 @@ class Broadcast extends TextElement
     }
 
     /**
-     * 要素の型を取得する
+     * Get element type
      */
     public function getElementType(): string
     {
@@ -57,7 +57,7 @@ class Broadcast extends TextElement
     }
 
     /**
-     * 要素を検証する
+     * Validate the element
      */
     public function validate(): void
     {
@@ -67,7 +67,7 @@ class Broadcast extends TextElement
     }
 
     /**
-     * 要素を配列に変換する
+     * Convert the element to an array
      */
     public function toArray(): array
     {
@@ -78,7 +78,7 @@ class Broadcast extends TextElement
     }
 
     /**
-     * 配列から要素を生成する
+     * Generate an element from an array
      */
     protected function hydrate(HydrationData $data): void
     {

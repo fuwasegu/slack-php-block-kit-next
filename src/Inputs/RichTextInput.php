@@ -14,7 +14,7 @@ class RichTextInput extends InputElement
     use HasPlaceholder;
 
     /**
-     * RichTextInputの設定オプション
+     * Configuration options for RichTextInput
      */
     private ?bool $focusOnLoad = null;
 
@@ -23,9 +23,9 @@ class RichTextInput extends InputElement
     private ?RichText $initialValue = null;
 
     /**
-     * リッチテキスト入力の初期値を設定する
+     * Set the initial value for rich text input
      *
-     * @param RichText $richText リッチテキストブロック
+     * @param RichText $richText Rich text block
      */
     public function initialValue(RichText $richText): static
     {

@@ -21,7 +21,7 @@ class RichText extends BlockElement
     }
 
     /**
-     * 要素を追加する
+     * Add an element
      */
     public function addElement(RichTextElement $element): static
     {
@@ -31,7 +31,7 @@ class RichText extends BlockElement
     }
 
     /**
-     * 要素のコレクションを設定する
+     * Set a collection of elements
      *
      * @param RichTextElement[] $elements
      */
@@ -47,7 +47,7 @@ class RichText extends BlockElement
     }
 
     /**
-     * 要素のコレクションを取得する
+     * Get the collection of elements
      *
      * @return RichTextElement[]
      */
@@ -57,7 +57,7 @@ class RichText extends BlockElement
     }
 
     /**
-     * 新しいセクションを作成して追加する
+     * Create a new section and add it
      */
     public function newSection(): RichTextSection
     {
@@ -68,7 +68,7 @@ class RichText extends BlockElement
     }
 
     /**
-     * テキストを含む新しいセクションを作成して追加する
+     * Create a new section with text and add it
      */
     public function addText(string $text, ?array $style = null): static
     {
@@ -86,7 +86,7 @@ class RichText extends BlockElement
     }
 
     /**
-     * 太字テキストを含む新しいセクションを作成して追加する
+     * Create a new section with bold text and add it
      */
     public function addBoldText(string $text): static
     {
@@ -94,7 +94,7 @@ class RichText extends BlockElement
     }
 
     /**
-     * 斜体テキストを含む新しいセクションを作成して追加する
+     * Create a new section with italic text and add it
      */
     public function addItalicText(string $text): static
     {
@@ -102,7 +102,7 @@ class RichText extends BlockElement
     }
 
     /**
-     * 取り消し線テキストを含む新しいセクションを作成して追加する
+     * Create a new section with strikethrough text and add it
      */
     public function addStrikeText(string $text): static
     {
@@ -110,12 +110,12 @@ class RichText extends BlockElement
     }
 
     /**
-     * 新しいリストを作成して追加する
+     * Create a new list and add it
      *
-     * @param string   $style  リストのスタイル ('bullet' または 'ordered')
-     * @param int|null $indent インデントのピクセル数
-     * @param int|null $offset オフセットのピクセル数
-     * @param int|null $border ボーダーの太さ（ピクセル単位）
+     * @param string   $style  List style ('bullet' or 'ordered')
+     * @param int|null $indent Indent in pixels
+     * @param int|null $offset Offset in pixels
+     * @param int|null $border Border width in pixels
      */
     public function newList(string $style = 'bullet', ?int $indent = null, ?int $offset = null, ?int $border = null): RichTextList
     {
@@ -140,11 +140,11 @@ class RichText extends BlockElement
     }
 
     /**
-     * 新しい箇条書きリストを作成して追加する
+     * Create a new bullet list and add it
      *
-     * @param int|null $indent インデントのピクセル数
-     * @param int|null $offset オフセットのピクセル数
-     * @param int|null $border ボーダーの太さ（ピクセル単位）
+     * @param int|null $indent Indent in pixels
+     * @param int|null $offset Offset in pixels
+     * @param int|null $border Border width in pixels
      */
     public function newBulletList(?int $indent = null, ?int $offset = null, ?int $border = null): RichTextList
     {
@@ -152,11 +152,11 @@ class RichText extends BlockElement
     }
 
     /**
-     * 新しい番号付きリストを作成して追加する
+     * Create a new ordered list and add it
      *
-     * @param int|null $indent インデントのピクセル数
-     * @param int|null $offset オフセットのピクセル数
-     * @param int|null $border ボーダーの太さ（ピクセル単位）
+     * @param int|null $indent Indent in pixels
+     * @param int|null $offset Offset in pixels
+     * @param int|null $border Border width in pixels
      */
     public function newOrderedList(?int $indent = null, ?int $offset = null, ?int $border = null): RichTextList
     {
@@ -164,10 +164,10 @@ class RichText extends BlockElement
     }
 
     /**
-     * 新しいコードブロックを作成して追加する
+     * Add a code block with the given code text
      *
-     * @param string   $code   コードテキスト
-     * @param int|null $border ボーダーの太さ（ピクセル単位）
+     * @param string   $code   Code text
+     * @param int|null $border Border width in pixels
      */
     public function addCode(string $code, ?int $border = null): static
     {
@@ -178,9 +178,9 @@ class RichText extends BlockElement
     }
 
     /**
-     * 新しいプリフォーマットブロックを作成して追加する
+     * Create a new preformatted block and add it
      *
-     * @param int|null $border ボーダーの太さ（ピクセル単位）
+     * @param int|null $border Border width in pixels
      */
     public function newPreformatted(?int $border = null): RichTextPreformatted
     {
@@ -196,9 +196,9 @@ class RichText extends BlockElement
     }
 
     /**
-     * 新しい引用ブロックを作成して追加する
+     * Create a new quote block and add it
      *
-     * @param int|null $border ボーダーの太さ（ピクセル単位）
+     * @param int|null $border Border width in pixels
      */
     public function newQuote(?int $border = null): RichTextQuote
     {
@@ -214,10 +214,10 @@ class RichText extends BlockElement
     }
 
     /**
-     * 引用テキストを含む新しい引用ブロックを作成して追加する
+     * Create a new quote block with text and add it
      *
-     * @param string   $text   引用テキスト
-     * @param int|null $border ボーダーの太さ（ピクセル単位）
+     * @param string   $text   Quote text
+     * @param int|null $border Border width in pixels
      */
     public function addQuote(string $text, ?int $border = null): static
     {
@@ -230,11 +230,11 @@ class RichText extends BlockElement
     }
 
     /**
-     * リンク要素を含む新しいセクションを作成して追加する
+     * Create a new section with a link element and add it
      *
-     * @param string      $url   リンクのURL
-     * @param string|null $text  リンクのテキスト（省略時はURLが使用される）
-     * @param array|null  $style スタイル設定
+     * @param string      $url   Link URL
+     * @param string|null $text  Link text (URL is used if omitted)
+     * @param array|null  $style Style settings
      */
     public function addLink(string $url, ?string $text = null, ?array $style = null): static
     {
@@ -256,9 +256,9 @@ class RichText extends BlockElement
     }
 
     /**
-     * ブロードキャスト要素を含む新しいセクションを作成して追加する
+     * Add a broadcast element to the new section
      *
-     * @param string $range ブロードキャストの範囲 ('here', 'channel', 'everyone')
+     * @param string $range Broadcast range ('here', 'channel', 'everyone')
      */
     public function addBroadcast(string $range): static
     {
@@ -275,9 +275,9 @@ class RichText extends BlockElement
     }
 
     /**
-     * カラー要素を含む新しいセクションを作成して追加する
+     * Add a color element to the new section
      *
-     * @param string $hexColor 16進数のカラーコード
+     * @param string $hexColor 16-digit color code
      */
     public function addColor(string $hexColor): static
     {
@@ -290,10 +290,10 @@ class RichText extends BlockElement
     }
 
     /**
-     * チャンネル要素を含む新しいセクションを作成して追加する
+     * Add a channel element to the new section
      *
-     * @param string     $channelId チャンネルID
-     * @param array|null $style     スタイル設定 (bold, italic, strike, highlight, client_highlight, unlink)
+     * @param string     $channelId Channel ID
+     * @param array|null $style     Style settings (bold, italic, strike, highlight, client_highlight, unlink)
      */
     public function addChannel(string $channelId, ?array $style = null): static
     {
@@ -311,12 +311,12 @@ class RichText extends BlockElement
     }
 
     /**
-     * 日付要素を含む新しいセクションを作成して追加する
+     * Add a date element to the new section
      *
-     * @param int         $timestamp Unix タイムスタンプ（秒単位）
-     * @param string      $format    日付フォーマット
-     * @param string|null $url       リンクURL
-     * @param string|null $fallback  フォールバックテキスト
+     * @param int         $timestamp Unix timestamp (in seconds)
+     * @param string      $format    Date format
+     * @param string|null $url       Link URL
+     * @param string|null $fallback  Fallback text
      */
     public function addDate(int $timestamp, string $format, ?string $url = null, ?string $fallback = null): static
     {
@@ -338,10 +338,10 @@ class RichText extends BlockElement
     }
 
     /**
-     * 絵文字要素を含む新しいセクションを作成して追加する
+     * Add an emoji element to the new section
      *
-     * @param string      $name    絵文字名
-     * @param string|null $unicode Unicode コードポイント
+     * @param string      $name    Emoji name
+     * @param string|null $unicode Unicode code point
      */
     public function addEmoji(string $name, ?string $unicode = null): static
     {
@@ -359,10 +359,10 @@ class RichText extends BlockElement
     }
 
     /**
-     * ユーザー要素を含む新しいセクションを作成して追加する
+     * Add a user element to the new section
      *
-     * @param string     $userId ユーザーID
-     * @param array|null $style  スタイル設定 (bold, italic, strike, highlight, client_highlight, unlink)
+     * @param string     $userId User ID
+     * @param array|null $style  Style settings (bold, italic, strike, highlight, client_highlight, unlink)
      */
     public function addUser(string $userId, ?array $style = null): static
     {
@@ -380,10 +380,10 @@ class RichText extends BlockElement
     }
 
     /**
-     * ユーザーグループ要素を含む新しいセクションを作成して追加する
+     * Add a user group element to the new section
      *
-     * @param string     $usergroupId ユーザーグループID
-     * @param array|null $style       スタイル設定 (bold, italic, strike, highlight, client_highlight, unlink)
+     * @param string     $usergroupId User group ID
+     * @param array|null $style       Style settings (bold, italic, strike, highlight, client_highlight, unlink)
      */
     public function addUserGroup(string $usergroupId, ?array $style = null): static
     {
@@ -401,11 +401,11 @@ class RichText extends BlockElement
     }
 
     /**
-     * ブロックを検証する
+     * Validate the block
      */
     public function validate(): void
     {
-        // elements は空配列も許可する（仕様に基づく修正）
+        // Empty elements array is allowed (according to the specification)
 
         foreach ($this->elements as $element) {
             $element->validate();
@@ -413,7 +413,7 @@ class RichText extends BlockElement
     }
 
     /**
-     * ブロックを配列に変換する
+     * Convert the block to an array
      */
     public function toArray(): array
     {
@@ -431,7 +431,7 @@ class RichText extends BlockElement
     }
 
     /**
-     * 配列からブロックを生成する
+     * Hydrate the block from an array
      */
     protected function hydrate(HydrationData $data): void
     {
