@@ -6,17 +6,35 @@ namespace SlackPhp\BlockKit\Inputs;
 
 use SlackPhp\BlockKit\HydrationData;
 use SlackPhp\BlockKit\Partials\{DispatchActionConfig, PlainText};
+use SlackPhp\BlockKit\Partials\RichTextElements\RichTextElement;
 
 class RichTextInput extends InputElement
 {
     use HasPlaceholder;
 
     /**
-     * Note: initial_value（フォームの初期値）は現在未実装です。
+     * RichTextInputの設定オプション
      */
     private ?bool $focusOnLoad = null;
 
     private ?DispatchActionConfig $dispatchActionConfig = null;
+
+    /**
+     * @var array<RichTextElement>|null
+     */
+    private ?array $initialValue = null;
+
+    /**
+     * リッチテキスト入力の初期値を設定する
+     *
+     * @param array<RichTextElement> $elements リッチテキスト要素の配列
+     */
+    public function initialValue(array $elements): static
+    {
+        $this->initialValue = $elements;
+
+        return $this;
+    }
 
     public function focusOnLoad(bool $flag): static
     {
@@ -64,6 +82,13 @@ class RichTextInput extends InputElement
             $data['focus_on_load'] = $this->focusOnLoad;
         }
 
+        if ($this->initialValue !== null) {
+            $data['initial_value'] = array_map(
+                static fn ($element): array => $element->toArray(),
+                $this->initialValue,
+            );
+        }
+
         if ($this->dispatchActionConfig instanceof DispatchActionConfig) {
             $data['dispatch_action_config'] = $this->dispatchActionConfig->toArray();
         }
@@ -79,6 +104,21 @@ class RichTextInput extends InputElement
 
         if ($data->has('placeholder')) {
             $this->setPlaceholder(PlainText::fromArray($data->useElement('placeholder')));
+        }
+
+        if ($data->has('initial_value') && is_array($data->get('initial_value'))) {
+            $elements = [];
+            foreach ($data->useValue('initial_value') as $elementData) {
+                $type = $elementData['type'] ?? null;
+                if ($type) {
+                    $element = RichTextElement::createFromType($type);
+                    $element->hydrate(new HydrationData($elementData));
+                    $elements[] = $element;
+                }
+            }
+            if ($elements !== []) {
+                $this->initialValue($elements);
+            }
         }
 
         if ($data->has('dispatch_action_config')) {

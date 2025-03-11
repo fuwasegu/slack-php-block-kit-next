@@ -24,6 +24,7 @@ abstract class Type
     final public const HEADER  = 'header';
     final public const IMAGE   = 'image';
     final public const INPUT   = 'input';
+    final public const RICH_TEXT = 'rich_text';
     final public const SECTION = 'section';
 
     // Inputs
@@ -58,6 +59,22 @@ abstract class Type
     final public const OPTION                 = 'option';
     final public const OPTION_GROUP           = 'option_group';
     final public const PLAINTEXT              = 'plain_text';
+
+    // Rich Text Elements
+    final public const RICH_TEXT_SECTION     = 'rich_text_section';
+    final public const RICH_TEXT_LIST        = 'rich_text_list';
+    final public const RICH_TEXT_PREFORMATTED = 'rich_text_preformatted';
+    final public const RICH_TEXT_QUOTE       = 'rich_text_quote';
+
+    // Rich Text Text Elements
+    final public const TEXT                  = 'text';
+    final public const CHANNEL               = 'channel';
+    final public const USER                  = 'user';
+    final public const EMOJI                 = 'emoji';
+    final public const LINK                  = 'link';
+    final public const USERGROUP             = 'usergroup';
+    final public const DATE                  = 'date';
+    final public const BROADCAST             = 'broadcast';
 
     final public const SURFACE_BLOCKS = [
         self::APP_HOME => [
@@ -181,21 +198,22 @@ abstract class Type
      */
     private static array $typeMap = [
         // Surfaces
-        Surfaces\AppHome::class      => self::APP_HOME,
-        Surfaces\Attachment::class   => self::ATTACHMENT,
-        Surfaces\Message::class      => self::MESSAGE,
-        Surfaces\Modal::class        => self::MODAL,
-        Surfaces\WorkflowStep::class => self::WORKFLOW_STEP,
+        Surfaces\AppHome::class              => self::APP_HOME,
+        Surfaces\Attachment::class           => self::ATTACHMENT,
+        Surfaces\Message::class              => self::MESSAGE,
+        Surfaces\Modal::class                => self::MODAL,
+        Surfaces\WorkflowStep::class         => self::WORKFLOW_STEP,
 
         // Blocks
-        Blocks\Actions::class => self::ACTIONS,
-        Blocks\Context::class => self::CONTEXT,
-        Blocks\Divider::class => self::DIVIDER,
-        Blocks\File::class    => self::FILE,
-        Blocks\Header::class  => self::HEADER,
-        Blocks\Image::class   => self::IMAGE,
-        Blocks\Input::class   => self::INPUT,
-        Blocks\Section::class => self::SECTION,
+        Blocks\Actions::class                => self::ACTIONS,
+        Blocks\Context::class                => self::CONTEXT,
+        Blocks\Divider::class                => self::DIVIDER,
+        Blocks\File::class                   => self::FILE,
+        Blocks\Header::class                 => self::HEADER,
+        Blocks\Image::class                  => self::IMAGE,
+        Blocks\Input::class                  => self::INPUT,
+        Blocks\RichText::class               => self::RICH_TEXT,
+        Blocks\Section::class                => self::SECTION,
 
         // Virtual Blocks
         Blocks\Virtual\TwoColumnTable::class => self::SECTION, // Composed of Sections
@@ -224,14 +242,30 @@ abstract class Type
         SelectMenus\UserSelectMenu::class               => self::SELECT_MENU_USERS,
 
         // Partials
-        Partials\Confirm::class              => self::CONFIRM,
-        Partials\DispatchActionConfig::class => self::DISPATCH_ACTION_CONFIG,
-        Partials\Fields::class               => self::FIELDS,
-        Partials\Filter::class               => self::FILTER,
-        Partials\MrkdwnText::class           => self::MRKDWNTEXT,
-        Partials\Option::class               => self::OPTION,
-        Partials\OptionGroup::class          => self::OPTION_GROUP,
-        Partials\PlainText::class            => self::PLAINTEXT,
+        Partials\Confirm::class               => self::CONFIRM,
+        Partials\DispatchActionConfig::class  => self::DISPATCH_ACTION_CONFIG,
+        Partials\Fields::class                => self::FIELDS,
+        Partials\Filter::class                => self::FILTER,
+        Partials\MrkdwnText::class            => self::MRKDWNTEXT,
+        Partials\Option::class                => self::OPTION,
+        Partials\OptionGroup::class           => self::OPTION_GROUP,
+        Partials\PlainText::class             => self::PLAINTEXT,
+
+        // Rich Text Elements
+        Partials\RichTextElements\RichTextSection::class => self::RICH_TEXT_SECTION,
+        Partials\RichTextElements\RichTextList::class => self::RICH_TEXT_LIST,
+        Partials\RichTextElements\RichTextPreformatted::class => self::RICH_TEXT_PREFORMATTED,
+        Partials\RichTextElements\RichTextQuote::class => self::RICH_TEXT_QUOTE,
+
+        // Rich Text Text Elements
+        Partials\RichTextElements\TextElements\Text::class => self::TEXT,
+        Partials\RichTextElements\TextElements\Channel::class => self::CHANNEL,
+        Partials\RichTextElements\TextElements\User::class => self::USER,
+        Partials\RichTextElements\TextElements\Emoji::class => self::EMOJI,
+        Partials\RichTextElements\TextElements\Link::class => self::LINK,
+        Partials\RichTextElements\TextElements\UserGroup::class => self::USERGROUP,
+        Partials\RichTextElements\TextElements\Date::class => self::DATE,
+        Partials\RichTextElements\TextElements\Broadcast::class => self::BROADCAST,
     ];
 
     public static function mapClass(string $class): string
