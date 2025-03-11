@@ -10,10 +10,12 @@ class Emoji extends TextElement
 {
     private ?string $name = null;
 
+    private ?string $unicode = null;
+
     /**
      * 絵文字名を設定する
      */
-    public function name(string $name): static
+    public function setName(string $name): static
     {
         $this->name = $name;
 
@@ -21,11 +23,13 @@ class Emoji extends TextElement
     }
 
     /**
-     * 絵文字名を取得する
+     * Unicode値を設定する
      */
-    public function getName(): ?string
+    public function setUnicode(string $unicode): static
     {
-        return $this->name;
+        $this->unicode = $unicode;
+
+        return $this;
     }
 
     /**
@@ -41,7 +45,7 @@ class Emoji extends TextElement
      */
     public function validate(): void
     {
-        if ($this->name === null || $this->name === '') {
+        if ($this->name === null) {
             throw new Exception('Emoji element must have a name value');
         }
     }
@@ -54,6 +58,10 @@ class Emoji extends TextElement
         $data = parent::toArray();
         $data['name'] = $this->name;
 
+        if ($this->unicode !== null) {
+            $data['unicode'] = $this->unicode;
+        }
+
         return $data;
     }
 
@@ -65,7 +73,11 @@ class Emoji extends TextElement
         parent::hydrate($data);
 
         if ($data->has('name')) {
-            $this->name($data->useValue('name'));
+            $this->setName($data->useValue('name'));
+        }
+
+        if ($data->has('unicode')) {
+            $this->setUnicode($data->useValue('unicode'));
         }
     }
 }

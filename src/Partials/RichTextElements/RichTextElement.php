@@ -28,9 +28,10 @@ abstract class RichTextElement extends Element
      * 型から対応するRichTextElement要素を作成する
      *
      * @param  string    $type 要素の型
+     * @return static    作成された要素
      * @throws Exception
      */
-    public static function createFromType(string $type): self
+    public static function createFromType(string $type): static
     {
         $class = self::getClassForType($type);
 
@@ -38,7 +39,7 @@ abstract class RichTextElement extends Element
             throw new Exception('Unknown rich text element type: %s', [$type]);
         }
 
-        /** @var RichTextElement $element */
+        // @phpstan-ignore-next-line
         return new $class();
     }
 

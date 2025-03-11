@@ -17,6 +17,8 @@ class RichTextList extends RichTextElement
 
     private ?int $indent = null;
 
+    private ?int $offset = null;
+
     private ?int $border = null;
 
     /**
@@ -90,11 +92,17 @@ class RichTextList extends RichTextElement
      */
     public function setIndent(int $indent): static
     {
-        if ($indent < 0) {
-            throw new Exception('Indent must be a non-negative integer');
-        }
-
         $this->indent = $indent;
+
+        return $this;
+    }
+
+    /**
+     * オフセットを設定する
+     */
+    public function setOffset(int $offset): static
+    {
+        $this->offset = $offset;
 
         return $this;
     }
@@ -104,10 +112,6 @@ class RichTextList extends RichTextElement
      */
     public function setBorder(int $border): static
     {
-        if ($border < 0) {
-            throw new Exception('Border must be a non-negative integer');
-        }
-
         $this->border = $border;
 
         return $this;
@@ -130,9 +134,7 @@ class RichTextList extends RichTextElement
             throw new Exception('RichTextList must have a style');
         }
 
-        if ($this->elements === []) {
-            throw new Exception('RichTextList must have at least one element');
-        }
+        // elements は空配列も許可する（仕様に準拠）
 
         foreach ($this->elements as $element) {
             $element->validate();
@@ -158,6 +160,10 @@ class RichTextList extends RichTextElement
             $data['indent'] = $this->indent;
         }
 
+        if ($this->offset !== null) {
+            $data['offset'] = $this->offset;
+        }
+
         if ($this->border !== null) {
             $data['border'] = $this->border;
         }
@@ -174,10 +180,17 @@ class RichTextList extends RichTextElement
 
         if ($data->has('style')) {
             $this->setStyle($data->useValue('style'));
+        } else {
+            // style は必須属性なので、存在しない場合はエラーを投げる
+            throw new Exception('RichTextList must have a style');
         }
 
         if ($data->has('indent')) {
             $this->setIndent($data->useValue('indent'));
+        }
+
+        if ($data->has('offset')) {
+            $this->setOffset($data->useValue('offset'));
         }
 
         if ($data->has('border')) {

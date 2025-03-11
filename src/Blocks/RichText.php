@@ -6,7 +6,7 @@ namespace SlackPhp\BlockKit\Blocks;
 
 use SlackPhp\BlockKit\{Element, Exception, HydrationData, Type};
 use SlackPhp\BlockKit\Partials\RichTextElements\{RichTextElement, RichTextSection, RichTextList, RichTextPreformatted, RichTextQuote};
-use SlackPhp\BlockKit\Partials\RichTextElements\TextElements\{Text, TextElement};
+use SlackPhp\BlockKit\Partials\RichTextElements\TextElements\{Text, TextElement, Link, Broadcast, Color, Channel, Date, Emoji, User, UserGroup};
 
 class RichText extends BlockElement
 {
@@ -111,11 +111,29 @@ class RichText extends BlockElement
 
     /**
      * 新しいリストを作成して追加する
+     *
+     * @param string   $style  リストのスタイル ('bullet' または 'ordered')
+     * @param int|null $indent インデントのピクセル数
+     * @param int|null $offset オフセットのピクセル数
+     * @param int|null $border ボーダーの太さ（ピクセル単位）
      */
-    public function newList(string $style = 'bullet'): RichTextList
+    public function newList(string $style = 'bullet', ?int $indent = null, ?int $offset = null, ?int $border = null): RichTextList
     {
         $list = new RichTextList();
         $list->setStyle($style);
+
+        if ($indent !== null) {
+            $list->setIndent($indent);
+        }
+
+        if ($offset !== null) {
+            $list->setOffset($offset);
+        }
+
+        if ($border !== null) {
+            $list->setBorder($border);
+        }
+
         $this->addElement($list);
 
         return $list;
@@ -123,52 +141,261 @@ class RichText extends BlockElement
 
     /**
      * 新しい箇条書きリストを作成して追加する
+     *
+     * @param int|null $indent インデントのピクセル数
+     * @param int|null $offset オフセットのピクセル数
+     * @param int|null $border ボーダーの太さ（ピクセル単位）
      */
-    public function newBulletList(): RichTextList
+    public function newBulletList(?int $indent = null, ?int $offset = null, ?int $border = null): RichTextList
     {
-        return $this->newList('bullet');
+        return $this->newList('bullet', $indent, $offset, $border);
     }
 
     /**
      * 新しい番号付きリストを作成して追加する
+     *
+     * @param int|null $indent インデントのピクセル数
+     * @param int|null $offset オフセットのピクセル数
+     * @param int|null $border ボーダーの太さ（ピクセル単位）
      */
-    public function newOrderedList(): RichTextList
+    public function newOrderedList(?int $indent = null, ?int $offset = null, ?int $border = null): RichTextList
     {
-        return $this->newList('ordered');
+        return $this->newList('ordered', $indent, $offset, $border);
     }
 
     /**
      * 新しいコードブロックを作成して追加する
+     *
+     * @param string   $code   コードテキスト
+     * @param int|null $border ボーダーの太さ（ピクセル単位）
      */
-    public function addCode(string $code): static
+    public function addCode(string $code, ?int $border = null): static
     {
-        $preformatted = new RichTextPreformatted();
+        $preformatted = $this->newPreformatted($border);
         $preformatted->text($code);
-        $this->addElement($preformatted);
 
         return $this;
     }
 
     /**
-     * 新しい引用ブロックを作成して追加する
+     * 新しいプリフォーマットブロックを作成して追加する
+     *
+     * @param int|null $border ボーダーの太さ（ピクセル単位）
      */
-    public function newQuote(): RichTextQuote
+    public function newPreformatted(?int $border = null): RichTextPreformatted
+    {
+        $preformatted = new RichTextPreformatted();
+
+        if ($border !== null) {
+            $preformatted->setBorder($border);
+        }
+
+        $this->addElement($preformatted);
+
+        return $preformatted;
+    }
+
+    /**
+     * 新しい引用ブロックを作成して追加する
+     *
+     * @param int|null $border ボーダーの太さ（ピクセル単位）
+     */
+    public function newQuote(?int $border = null): RichTextQuote
     {
         $quote = new RichTextQuote();
+
+        if ($border !== null) {
+            $quote->setBorder($border);
+        }
+
         $this->addElement($quote);
 
         return $quote;
     }
 
     /**
-     * テキストを含む新しい引用ブロックを作成して追加する
+     * 引用テキストを含む新しい引用ブロックを作成して追加する
+     *
+     * @param string   $text   引用テキスト
+     * @param int|null $border ボーダーの太さ（ピクセル単位）
      */
-    public function addQuote(string $text): static
+    public function addQuote(string $text, ?int $border = null): static
     {
-        $quote = $this->newQuote();
+        $quote = $this->newQuote($border);
         $textElement = new Text();
         $textElement->text($text);
         $quote->addElement($textElement);
+
+        return $this;
+    }
+
+    /**
+     * リンク要素を含む新しいセクションを作成して追加する
+     *
+     * @param string      $url   リンクのURL
+     * @param string|null $text  リンクのテキスト（省略時はURLが使用される）
+     * @param array|null  $style スタイル設定
+     */
+    public function addLink(string $url, ?string $text = null, ?array $style = null): static
+    {
+        $section = $this->newSection();
+        $link = new Link();
+        $link->url($url);
+
+        if ($text !== null) {
+            $link->text($text);
+        }
+
+        if ($style !== null) {
+            $link->setStyle($style);
+        }
+
+        $section->addElement($link);
+
+        return $this;
+    }
+
+    /**
+     * ブロードキャスト要素を含む新しいセクションを作成して追加する
+     *
+     * @param string $range ブロードキャストの範囲 ('here', 'channel', 'everyone')
+     */
+    public function addBroadcast(string $range): static
+    {
+        if (!in_array($range, ['here', 'channel', 'everyone'], true)) {
+            throw new Exception('Invalid broadcast range: %s. Must be one of: here, channel, everyone', [$range]);
+        }
+
+        $section = $this->newSection();
+        $broadcast = new Broadcast();
+        $broadcast->setRange($range);
+        $section->addElement($broadcast);
+
+        return $this;
+    }
+
+    /**
+     * カラー要素を含む新しいセクションを作成して追加する
+     *
+     * @param string $hexColor 16進数のカラーコード
+     */
+    public function addColor(string $hexColor): static
+    {
+        $section = $this->newSection();
+        $color = new Color();
+        $color->setValue($hexColor);
+        $section->addElement($color);
+
+        return $this;
+    }
+
+    /**
+     * チャンネル要素を含む新しいセクションを作成して追加する
+     *
+     * @param string     $channelId チャンネルID
+     * @param array|null $style     スタイル設定 (bold, italic, strike, highlight, client_highlight, unlink)
+     */
+    public function addChannel(string $channelId, ?array $style = null): static
+    {
+        $section = $this->newSection();
+        $channel = new Channel();
+        $channel->setChannelId($channelId);
+
+        if ($style !== null) {
+            $channel->setStyle($style);
+        }
+
+        $section->addElement($channel);
+
+        return $this;
+    }
+
+    /**
+     * 日付要素を含む新しいセクションを作成して追加する
+     *
+     * @param int         $timestamp Unix タイムスタンプ（秒単位）
+     * @param string      $format    日付フォーマット
+     * @param string|null $url       リンクURL
+     * @param string|null $fallback  フォールバックテキスト
+     */
+    public function addDate(int $timestamp, string $format, ?string $url = null, ?string $fallback = null): static
+    {
+        $section = $this->newSection();
+        $date = new Date();
+        $date->setTimestamp($timestamp)->setFormat($format);
+
+        if ($url !== null) {
+            $date->setUrl($url);
+        }
+
+        if ($fallback !== null) {
+            $date->setFallback($fallback);
+        }
+
+        $section->addElement($date);
+
+        return $this;
+    }
+
+    /**
+     * 絵文字要素を含む新しいセクションを作成して追加する
+     *
+     * @param string      $name    絵文字名
+     * @param string|null $unicode Unicode コードポイント
+     */
+    public function addEmoji(string $name, ?string $unicode = null): static
+    {
+        $section = $this->newSection();
+        $emoji = new Emoji();
+        $emoji->setName($name);
+
+        if ($unicode !== null) {
+            $emoji->setUnicode($unicode);
+        }
+
+        $section->addElement($emoji);
+
+        return $this;
+    }
+
+    /**
+     * ユーザー要素を含む新しいセクションを作成して追加する
+     *
+     * @param string     $userId ユーザーID
+     * @param array|null $style  スタイル設定 (bold, italic, strike, highlight, client_highlight, unlink)
+     */
+    public function addUser(string $userId, ?array $style = null): static
+    {
+        $section = $this->newSection();
+        $user = new User();
+        $user->setUserId($userId);
+
+        if ($style !== null) {
+            $user->setStyle($style);
+        }
+
+        $section->addElement($user);
+
+        return $this;
+    }
+
+    /**
+     * ユーザーグループ要素を含む新しいセクションを作成して追加する
+     *
+     * @param string     $usergroupId ユーザーグループID
+     * @param array|null $style       スタイル設定 (bold, italic, strike, highlight, client_highlight, unlink)
+     */
+    public function addUserGroup(string $usergroupId, ?array $style = null): static
+    {
+        $section = $this->newSection();
+        $usergroup = new UserGroup();
+        $usergroup->setUsergroupId($usergroupId);
+
+        if ($style !== null) {
+            $usergroup->setStyle($style);
+        }
+
+        $section->addElement($usergroup);
 
         return $this;
     }
@@ -178,9 +405,7 @@ class RichText extends BlockElement
      */
     public function validate(): void
     {
-        if ($this->elements === []) {
-            throw new Exception('RichText block must have at least one element');
-        }
+        // elements は空配列も許可する（仕様に基づく修正）
 
         foreach ($this->elements as $element) {
             $element->validate();

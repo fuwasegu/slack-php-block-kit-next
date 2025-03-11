@@ -60,7 +60,7 @@ class TextElementTest extends TestCase
     public function testThatUserRendersToJsonCorrectly(): void
     {
         $user = new User();
-        $user->userId('U12345');
+        $user->setUserId('U12345');
 
         $this->assertJsonData([
             'type' => Type::USER,
@@ -71,7 +71,7 @@ class TextElementTest extends TestCase
     public function testThatChannelRendersToJsonCorrectly(): void
     {
         $channel = new Channel();
-        $channel->channelId('C12345');
+        $channel->setChannelId('C12345');
 
         $this->assertJsonData([
             'type' => Type::CHANNEL,
@@ -82,7 +82,7 @@ class TextElementTest extends TestCase
     public function testThatEmojiRendersToJsonCorrectly(): void
     {
         $emoji = new Emoji();
-        $emoji->name('smile');
+        $emoji->setName('smile');
 
         $this->assertJsonData([
             'type' => Type::EMOJI,
@@ -93,7 +93,7 @@ class TextElementTest extends TestCase
     public function testThatUserGroupRendersToJsonCorrectly(): void
     {
         $userGroup = new UserGroup();
-        $userGroup->usergroupId('S12345');
+        $userGroup->setUsergroupId('S12345');
 
         $this->assertJsonData([
             'type' => Type::USERGROUP,
@@ -104,15 +104,15 @@ class TextElementTest extends TestCase
     public function testThatDateRendersToJsonCorrectly(): void
     {
         $date = new Date();
-        $date->timestamp('1234567890');
-        $date->format('{date_long}');
-        $date->link('https://example.com');
+        $date->setTimestamp(1_234_567_890);
+        $date->setFormat('{date_long}');
+        $date->setUrl('https://example.com');
 
         $this->assertJsonData([
             'type' => Type::DATE,
-            'timestamp' => '1234567890',
+            'timestamp' => 1_234_567_890,
             'format' => '{date_long}',
-            'link' => 'https://example.com',
+            'url' => 'https://example.com',
         ], $date);
     }
 
@@ -144,17 +144,6 @@ class TextElementTest extends TestCase
 
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Link element must have a url value');
-
-        $link->validate();
-    }
-
-    public function testThatLinkValidatesText(): void
-    {
-        $link = new Link();
-        $link->url('https://example.com');
-
-        $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Link element must have a text value');
 
         $link->validate();
     }

@@ -28,9 +28,10 @@ abstract class TextElement extends Element
      * 型から対応するTextElement要素を作成する
      *
      * @param  string    $type 要素の型
+     * @return static    作成された要素
      * @throws Exception
      */
-    public static function createFromType(string $type): self
+    public static function createFromType(string $type): static
     {
         $class = self::getClassForType($type);
 
@@ -38,7 +39,7 @@ abstract class TextElement extends Element
             throw new Exception('Unknown text element type: %s', [$type]);
         }
 
-        /** @var TextElement $element */
+        // @phpstan-ignore-next-line
         return new $class();
     }
 
@@ -59,6 +60,7 @@ abstract class TextElement extends Element
             'usergroup' => UserGroup::class,
             'date' => Date::class,
             'broadcast' => Broadcast::class,
+            'color' => Color::class,
         ];
 
         return $map[$type] ?? '';

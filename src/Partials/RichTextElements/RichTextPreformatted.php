@@ -5,35 +5,69 @@ declare(strict_types=1);
 namespace SlackPhp\BlockKit\Partials\RichTextElements;
 
 use SlackPhp\BlockKit\{Exception, HydrationData};
+use SlackPhp\BlockKit\Partials\RichTextElements\TextElements\{Text, TextElement};
 
 class RichTextPreformatted extends RichTextElement
 {
-    private ?string $text = null;
+    /**
+     * @var TextElement[]
+     */
+    private array $elements = [];
 
-    private ?string $border = null;
+    private ?int $border = null;
 
     /**
-     * テキストを設定する
+     * 要素を追加する
      */
-    public function text(string $text): static
+    public function addElement(TextElement $element): static
     {
-        $this->text = $text;
+        $this->elements[] = $element->setParent($this);
 
         return $this;
     }
 
     /**
-     * テキストを取得する
+     * 要素のコレクションを設定する
+     *
+     * @param TextElement[] $elements
      */
-    public function getText(): ?string
+    public function setElements(array $elements): static
     {
-        return $this->text;
+        $this->elements = [];
+
+        foreach ($elements as $element) {
+            $this->addElement($element);
+        }
+
+        return $this;
+    }
+
+    /**
+     * 要素のコレクションを取得する
+     *
+     * @return TextElement[]
+     */
+    public function getElements(): array
+    {
+        return $this->elements;
+    }
+
+    /**
+     * テキストを設定する（後方互換性のため）
+     */
+    public function text(string $text): static
+    {
+        $textElement = new Text();
+        $textElement->text($text);
+        $this->elements = [$textElement->setParent($this)];
+
+        return $this;
     }
 
     /**
      * ボーダーを設定する
      */
-    public function setBorder(string $border): static
+    public function setBorder(int $border): static
     {
         $this->border = $border;
 
@@ -53,8 +87,10 @@ class RichTextPreformatted extends RichTextElement
      */
     public function validate(): void
     {
-        if ($this->text === null || $this->text === '') {
-            throw new Exception('RichTextPreformatted must have a text value');
+        // elements は空配列も許可する（仕様に準拠）
+
+        foreach ($this->elements as $element) {
+            $element->validate();
         }
     }
 
@@ -64,7 +100,13 @@ class RichTextPreformatted extends RichTextElement
     public function toArray(): array
     {
         $data = parent::toArray();
-        $data['text'] = $this->text;
+
+        $elements = [];
+        foreach ($this->elements as $element) {
+            $elements[] = $element->toArray();
+        }
+
+        $data['elements'] = $elements;
 
         if ($this->border !== null) {
             $data['border'] = $this->border;
@@ -80,12 +122,27 @@ class RichTextPreformatted extends RichTextElement
     {
         parent::hydrate($data);
 
+        // 後方互換性のためのサポート
         if ($data->has('text')) {
             $this->text($data->useValue('text'));
         }
 
         if ($data->has('border')) {
             $this->setBorder($data->useValue('border'));
+        }
+
+        if ($data->has('elements')) {
+            $elements = $data->useArray('elements');
+            foreach ($elements as $element) {
+                if (!isset($element['type'])) {
+                    throw new Exception('RichTextPreformatted element data must include a type');
+                }
+
+                $type = $element['type'];
+                $textElement = TextElement::createFromType($type);
+                $textElement->hydrate(new HydrationData($element));
+                $this->addElement($textElement);
+            }
         }
     }
 }

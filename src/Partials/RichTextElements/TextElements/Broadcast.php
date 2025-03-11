@@ -13,7 +13,7 @@ class Broadcast extends TextElement
     /**
      * 範囲を設定する
      */
-    public function range(string $range): static
+    public function setRange(string $range): static
     {
         if (!in_array($range, ['here', 'channel', 'everyone'], true)) {
             throw new Exception('Broadcast range must be one of: here, channel, everyone');
@@ -25,35 +25,27 @@ class Broadcast extends TextElement
     }
 
     /**
-     * 範囲を取得する
-     */
-    public function getRange(): ?string
-    {
-        return $this->range;
-    }
-
-    /**
-     * @here ブロードキャストを設定する
+     * 'here'範囲を設定する
      */
     public function here(): static
     {
-        return $this->range('here');
+        return $this->setRange('here');
     }
 
     /**
-     * @channel ブロードキャストを設定する
+     * 'channel'範囲を設定する
      */
     public function channel(): static
     {
-        return $this->range('channel');
+        return $this->setRange('channel');
     }
 
     /**
-     * @everyone ブロードキャストを設定する
+     * 'everyone'範囲を設定する
      */
     public function everyone(): static
     {
-        return $this->range('everyone');
+        return $this->setRange('everyone');
     }
 
     /**
@@ -69,7 +61,7 @@ class Broadcast extends TextElement
      */
     public function validate(): void
     {
-        if ($this->range === null || $this->range === '') {
+        if ($this->range === null) {
             throw new Exception('Broadcast element must have a range value');
         }
     }
@@ -93,7 +85,7 @@ class Broadcast extends TextElement
         parent::hydrate($data);
 
         if ($data->has('range')) {
-            $this->range($data->useValue('range'));
+            $this->setRange($data->useValue('range'));
         }
     }
 }

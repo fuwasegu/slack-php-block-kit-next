@@ -63,9 +63,7 @@ class RichTextSection extends RichTextElement
      */
     public function validate(): void
     {
-        if ($this->elements === []) {
-            throw new Exception('RichTextSection must have at least one element');
-        }
+        // elements は空配列も許可する（Slack API仕様に準拠）
 
         foreach ($this->elements as $element) {
             $element->validate();

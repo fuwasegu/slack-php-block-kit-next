@@ -75,6 +75,7 @@ abstract class Type
     final public const USERGROUP             = 'usergroup';
     final public const DATE                  = 'date';
     final public const BROADCAST             = 'broadcast';
+    final public const COLOR                 = 'color';
 
     final public const SURFACE_BLOCKS = [
         self::APP_HOME => [
@@ -83,6 +84,7 @@ abstract class Type
             self::DIVIDER,
             self::HEADER,
             self::IMAGE,
+            self::RICH_TEXT,
             self::SECTION,
         ],
         self::ATTACHMENT => [
@@ -93,6 +95,7 @@ abstract class Type
             self::HEADER,
             self::IMAGE,
             self::INPUT,
+            self::RICH_TEXT,
             self::SECTION,
         ],
         self::MESSAGE => [
@@ -102,6 +105,7 @@ abstract class Type
             self::FILE,
             self::HEADER,
             self::IMAGE,
+            self::RICH_TEXT,
             self::SECTION,
         ],
         self::MODAL => [
@@ -111,6 +115,7 @@ abstract class Type
             self::HEADER,
             self::IMAGE,
             self::INPUT,
+            self::RICH_TEXT,
             self::SECTION,
         ],
         self::WORKFLOW_STEP => [
@@ -120,6 +125,7 @@ abstract class Type
             self::HEADER,
             self::IMAGE,
             self::INPUT,
+            self::RICH_TEXT,
             self::SECTION,
         ],
     ];
@@ -266,6 +272,7 @@ abstract class Type
         Partials\RichTextElements\TextElements\UserGroup::class => self::USERGROUP,
         Partials\RichTextElements\TextElements\Date::class => self::DATE,
         Partials\RichTextElements\TextElements\Broadcast::class => self::BROADCAST,
+        Partials\RichTextElements\TextElements\Color::class => self::COLOR,
     ];
 
     public static function mapClass(string $class): string

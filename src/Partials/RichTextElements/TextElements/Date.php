@@ -8,16 +8,18 @@ use SlackPhp\BlockKit\{Exception, HydrationData};
 
 class Date extends TextElement
 {
-    private ?string $timestamp = null;
+    private ?int $timestamp = null;
 
     private ?string $format = null;
 
-    private ?string $link = null;
+    private ?string $url = null;
+
+    private ?string $fallback = null;
 
     /**
      * タイムスタンプを設定する
      */
-    public function timestamp(string $timestamp): static
+    public function setTimestamp(int $timestamp): static
     {
         $this->timestamp = $timestamp;
 
@@ -25,47 +27,37 @@ class Date extends TextElement
     }
 
     /**
-     * タイムスタンプを取得する
-     */
-    public function getTimestamp(): ?string
-    {
-        return $this->timestamp;
-    }
-
-    /**
      * フォーマットを設定する
      */
-    public function format(string $format): static
+    public function setFormat(string $format): static
     {
+        if ($format === '') {
+            throw new Exception('Date format cannot be empty');
+        }
+
         $this->format = $format;
 
         return $this;
     }
 
     /**
-     * フォーマットを取得する
+     * URLを設定する
      */
-    public function getFormat(): ?string
+    public function setUrl(string $url): static
     {
-        return $this->format;
-    }
-
-    /**
-     * リンクを設定する
-     */
-    public function link(string $link): static
-    {
-        $this->link = $link;
+        $this->url = $url;
 
         return $this;
     }
 
     /**
-     * リンクを取得する
+     * フォールバックテキストを設定する
      */
-    public function getLink(): ?string
+    public function setFallback(string $fallback): static
     {
-        return $this->link;
+        $this->fallback = $fallback;
+
+        return $this;
     }
 
     /**
@@ -81,8 +73,12 @@ class Date extends TextElement
      */
     public function validate(): void
     {
-        if ($this->timestamp === null || $this->timestamp === '') {
+        if ($this->timestamp === null) {
             throw new Exception('Date element must have a timestamp value');
+        }
+
+        if ($this->format === null) {
+            throw new Exception('Date element must have a format value');
         }
     }
 
@@ -93,13 +89,14 @@ class Date extends TextElement
     {
         $data = parent::toArray();
         $data['timestamp'] = $this->timestamp;
+        $data['format'] = $this->format;
 
-        if ($this->format !== null) {
-            $data['format'] = $this->format;
+        if ($this->url !== null) {
+            $data['url'] = $this->url;
         }
 
-        if ($this->link !== null) {
-            $data['link'] = $this->link;
+        if ($this->fallback !== null) {
+            $data['fallback'] = $this->fallback;
         }
 
         return $data;
@@ -113,15 +110,19 @@ class Date extends TextElement
         parent::hydrate($data);
 
         if ($data->has('timestamp')) {
-            $this->timestamp($data->useValue('timestamp'));
+            $this->setTimestamp($data->useValue('timestamp'));
         }
 
         if ($data->has('format')) {
-            $this->format($data->useValue('format'));
+            $this->setFormat($data->useValue('format'));
         }
 
-        if ($data->has('link')) {
-            $this->link($data->useValue('link'));
+        if ($data->has('url')) {
+            $this->setUrl($data->useValue('url'));
+        }
+
+        if ($data->has('fallback')) {
+            $this->setFallback($data->useValue('fallback'));
         }
     }
 }

@@ -35,6 +35,17 @@ class Text extends TextElement
      */
     public function setStyle(array $style): static
     {
+        // スタイル属性がブール値であることを確認
+        foreach ($style as $key => $value) {
+            if (!in_array($key, ['bold', 'italic', 'strike', 'code'], true)) {
+                throw new Exception('Invalid style property for Text element: %s', [$key]);
+            }
+
+            if (!is_bool($value)) {
+                throw new Exception('Style property must be a boolean value: %s', [$key]);
+            }
+        }
+
         $this->style = $style;
 
         return $this;
@@ -99,6 +110,19 @@ class Text extends TextElement
     {
         if ($this->text === null || $this->text === '') {
             throw new Exception('Text element must have a text value');
+        }
+
+        // スタイルが設定されている場合は検証
+        if ($this->style !== null) {
+            foreach ($this->style as $key => $value) {
+                if (!in_array($key, ['bold', 'italic', 'strike', 'code'], true)) {
+                    throw new Exception('Invalid style property for Text element: %s', [$key]);
+                }
+
+                if (!is_bool($value)) {
+                    throw new Exception('Style property must be a boolean value: %s', [$key]);
+                }
+            }
         }
     }
 

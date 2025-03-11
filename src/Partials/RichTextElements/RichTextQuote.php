@@ -57,10 +57,6 @@ class RichTextQuote extends RichTextElement
      */
     public function setBorder(int $border): static
     {
-        if ($border < 0) {
-            throw new Exception('Border must be a non-negative integer');
-        }
-
         $this->border = $border;
 
         return $this;
@@ -79,9 +75,7 @@ class RichTextQuote extends RichTextElement
      */
     public function validate(): void
     {
-        if ($this->elements === []) {
-            throw new Exception('RichTextQuote must have at least one element');
-        }
+        // elements は空配列も許可する（仕様に準拠）
 
         foreach ($this->elements as $element) {
             $element->validate();
