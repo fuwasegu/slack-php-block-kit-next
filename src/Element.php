@@ -145,6 +145,7 @@ abstract class Element implements JsonSerializable
         /** @var static $element */
         $element = new $class();
         $element->hydrate($data);
+        $element->validate();
 
         return $element;
     }
@@ -164,7 +165,5 @@ abstract class Element implements JsonSerializable
         foreach ($data->getExtra() as $key => $value) {
             $this->setExtra($key, $value);
         }
-
-        $this->validate();
     }
 }
