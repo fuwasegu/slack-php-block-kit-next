@@ -509,18 +509,18 @@ class RichTextTest extends TestCase
         $richText = new RichText();
 
         $section = new RichTextSection();
-        $section->addElement((new Text())->text('テストテキスト'));
+        $section->addElement((new Text())->text('Test text'));
         $richText->addElement($section);
 
         $list = new RichTextList();
         $list->setStyle('bullet');
 
         $listItem1 = new RichTextSection();
-        $listItem1->addElement((new Text())->text('リストアイテム1'));
+        $listItem1->addElement((new Text())->text('List item 1'));
         $list->addElement($listItem1);
 
         $listItem2 = new RichTextSection();
-        $listItem2->addElement((new Text())->text('リストアイテム2'));
+        $listItem2->addElement((new Text())->text('List item 2'));
         $list->addElement($listItem2);
 
         $richText->addElement($list);
@@ -533,7 +533,7 @@ class RichTextTest extends TestCase
                     'elements' => [
                         [
                             'type' => Type::TEXT,
-                            'text' => 'テストテキスト',
+                            'text' => 'Test text',
                         ],
                     ],
                 ],
@@ -546,7 +546,7 @@ class RichTextTest extends TestCase
                             'elements' => [
                                 [
                                     'type' => Type::TEXT,
-                                    'text' => 'リストアイテム1',
+                                    'text' => 'List item 1',
                                 ],
                             ],
                         ],
@@ -555,7 +555,7 @@ class RichTextTest extends TestCase
                             'elements' => [
                                 [
                                     'type' => Type::TEXT,
-                                    'text' => 'リストアイテム2',
+                                    'text' => 'List item 2',
                                 ],
                             ],
                         ],

@@ -18,13 +18,13 @@ class RichTextInputTest extends TestCase
     public function testCanConfigureRichTextInput(): void
     {
         $section = new RichTextSection();
-        $section->addElement((new Text())->text('テスト初期値'));
+        $section->addElement((new Text())->text('Test initial value'));
 
         $richText = new RichText();
         $richText->addElement($section);
 
         $input = (new RichTextInput())
-            ->placeholder('テストプレースホルダー')
+            ->placeholder('Test placeholder')
             ->focusOnLoad(true)
             ->initialValue($richText)
             ->triggerActionOnCharacterEntered();
@@ -33,7 +33,7 @@ class RichTextInputTest extends TestCase
             'type' => 'rich_text_input',
             'placeholder' => [
                 'type' => 'plain_text',
-                'text' => 'テストプレースホルダー',
+                'text' => 'Test placeholder',
             ],
             'focus_on_load' => true,
             'initial_value' => [
@@ -42,7 +42,7 @@ class RichTextInputTest extends TestCase
                     'elements' => [
                         [
                             'type' => 'text',
-                            'text' => 'テスト初期値',
+                            'text' => 'Test initial value',
                         ],
                     ],
                 ],
@@ -76,7 +76,7 @@ class RichTextInputTest extends TestCase
     public function testCanSetInitialValue(): void
     {
         $section = new RichTextSection();
-        $section->addElement((new Text())->text('初期テキスト'));
+        $section->addElement((new Text())->text('Initial text'));
 
         $richText = new RichText();
         $richText->addElement($section);
@@ -92,7 +92,7 @@ class RichTextInputTest extends TestCase
                     'elements' => [
                         [
                             'type' => 'text',
-                            'text' => '初期テキスト',
+                            'text' => 'Initial text',
                         ],
                     ],
                 ],
@@ -103,14 +103,14 @@ class RichTextInputTest extends TestCase
     public function testCanHydrateFromArray(): void
     {
         $section = new RichTextSection();
-        $section->addElement((new Text())->text('初期テキスト値'));
+        $section->addElement((new Text())->text('Initial text value'));
 
         $richText = new RichText();
         $richText->addElement($section);
 
         $input = new RichTextInput();
         $input->actionId('rich_text_1')
-            ->placeholder('プレースホルダー')
+            ->placeholder('Placeholder')
             ->focusOnLoad(true)
             ->initialValue($richText)
             ->triggerActionOnCharacterEntered();
@@ -120,7 +120,7 @@ class RichTextInputTest extends TestCase
             'action_id' => 'rich_text_1',
             'placeholder' => [
                 'type' => 'plain_text',
-                'text' => 'プレースホルダー',
+                'text' => 'Placeholder',
             ],
             'focus_on_load' => true,
             'initial_value' => [
@@ -129,7 +129,7 @@ class RichTextInputTest extends TestCase
                     'elements' => [
                         [
                             'type' => 'text',
-                            'text' => '初期テキスト値',
+                            'text' => 'Initial text value',
                         ],
                     ],
                 ],
