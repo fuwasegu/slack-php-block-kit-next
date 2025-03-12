@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SlackPhp\BlockKit\Surfaces;
 
-use SlackPhp\BlockKit\Blocks\{Actions, BlockElement, Context, Divider, Header, Image, Input, Section};
+use SlackPhp\BlockKit\Blocks\{Actions, BlockElement, Context, Divider, Header, Image, Input, Section, RichText};
 use SlackPhp\BlockKit\Blocks\Virtual\{VirtualBlock, TwoColumnTable};
 use SlackPhp\BlockKit\{
     Exception,
@@ -105,6 +105,14 @@ abstract class Surface extends Element
     public function newInput(?string $blockId = null): Input
     {
         $block = new Input($blockId);
+        $this->add($block);
+
+        return $block;
+    }
+
+    public function newRichText(?string $blockId = null): RichText
+    {
+        $block = new RichText($blockId);
         $this->add($block);
 
         return $block;

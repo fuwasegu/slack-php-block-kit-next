@@ -34,6 +34,11 @@ abstract class Kit
         return new Surfaces\Modal();
     }
 
+    public static function newRichText(?string $blockId = null): Blocks\RichText
+    {
+        return new Blocks\RichText($blockId);
+    }
+
     public static function config(): Config
     {
         if (!self::$config instanceof Config) {
